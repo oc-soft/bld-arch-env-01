@@ -1,33 +1,33 @@
-top_srcdir = ..
+top_srcdir = ../..
+srcdir = $(top_srcdir)/img
 abs_top_srcdir = $(abspath $(top_srcdir))
+abs_srcdir = $(abspath $(srcdir))
 
 LATEX = lualatex
 KSEWHICH = kpsewhich
-TEXINPUTS = $(abs_top_srcdir)//:$(DEFAULT_TEXINPUTS)
+TEXINPUTS = $(abs_srcdir)//:$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
-PDF_FILES = arch-install-pre-1.pdf \
-	arch-install-note-1.pdf 
+PDF_FILES = hw-img.pdf 
+VPATH = $(srcdir)
 
-SUBDIRS = img
-vpath %.tex $(top_srcdir) 
+hw_img_pdf_SOURCES = \
+	hw-img.tex \
+	aiopcwa-front-1.jpg
+
+vpath %.tex $(srcdir) 
 vpath %.pdf ./
 
 all: pdf-doc
 
+pdf-doc: create-pdf
+	cp $(PDF_FILES) $(srcdir)
 
-pdf-doc: create-pdf 
-	cp $(PDF_FILES) $(top_srcdir)
-
-create-pdf: img-pdf $(PDF_FILES) 
-
-arch-install-pre-1.pdf : arch-install-pre-1.tex arch-install-1.tex
-arch-install-note-1.pdf : arch-install-note-1.tex arch-install-1.tex
+create-pdf: $(PDF_FILES) 
 
 clean:
 	rm -f *.pdf *.out *.log *.log *.aux *.snm *.nav *.toc
 
-img-pdf:
-	cd img && $(MAKE) $(MFLAGS) 
+hw-img.pdf : $(hw_img_pdf_SOURCES)
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .tex .pdf
