@@ -27,16 +27,32 @@
     \frametitle{ハードウェア構成}
     \note{
       インストール対象のハードウェアは次のとおりです。
+      裏面の蓋をあけて中身を確認していきます。
     }
+    \newcommand{\selectspec}{\usebeamercolor[fg]{alerted text}}
     \begin{center}
       \begin{tabular}{l|l}
         \hline
-        cpu & AMD Ryzen7 8845HS \\ \hline
-        memory & 64 GB \\  \hline
-        ssd & 2 TB \\ \hline
-        グラフィック& Radeon 780M \\
-        \hline
-      \end{tabular} \\
+        \temporal<2>{CPU}{\selectspec{CPU}}{CPU}%
+          & \temporal<2>{AMD Ryzen7 8845HS}
+            {\selectspec{AMD Ryzen7 8845HS}}
+            {AMD Ryzen7 8845HS} \\ \hline
+        \temporal<3>{メモリ}{\selectspec{メモリ}}{メモリ}%
+          & \temporal<3>{64 GB}
+            {\selectspec{64 GB}}{64 GB} \\  \hline
+        \temporal<4>{SSD}{\selectspec{SSD}}{SSD}%
+          & \temporal<4>{2 TB}{\selectspec{2 TB}}{2 TB} \\ \hline
+        \temporal<5>{グラフィック}{\selectspec{グラフィック}}{グラフィック}%
+          & \temporal<5>{Radeon 780M}
+            {\selectspec{Radeon 780M}}
+            {Radeon 780M} \\ \hline
+      \end{tabular}
+    \end{center}
+    \begin{center}
+      \includegraphics<1>[height=4cm, page=1]{img/hw-img.pdf}%
+      \includegraphics<2,5>[height=4cm, page=13]{img/hw-img.pdf}%
+      \includegraphics<3>[height=4cm, page=15]{img/hw-img.pdf}%
+      \includegraphics<4>[height=4cm, page=14]{img/hw-img.pdf}%
     \end{center}
     \note[item]{cpuはAMD Ryzen7。本体の裏面の蓋を開けた状態の画像からは確認できません。} 
     \note[item]{memoy 32GBのメモリカード2枚で64GB}
@@ -48,19 +64,37 @@
     \note{
       入出力ポートについては、次のものが利用できます。
     }
+    \newcommand{\selectspec}{\usebeamercolor[fg]{alerted text}}
     \begin{center}
       \begin{tabular}{l|l|l}
         \hline
-        USB 3.2 & 2 & \\ \hline
-        USB 2.0 & 2 & \\ \hline
-        HDMI & 2 & \\ \hline
-        シリアルポート & 1 & RS232、RS485 \\
-        \hline
+        \temporal<1>{USB 3.2}{\selectspec{USB 3.2}}{USB 3.2}%
+          & \temporal<1>{2}{\selectspec{2}}{2}%
+          & \\ \hline
+        \temporal<2>{USB 2.0}{\selectspec{USB 2.0}}{USB 2.0}%
+          & \temporal<2>{2}{\selectspec{2}}{2} & \\ \hline
+        \temporal<3>{HDMI}{\selectspec{HDMI}}{HDMI}%
+          & \temporal<3>{2}{\selectspec{2}}{2} & \\ \hline
+        \temporal<4>{DP}{\selectspec{DP}}{DP}%
+          & \temporal<4>{2}{\selectspec{2}}{2} & \\ \hline
+        \temporal<5>{シリアルポート}
+            {\selectspec{シリアルポート}}{シリアルポート}%
+          & \temporal<5>{1}{\selectspec{1}}{1}%
+          & \temporal<5>{RS232、RS485}
+            {\selectspec{RS232、RS485}}{RS232、RS485} \\ \hline
       \end{tabular}
       \note[item] {USB3.2のタイプAのポートが2つ。位置は前面}
       \note[item] {USB2.0のタイプAのポートが2つ。位置は背面}
       \note[item] {HDMIのポートが2つ。位置は背面}
+      \note[item] {ディスプレイポート2.1が2つ。位置は背面}
       \note[item] {シリアルのポートが1つ。位置は背面。今すぐの利用は考えていません。}
+    \end{center}
+    \begin{center}
+      \includegraphics<1>[height=4cm, page=3]{img/hw-img.pdf}%
+      \includegraphics<2>[height=4cm, page=4]{img/hw-img.pdf}%
+      \includegraphics<3>[height=4cm, page=5]{img/hw-img.pdf}%
+      \includegraphics<4>[height=4cm, page=6]{img/hw-img.pdf}%
+      \includegraphics<5>[height=4cm, page=7]{img/hw-img.pdf}%
     \end{center}
   \end{frame}
   \begin{frame}
@@ -68,20 +102,30 @@
     \note{
       ネットワーク関連は、表のようになっています。
     }
+    \newcommand{\selectspec}{\usebeamercolor[fg]{alerted text}}
     \begin{center}    
       \begin{tabular}{l|l}
         \hline
-        イーサネット& 2 \\ \hline
-        Wi-Fi & 1 \\
+        \temporal<1>{イーサネット}{\selectspec{イーサネット}}{イーサネット}%
+        & \temporal<1>{2}{\selectspec{2}}{2} \\ \hline
+        \temporal<2>{Wi-Fi}{\selectspec{Wi-Fi}}{Wi-Fi}%
+        & \temporal<2>{1}{\selectspec{1}}{1}\\
         \hline
       \end{tabular}
       \note[item] {イーサネットポートが2つ。位置は背面}
       \note[item] {Wi-Fiが1つ。アンテナが背面に確認できます}
     \end{center}
+    \begin{center}
+      \includegraphics<1>[height=4cm, page=8]{img/hw-img.pdf}%
+      \includegraphics<2>[height=4cm, page=9]{img/hw-img.pdf}%
+    \end{center}
   \end{frame}
   \begin{frame}
     \frametitle{ファーム}
-    \note{AMI社のファームで、UEFI仕様に従っています。}
+    \note{
+      AMI社のファームで、UEFI仕様に従っています。
+      起動ボタン押下直後にF2で設定が変更できます。
+    }
     \begin{center}
     \includegraphics[height=5cm]{img/bios-display-1.jpg}
     \end{center}

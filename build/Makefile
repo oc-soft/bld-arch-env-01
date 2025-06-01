@@ -10,7 +10,7 @@ PDF_FILES = arch-install-pre-1.pdf \
 
 SUBDIRS = img
 vpath %.tex $(top_srcdir) 
-vpath %.pdf ./
+vpath %.pdf ./ ./img/
 
 all: pdf-doc
 
@@ -20,7 +20,7 @@ pdf-doc: create-pdf
 
 create-pdf: img-pdf $(PDF_FILES) 
 
-arch-install-pre-1.pdf : arch-install-pre-1.tex arch-install-1.tex
+arch-install-pre-1.pdf : arch-install-pre-1.tex arch-install-1.tex hw-img.pdf
 arch-install-note-1.pdf : arch-install-note-1.tex arch-install-1.tex
 
 clean:

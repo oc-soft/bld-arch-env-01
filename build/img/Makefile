@@ -7,12 +7,24 @@ LATEX = lualatex
 KSEWHICH = kpsewhich
 TEXINPUTS = $(abs_srcdir)//:$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
-PDF_FILES = hw-img.pdf 
+PDF_FILES = hw-img.pdf screen-img.pdf hw-os.pdf
 VPATH = $(srcdir)
 
 hw_img_pdf_SOURCES = \
 	hw-img.tex \
-	aiopcwa-front-1.jpg
+	aiopcwa-front-1.jpg \
+	aiopcwa-back-1.jpg \
+	aiopcwa-internal-1.jpg \
+	aiopcwa-insert-usb-0.jpg \
+	aiopcwa-insert-usb-1.jpg \
+	aiopcwa-insert-usb-2.jpg
+
+screen_img_pdf_SOURCES = \
+	screen-img.tex \
+	bios-display-1.jpg	
+
+hw_os_pdf_SOURCES = \
+	hw-os.tex
 
 vpath %.tex $(srcdir) 
 vpath %.pdf ./
@@ -28,6 +40,10 @@ clean:
 	rm -f *.pdf *.out *.log *.log *.aux *.snm *.nav *.toc
 
 hw-img.pdf : $(hw_img_pdf_SOURCES)
+
+screen-img.pdf : $(screen_img_pdf_SOURCES)
+
+hw-os.pdf : $(hw_os_pdf_SOURCES)
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .tex .pdf

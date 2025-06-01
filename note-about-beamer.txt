@@ -1,0 +1,4 @@
+The size of a frame is actually the ``paper size'' of a \beamer\ presentation, and it is variable. By default, it amounts to 128\,mm by 96\,mm. The aspect ratio of this size is 4:3, which is exactly what most projectors offer these days. It is the job of the presentation program (like |acroread|, |xpdf|, |okular| or |evince|) to display the slides at full screen size. The main advantage of using a small ``paper size'' is that you can use all your normal fonts at their natural sizes. In particular, inserting a graphic with 11pt labels will result in reasonably sized labels during the presentation.
+
+reference from texmf-dist/doc/latex/beamer/beamerug-frames.tex:1206
+
