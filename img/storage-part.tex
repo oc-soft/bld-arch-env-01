@@ -18,12 +18,17 @@
 
 \newcommand{\strsizex}{9cm}
 \newcommand{\strsizey}{3cm}
+\newcommand{\stroutdentl}{-0.5cm}
+\newcommand{\stroutdentr}{0.5cm}
+\newcommand{\stroutdentt}{0.5cm}
+\newcommand{\stroutdentb}{-2cm}
 
 
 \newcommand{\insetx}{0.05cm}
 \newcommand{\insety}{0.05cm}
 \newcommand{\mbrsize}{0.2cm}
 \newcommand{\uefisize}{0.5cm}
+
 
 \newcommand{\mbrxs}{\insetx}
 \newcommand{\mbrxe}{\mbrxs + \mbrsize}
@@ -44,6 +49,23 @@
 \newcommand{\uefind}{($0.5*(\uefixs + \uefixe, \uefiys + \uefiye)$)}
 
 \newcommand{\linuxnd}{($0.5*(\linuxxs + \linuxxe, \linuxys + \linuxye) $)}
+
+% bottom position b mbr 
+\newcommand{\mbrndb}{($0.5*(\mbrxs + \mbrxe, 0cm)
+  + (0cm, 0cm - 1.5cm)$)}
+
+% bottom position b uefi
+\newcommand{\uefindb}{($0.5*(\uefixs + \uefixe, 0cm)
+  + (0cm, 0cm - 0.5cm)$)}
+
+% bottom position b linux
+\newcommand{\linuxndb}{($0.5*(\linuxxs + \linuxxe, 0cm)
+  + (0cm, 0cm - 1cm)$)}
+
+% bottom position c mbr 
+\newcommand{\mbrndc}{($0.5*(\uefixs + \uefixe, 0cm)
+  + (0cm, 0cm - 1.5cm)$)}
+
 
 % not used region for mbr backword compatible
 \newcommand{\darkmbr}{
@@ -68,14 +90,22 @@
   \pgfpathrectanglecorners{\pgfpoint{0cm}{0cm}}
     {\pgfpoint{\strsizex}{\strsizey}}
 }
+
+\newcommand{\outdentbounds}{
+  \node at (0cm + \stroutdentl, 0cm + \stroutdentb) {};
+  \node at
+    (0cm + \strsizex + \stroutdentr, 0cm + \strsizey + \stroutdentt) {};
+}
   
 \begin{document}
   \center
   % storage layout
   \begin{tikzpicture}[anchor=base]
-    \node at \mbrnd {3};
-    \node at \uefind {1};
-    \node at \linuxnd {2};
+    \begin{scope}
+      \node at \mbrndc [circle,draw] {3};
+      \path \uefind {} -- \uefindb [circle,draw] {1};
+      \node at \linuxnd [circle,draw] {2};
+    \end{scope}
 
     {
       \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
@@ -94,6 +124,7 @@
       % entire ssd
       \entirestr
       \pgfusepath{stroke}
+      \outdentbounds
     \end{scope}
   \end{tikzpicture}
   \newpage
@@ -115,9 +146,8 @@
       % entire ssd
       \entirestr
       \pgfusepath{stroke}
+      \outdentbounds
     \end{scope}
   \end{tikzpicture}
-
-
 \end{document} 
 % vi: se ts=2 sw=2 et:
