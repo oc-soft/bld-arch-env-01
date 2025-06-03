@@ -149,6 +149,25 @@ nvme0n1について
 ssdがNVM Express経由で接続されている場合、/devディレクトリにはnvmeの接頭辞の名前でリストされます。購入したハードウェアスペックからはNVMe SSDスロットで確認できます。
 
 
+sddの0からはじまるパーティションについて
+Protective MBRになっています。
+
+||Byte Offset|Length|
+|Boot Code|0|440|UEFIでは使用しません。後方互換|
+|Unique MBR Disk Signature|440|4|UEFIでは使用しません。後方互換|
+|Unknown|444|2|UEFIでは使用しません。後方互換|
+|Partition Record|446|16 * 4|MBR形式のパーティションレコード。※|
+|Signature|510|2|0xAA55が記録されます。|
+|Reserved|512|Logical Block Size-512|予約領域。0で埋められます。|
+
+※ 4つのパーティションレコードが格納できますが、最初の1つのみが使用されます。
+最初の1つが、Protective MBRに後続するGPT Headerを指しています。
+GPT Headerに続き、GTP Pertition Entry Arrayが続きます。GTP Pertition Entry Arrayの各エントリーが、各パーティションの開始位置と、終了位置を記録しています。
+
+
+Protective MBRから始まる、パーティション情報を格納する領域を確保するため、 最初のGTPパーティションが2048 セクター(2048 x 512 byte)の位置から始まります。
+
+https://uefi.org/specs/UEFI/2.10/05_GUID_Partition_Table_Format.html#protective-mbr
 
 Arch linuxのインストール
 
