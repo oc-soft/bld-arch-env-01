@@ -1,0 +1,27 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\pagestyle{empty}
+
+\geometry{
+  papersize={12.8cm,9.6cm},
+  margin=0cm,
+  ignoreall=true
+}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.geometric}
+
+\pgfdeclareimage[width=12.8cm]{bios1}{bios-display-1.jpg}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+  % plane front image
+  \begin{tikzpicture}
+    \begin{scope}[on background layer]
+      \pgftext[at=\pgfpoint{0cm}{0cm},left,base]{\pgfuseimage{bios1}}
+    \end{scope}
+  \end{tikzpicture}
+\end{document}
+% vi: se ts=2 sw=2 et:
