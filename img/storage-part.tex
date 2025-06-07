@@ -6,8 +6,8 @@
 \usepackage{luatexja}
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
-\newcommand{\docpaperwidth}{12.8cm}
-\newcommand{\docpaperheight}{9.6cm}
+\newcommand{\docpaperwidth}{9.9cm}
+\newcommand{\docpaperheight}{3.4cm}
 \geometry{
   papersize={\docpaperwidth,\docpaperheight},
   margin=0cm,
@@ -15,34 +15,47 @@
 }
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{calc}
+\usetikzlibrary{arrows.meta}
 
 \newcommand{\strsizex}{9cm}
-\newcommand{\strsizey}{3cm}
-\newcommand{\stroutdentl}{-0.5cm}
-\newcommand{\stroutdentr}{0.5cm}
-\newcommand{\stroutdentt}{0.5cm}
-\newcommand{\stroutdentb}{-2cm}
+\newcommand{\strsizey}{2cm}
+\newcommand{\stroutdentl}{-0.3cm}
+\newcommand{\stroutdentr}{0.3cm}
+\newcommand{\stroutdentt}{0.3cm}
+\newcommand{\stroutdentb}{-0.8cm}
 
 
-\newcommand{\insetx}{0.05cm}
-\newcommand{\insety}{0.05cm}
+% insetx double
+\newcommand{\insetdx}{0.06cm}
+% insetx single
+\newcommand{\insetsx}{0.03cm}
+% insety
+\newcommand{\insetsy}{0.03cm}
 \newcommand{\mbrsize}{0.2cm}
 \newcommand{\uefisize}{0.5cm}
 
 
-\newcommand{\mbrxs}{\insetx}
+\newcommand{\mbrxs}{\insetsx}
 \newcommand{\mbrxe}{\mbrxs + \mbrsize}
-\newcommand{\uefixs}{\mbrxe + \insetx}
+\newcommand{\uefixs}{\mbrxe + \insetdx}
 \newcommand{\uefixe}{\uefixs + \uefisize}
-\newcommand{\linuxxs}{\uefixe + \insetx}
-\newcommand{\linuxxe}{\strsizex - \insetx}
+\newcommand{\linuxxs}{\uefixe + \insetdx}
+\newcommand{\linuxxe}{\strsizex - \insetsx}
 
-\newcommand{\mbrys}{\insety}
-\newcommand{\mbrye}{\strsizey - \insety}
-\newcommand{\uefiys}{\insety}
-\newcommand{\uefiye}{\strsizey - \insety}
-\newcommand{\linuxys}{\insety}
-\newcommand{\linuxye}{\strsizey - \insety}
+% x position without inset
+\newcommand{\mbrwixs}{0cm}
+\newcommand{\mbrwixe}{\mbrxs + \mbrsize + \insetsx}
+\newcommand{\uefiwixs}{\mbrxe}
+\newcommand{\uefiwixe}{\uefixs + \uefisize + \insetsx}
+\newcommand{\linuxwixs}{\uefixe}
+\newcommand{\linuxwixe}{\strsizex - \insetsx}
+
+\newcommand{\mbrys}{\insetsy}
+\newcommand{\mbrye}{\strsizey - \insetsy}
+\newcommand{\uefiys}{\insetsy}
+\newcommand{\uefiye}{\strsizey - \insetsy}
+\newcommand{\linuxys}{\insetsy}
+\newcommand{\linuxye}{\strsizey - \insetsy}
 
 \newcommand{\mbrnd}{($0.5*(\mbrxs + \mbrxe, \mbrys + \mbrye)$)}
 
@@ -66,6 +79,8 @@
 \newcommand{\mbrndc}{($0.5*(\uefixs + \uefixe, 0cm)
   + (0cm, 0cm - 1.5cm)$)}
 
+% partition size location y
+\newcommand{\partsizelocy}{-0.5cm}
 
 % not used region for mbr backword compatible
 \newcommand{\darkmbr}{
@@ -93,21 +108,95 @@
 
 \newcommand{\outdentbounds}{
   \node at (0cm + \stroutdentl, 0cm + \stroutdentb) {};
-  \node at
-    (0cm + \strsizex + \stroutdentr, 0cm + \strsizey + \stroutdentt) {};
+  \node at (0cm + \strsizex + \stroutdentr, 0cm + \strsizey + \stroutdentt) {}; 
 }
   
 \begin{document}
   \center
-  % storage layout
-  \begin{tikzpicture}[anchor=base]
+  % size partition type
+  \begin{tikzpicture}[anchor=base,font=\tiny]
+    {
+      \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
+      \uefipart
+      \pgfusepath{stroke}
+      % linux part
+      \linuxpart
+      \pgfusepath{stroke}
+      \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
+    }
     \begin{scope}
-      \node (nummbr) at \mbrndc [circle,draw] {3};
-      \node (numuefi) at \uefindb [circle,draw] {1};
-      \node (numlinux) at \linuxnd [circle,draw] {2};
-      \draw \uefind -| (numuefi.north);
-      \draw \mbrnd |- (nummbr.west);
+      \draw [|<->] (\uefiwixs, \partsizelocy)
+        -- node[below] {1GB}
+        (\uefiwixe, \partsizelocy);
+      \draw [|<->|] (\linuxwixs, \partsizelocy)
+        -- node[below] {1.8TB}
+        (\linuxwixe, \partsizelocy);
     \end{scope}
+    \begin{scope}
+      \draw [{Circle}-] \uefind --
+        ($(\uefixe + 0.5cm, 0) + 0.75*(0, \uefiys) + 0.25*(0, \uefiye)$)
+          node[right]{Linux Loader(UEFI Application)};
+      \node at \linuxnd {Linux Root File System};
+    \end{scope}
+
+    \begin{scope}[on background layer]
+      % entire ssd
+      \entirestr
+      \pgfusepath{stroke}
+      \outdentbounds
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % first partition
+  \begin{tikzpicture}[anchor=base,font=\tiny]
+    {
+      \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
+      {
+        \color{YellowOrange}
+        \uefipart
+        \pgfusepath{fill}
+      }
+      \uefipart
+      \pgfusepath{stroke}
+      % linux part
+      \linuxpart
+      \pgfusepath{stroke}
+      \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
+    }
+    \begin{scope}[on background layer]
+      % entire ssd
+      \entirestr
+      \pgfusepath{stroke}
+      \outdentbounds
+    \end{scope}
+  \end{tikzpicture}
+  \newpage 
+  % second partition
+  \begin{tikzpicture}[anchor=base,font=\tiny]
+    {
+      \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
+      \uefipart
+      \pgfusepath{stroke}
+      % linux part
+      {
+        \color{YellowOrange}
+        \linuxpart
+        \pgfusepath{fill}
+      }
+      \linuxpart
+      \pgfusepath{stroke}
+      \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
+    }
+    \begin{scope}[on background layer]
+      % entire ssd
+      \entirestr
+      \pgfusepath{stroke}
+      \outdentbounds
+    \end{scope}
+  \end{tikzpicture}
+  \newpage 
+  % dark mbr
+  \begin{tikzpicture}[anchor=base,font=\tiny]
     \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
     % mbr part
     \pgfsetdash{{0.05cm}{0.05cm}}{0cm}
@@ -116,6 +205,7 @@
     \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
     \pgfsetdash{}{0cm}
     {
+      \color{lightgray}
       \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
       % mbr part
       % uefi part
@@ -126,25 +216,43 @@
       \pgfusepath{stroke}
       \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
     }
-
-    \begin{scope}[on background layer]
-      % entire ssd
-      \entirestr
-      \pgfusepath{stroke}
-      \outdentbounds
-    \end{scope}
-  \end{tikzpicture}
-  \newpage
-
-  % storage layout
-  \begin{tikzpicture}[anchor=base]
     \begin{scope}
-      \node (numuefi) at \uefindb [circle,draw] {1};
-      \node (numlinux) at \linuxnd [circle,draw] {2};
-      \draw \uefind -| (numuefi.north);
+      {
+        \color{lightgray}
+        \draw [<->] (\uefiwixs, \partsizelocy)
+          -- node[below] {1GB}
+          (\uefiwixe, \partsizelocy);
+        \draw [|<->|] (\linuxwixs, \partsizelocy)
+          -- node[below] {1.8TB}
+          (\linuxwixe, \partsizelocy);
+      }
+      \draw [|<->|] (\mbrwixs, \partsizelocy)
+        -- node[below] {1KB}
+        (\mbrwixe, \partsizelocy);
     \end{scope}
-
+    \begin{scope}[on background layer]
+      % entire ssd
+      \entirestr
+      \pgfusepath{stroke}
+      \outdentbounds
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % dark mbr
+  \begin{tikzpicture}[anchor=base,font=\tiny]
+    \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
+    % mbr part
     {
+      \color{YellowOrange}
+      \darkmbr
+      \pgfusepath{fill}
+    }
+    \darkmbr
+    \pgfusepath{stroke}
+
+    \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
+    {
+      \color{lightgray}
       \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
       % mbr part
       % uefi part
@@ -154,32 +262,6 @@
       \linuxpart
       \pgfusepath{stroke}
       \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
-    }
-
-    \begin{scope}[on background layer]
-      % entire ssd
-      \entirestr
-      \pgfusepath{stroke}
-      \outdentbounds
-    \end{scope}
-  \end{tikzpicture}
-
-
-
-  \newpage
-  % storage layout
-  \begin{tikzpicture}[anchor=base,font=\tiny]
-    {
-      \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
-      % mbr part
-      \darkmbr
-      \pgfusepath{stroke}
-      % uefi part
-      \uefipart
-      \pgfusepath{stroke}
-      % linux part
-      \linuxpart
-      \pgfusepath{stroke}
     }
     \begin{scope}[on background layer]
       % entire ssd

@@ -1,0 +1,974 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\pagestyle{empty}
+\usepackage{luatexja}
+
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\docpaperwidth}{12.8cm}
+\newcommand{\docpaperheight}{9.6cm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0cm,
+  ignoreall=true
+}
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{shapes.geometric}
+
+\setlength{\parindent}{0cm}
+
+% grid column a width
+\newcommand{\grdcaw}{2cm}
+
+% grid column b width
+\newcommand{\grdcbw}{2cm}
+
+% grid column c width
+\newcommand{\grdccw}{2cm}
+
+% gird row height
+\newcommand{\grdrh}{0.5cm}
+
+% cell inset single
+\newcommand{\grdclis}{0.02cm}
+
+% cell inset double
+\newcommand{\grdclid}{0.04cm}
+
+% left outdent 
+\newcommand{\outdentl}{-0.7cm}
+
+% right outdent 
+\newcommand{\outdentr}{0.2cm}
+
+% bottom outdent 
+\newcommand{\outdentb}{-0.2cm}
+
+% top outdent 
+\newcommand{\outdentt}{0.2cm}
+
+% grid aa left position
+\newcommand{\grdaal}{0cm}
+
+% grid aa right position
+\newcommand{\grdaar}{\grdaal + \grdcaw}
+
+% grid aa bottom position
+\newcommand{\grdaab}{0cm}
+
+% grid aa top position
+\newcommand{\grdaat}{\grdaab + \grdrh}
+
+% grid ab left position
+\newcommand{\grdabl}{\grdaar}
+
+% grid ab right position
+\newcommand{\grdabr}{\grdabl + \grdcbw}
+
+% grid ab bottom position
+\newcommand{\grdabb}{0cm}
+
+% grid ab top position
+\newcommand{\grdabt}{\grdabb + \grdrh}
+
+% grid ac left position
+\newcommand{\grdacl}{\grdabr}
+
+% grid ac right position
+\newcommand{\grdacr}{\grdacl + \grdccw}
+
+% grid ac bottom position
+\newcommand{\grdacb}{0cm}
+
+% grid ac top position
+\newcommand{\grdact}{\grdacb + \grdrh}
+
+
+% grid ba left position
+\newcommand{\grdbal}{0cm}
+
+% grid ba right position
+\newcommand{\grdbar}{\grdbal + \grdcaw}
+
+% grid ba bottom position
+\newcommand{\grdbab}{\grdabt}
+
+% grid ba top position
+\newcommand{\grdbat}{\grdbab + \grdrh}
+
+
+% grid bb left position
+\newcommand{\grdbbl}{\grdbar}
+
+% grid bb right position
+\newcommand{\grdbbr}{\grdbbl + \grdcbw}
+
+% grid bb bottom position
+\newcommand{\grdbbb}{\grdabt}
+
+% grid bb top position
+\newcommand{\grdbbt}{\grdbbb + \grdrh}
+
+% grid bc left position
+\newcommand{\grdbcl}{\grdbbr}
+
+% grid bc right position
+\newcommand{\grdbcr}{\grdbcl + \grdccw}
+
+% grid bc bottom position
+\newcommand{\grdbcb}{\grdact}
+
+% grid bc top position
+\newcommand{\grdbct}{\grdbcb + \grdrh}
+
+% grid ca left position
+\newcommand{\grdcal}{0cm}
+
+% grid ca right position
+\newcommand{\grdcar}{\grdcal + \grdcaw}
+
+% grid ca bottom position
+\newcommand{\grdcab}{\grdbat}
+
+% grid ca top position
+\newcommand{\grdcat}{\grdcab + \grdrh}
+
+% grid cb left position
+\newcommand{\grdcbl}{\grdcar}
+
+% grid cb right position
+\newcommand{\grdcbr}{\grdcbl + \grdcbw}
+
+% grid cb bottom position
+\newcommand{\grdcbb}{\grdbbt}
+
+% grid cb top position
+\newcommand{\grdcbt}{\grdcbb + \grdrh}
+
+% grid cc left position
+\newcommand{\grdccl}{\grdcbr}
+
+% grid cc right position
+\newcommand{\grdccr}{\grdccl + \grdccw}
+
+% grid cc bottom position
+\newcommand{\grdccb}{\grdbct}
+
+% grid cc top position
+\newcommand{\grdcct}{\grdccb + \grdrh}
+
+% grid da left position
+\newcommand{\grddal}{0cm}
+
+% grid da right position
+\newcommand{\grddar}{\grddal + \grdcaw}
+
+% grid da bottom position
+\newcommand{\grddab}{\grdcat}
+
+% grid da top position
+\newcommand{\grddat}{\grddab + \grdrh}
+
+% grid db left position
+\newcommand{\grddbl}{\grddar}
+
+% grid db right position
+\newcommand{\grddbr}{\grddbl + \grdcbw}
+
+% grid db bottom position
+\newcommand{\grddbb}{\grdcbt}
+
+% grid db top position
+\newcommand{\grddbt}{\grddbb + \grdrh}
+
+% grid dc left position
+\newcommand{\grddcl}{\grdccl}
+
+% grid dc right position
+\newcommand{\grddcr}{\grddcl + \grdccw}
+
+% grid dc bottom position
+\newcommand{\grddcb}{\grdcct}
+
+% grid dc top position
+\newcommand{\grddct}{\grddcb + \grdrh}
+
+% grid ea left position
+\newcommand{\grdeal}{0cm}
+
+% grid ea right position
+\newcommand{\grdear}{\grdeal + \grdcaw}
+
+% grid ea bottom position
+\newcommand{\grdeab}{\grddat}
+
+% grid ea top position
+\newcommand{\grdeat}{\grdeab + \grdrh}
+
+% grid eb left position
+\newcommand{\grdebl}{\grdear}
+
+% grid eb right position
+\newcommand{\grdebr}{\grdebl + \grdcbw}
+
+% grid eb bottom position
+\newcommand{\grdebb}{\grddbt}
+
+% grid eb top position
+\newcommand{\grdebt}{\grddbb + \grdrh}
+
+% grid ec left position
+\newcommand{\grdecl}{\grdebr}
+
+% grid ec right position
+\newcommand{\grdecr}{\grdecl + \grdccw}
+
+% grid ec bottom position
+\newcommand{\grdecb}{\grddct}
+
+% grid ec top position
+\newcommand{\grdect}{\grdecb + \grdrh}
+
+
+% grid left offset
+\newcommand{\grdosl}{0.03cm}
+
+% grid right offset
+\newcommand{\grdosr}{-0.03cm}
+
+% grid bottom offset
+\newcommand{\grdosb}{0.03cm}
+
+% grid top offset
+\newcommand{\grdost}{-0.03cm}
+
+% grid aa
+\newcommand{\grdaa}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+    {\pgfpoint{\grdaar + \grdosr}{\grdaat + \grdost}}}
+
+% grid ab
+\newcommand{\grdab}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdabl + \grdosl}{\grdabb + \grdosb}}
+    {\pgfpoint{\grdabr + \grdosr}{\grdabt + \grdost}}}
+
+% grid ac
+\newcommand{\grdac}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdacl + \grdosl}{\grdacb + \grdosb}}
+    {\pgfpoint{\grdacr + \grdosr}{\grdact + \grdost}}}
+
+
+% grid ba 
+\newcommand{\grdba}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdbal + \grdosl}{\grdbab + \grdosb}}
+    {\pgfpoint{\grdbar + \grdosr}{\grdbat + \grdost}}}
+
+% grid bb 
+\newcommand{\grdbb}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdbbl + \grdosl}{\grdbbb + \grdosb}}
+    {\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}}
+
+% grid bc 
+\newcommand{\grdbc}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdbcl + \grdosl}{\grdbcb + \grdosb}}
+    {\pgfpoint{\grdbcr + \grdosr}{\grdbct + \grdost}}}
+
+% grid ca 
+\newcommand{\grdca}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdcal + \grdosl}{\grdcab + \grdosb}}
+    {\pgfpoint{\grdcar + \grdosr}{\grdcat + \grdost}}}
+
+% grid cb 
+\newcommand{\grdcb}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdcbl + \grdosl}{\grdcbb + \grdosb}}
+    {\pgfpoint{\grdcbr + \grdosr}{\grdcbt + \grdost}}}
+
+% grid cc 
+\newcommand{\grdcc}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdccl + \grdosl}{\grdccb + \grdosb}}
+    {\pgfpoint{\grdccr + \grdosr}{\grdcct + \grdost}}}
+
+% grid da 
+\newcommand{\grdda}{\pgfpathrectanglecorners
+    {\pgfpoint{\grddal + \grdosl}{\grddab + \grdosb}}
+    {\pgfpoint{\grddar + \grdosr}{\grddat + \grdost}}}
+
+% grid db 
+\newcommand{\grddb}{\pgfpathrectanglecorners
+    {\pgfpoint{\grddbl + \grdosl}{\grddbb + \grdosb}}
+    {\pgfpoint{\grddbr + \grdosr}{\grddbt + \grdost}}}
+
+% grid dc 
+\newcommand{\grddc}{\pgfpathrectanglecorners
+    {\pgfpoint{\grddcl + \grdosl}{\grddcb + \grdosb}}
+    {\pgfpoint{\grddcr + \grdosr}{\grddct + \grdost}}}
+
+
+% grid ca-cb
+\newcommand{\grdcacb}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdcal + \grdosl}{\grdcab + \grdosb}}
+    {\pgfpoint{\grdcbr + \grdosr}{\grdcbt + \grdost}}}
+
+
+
+% grid aa-ba 
+\newcommand{\grdaaba}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+    {\pgfpoint{\grdbar + \grdosr}{\grdbat + \grdost}}}
+
+% grid ab-bb 
+\newcommand{\grdabbb}{\pgfpathrectanglecorners
+    {\pgfpoint{\grdabl + \grdosl}{\grdbbb + \grdosb}}
+    {\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}}
+
+% grid cell da-db 
+\newcommand{\grddadb}{
+  \pgfpathrectanglecorners
+    {\pgfpoint{\grddal + \grdosl}{\grddab + \grdosb}}
+    {\pgfpoint{\grddbr + \grdosr}{\grddbt + \grdost}}
+}
+
+
+% grid cell da-dc 
+\newcommand{\grddadc}{
+  \pgfpathrectanglecorners
+    {\pgfpoint{\grddal + \grdosl}{\grddab + \grdosb}}
+    {\pgfpoint{\grddcr + \grdosr}{\grddct + \grdost}}
+}
+
+% grid cell ea-ec 
+\newcommand{\grdeaec}{
+  \pgfpathrectanglecorners
+    {\pgfpoint{\grdeal + \grdosl}{\grdeab + \grdosb}}
+    {\pgfpoint{\grdecr + \grdosr}{\grdect + \grdost}}
+}
+
+
+
+% declare coordinante
+\newcommand{\dclgrdcoords}{
+  % cell aa bounds
+  \coordinate (grdaalb) at (\grdaal, \grdaab);
+  \coordinate (grdaarb) at (\grdaar, \grdaab);
+  \coordinate (grdaalt) at (\grdaal, \grdaat);
+  \coordinate (grdaart) at (\grdaar, \grdaat);
+
+  % cell ab bounds
+  \coordinate (grdablb) at (\grdabl, \grdabb);
+  \coordinate (grdabrb) at (\grdabr, \grdabb);
+  \coordinate (grdablt) at (\grdabl, \grdabt);
+  \coordinate (grdabrt) at (\grdabr, \grdabt);
+
+  % cell ac bounds
+  \coordinate (grdaclb) at (\grdacl, \grdacb);
+  \coordinate (grdacrb) at (\grdacr, \grdacb);
+  \coordinate (grdaclt) at (\grdacl, \grdact);
+  \coordinate (grdacrt) at (\grdacr, \grdact);
+
+  % cell ba bounds
+  \coordinate (grdbalb) at (\grdbal, \grdbab);
+  \coordinate (grdbarb) at (\grdbar, \grdbab);
+  \coordinate (grdbalt) at (\grdbal, \grdbat);
+  \coordinate (grdbart) at (\grdbar, \grdbat);
+
+  % cell bb bounds
+  \coordinate (grdbblb) at (\grdbbl, \grdbbb);
+  \coordinate (grdbbrb) at (\grdbbr, \grdbbb);
+  \coordinate (grdbblt) at (\grdbbl, \grdbbt);
+  \coordinate (grdbbrt) at (\grdbbr, \grdbbt);
+
+  % cell bc bounds
+  \coordinate (grdbclb) at (\grdbcl, \grdbcb);
+  \coordinate (grdbcrb) at (\grdbcr, \grdbcb);
+  \coordinate (grdbclt) at (\grdbcl, \grdbct);
+  \coordinate (grdbcrt) at (\grdbcr, \grdbct);
+
+  % cell ca bounds
+  \coordinate (grdcalb) at (\grdcal, \grdcab);
+  \coordinate (grdcarb) at (\grdcar, \grdcab);
+  \coordinate (grdcalt) at (\grdcal, \grdcat);
+  \coordinate (grdcart) at (\grdcar, \grdcat);
+
+  % cell cb bounds
+  \coordinate (grdcblb) at (\grdcbl, \grdcbb);
+  \coordinate (grdcbrb) at (\grdcbr, \grdcbb);
+  \coordinate (grdcblt) at (\grdcbl, \grdcbt);
+  \coordinate (grdcbrt) at (\grdcbr, \grdcbt);
+
+  % cell cc bounds
+  \coordinate (grdcclb) at (\grdccl, \grdccb);
+  \coordinate (grdccrb) at (\grdccr, \grdccb);
+  \coordinate (grdcclt) at (\grdccl, \grdcct);
+  \coordinate (grdccrt) at (\grdccr, \grdcct);
+
+  % cell da bounds
+  \coordinate (grddalb) at (\grddal, \grddab);
+  \coordinate (grddarb) at (\grddar, \grddab);
+  \coordinate (grddalt) at (\grddal, \grddat);
+  \coordinate (grddart) at (\grddar, \grddat);
+
+  % cell db bounds
+  \coordinate (grddblb) at (\grddbl, \grddbb);
+  \coordinate (grddbrb) at (\grddbr, \grddbb);
+  \coordinate (grddblt) at (\grddbl, \grddbt);
+  \coordinate (grddbrt) at (\grddbr, \grddbt);
+
+  % cell dc bounds
+  \coordinate (grddclb) at (\grddcl, \grddcb);
+  \coordinate (grddcrb) at (\grddcr, \grddcb);
+  \coordinate (grddclt) at (\grddcl, \grddct);
+  \coordinate (grddcrt) at (\grddcr, \grddct);
+
+  % cell ea bounds
+  \coordinate (grdealb) at (\grdeal, \grdeab);
+  \coordinate (grdearb) at (\grdear, \grdeab);
+  \coordinate (grdealt) at (\grdeal, \grdeat);
+  \coordinate (grdeart) at (\grdear, \grdeat);
+
+  % cell eb bounds
+  \coordinate (grdeblb) at (\grdebl, \grdebb);
+  \coordinate (grdebrb) at (\grdebr, \grdebb);
+  \coordinate (grdeblt) at (\grdebl, \grdebt);
+  \coordinate (grdebrt) at (\grdebr, \grdebt);
+
+  % cell ec bounds
+  \coordinate (grdeclb) at (\grdecl, \grdecb);
+  \coordinate (grdecrb) at (\grdecr, \grdecb);
+  \coordinate (grdeclt) at (\grdecl, \grdect);
+  \coordinate (grdecrt) at (\grdecr, \grdect);
+}
+
+% cell aa node
+\newcommand{\grdndaa}
+  {(barycentric cs:grdaalb=1,grdaarb=1,grdaalt=1,grdaart=1)}
+
+% cell ab node
+\newcommand{\grdndab}
+  {(barycentric cs:grdablb=1,grdabrb=1,grdablt=1,grdabrt=1)}
+
+% cell ac node
+\newcommand{\grdndac}
+  {(barycentric cs:grdaclb=1,grdacrb=1,grdaclt=1,grdacrt=1)}
+
+
+% cell ba node
+\newcommand{\grdndba}
+  {(barycentric cs:grdbalb=1,grdbarb=1,grdbalt=1,grdbart=1)}
+
+% cell bb node
+\newcommand{\grdndbb}
+  {(barycentric cs:grdbblb=1,grdbbrb=1,grdbblt=1,grdbbrt=1)}
+
+% cell bc node
+\newcommand{\grdndbc}
+  {(barycentric cs:grdbclb=1,grdbcrb=1,grdbclt=1,grdbcrt=1)}
+
+
+% cell ca node
+\newcommand{\grdndca}
+  {(barycentric cs:grdcalb=1,grdcarb=1,grdcalt=1,grdcart=1)}
+
+% cell cb node
+\newcommand{\grdndcb}
+  {(barycentric cs:grdcblb=1,grdcbrb=1,grdcblt=1,grdcbrt=1)}
+
+% cell cc node
+\newcommand{\grdndcc}
+  {(barycentric cs:grdcclb=1,grdccrb=1,grdcclt=1,grdccrt=1)}
+
+% cell da node
+\newcommand{\grdndda}
+  {(barycentric cs:grddalb=1,grddarb=1,grddalt=1,grddart=1)}
+
+% cell db node
+\newcommand{\grdnddb}
+  {(barycentric cs:grddblb=1,grddbrb=1,grddblt=1,grddbrt=1)}
+
+% cell dc node
+\newcommand{\grdnddc}
+  {(barycentric cs:grddclb=1,grddcrb=1,grddclt=1,grddcrt=1)}
+
+
+
+% cell aa-ba node
+\newcommand{\grdndaaba}
+  {(barycentric cs:grdaalb=1,grdaarb=1,grdbalt=1,grdbart=1)}
+
+
+% cell ca-cb node
+\newcommand{\grdndcacb}
+  {(barycentric cs:grdcalb=1,grdcbrb=1,grdcalt=1,grdcbrt=1)}
+
+
+% cell aa-ba left node
+\newcommand{\grdndaabal}
+  {(barycentric cs:grdaalb=1,grdbalt=1)}
+
+% cell ca left node
+\newcommand{\grdndcal}
+  {(barycentric cs:grdcalb=1,grdcalt=1)}
+
+% cell da-db node
+\newcommand{\grdnddadb}
+  {(barycentric cs:grddalb=1,grddbrb=1,grddalt=1,grddbrt=1)}
+
+% cell da-dc node
+\newcommand{\grdnddadc}
+  {(barycentric cs:grddalb=1,grddcrb=1,grddalt=1,grddcrt=1)}
+
+% cell ba-bb node
+\newcommand{\grdndbabb}
+  {(barycentric cs:grdbalb=1,grdbbrb=1,grdbalt=1,grdbbrt=1)}
+
+% cell ea-ec node
+\newcommand{\grdndeaec}
+  {(barycentric cs:grdealb=1,grdecrb=1,grdealt=1,grdecrt=1)}
+
+
+% grid cell aa bottom round
+\newcommand{\grdaabr}{
+  \pgfpathmoveto{\pgfpoint{\grdaal + \grdosl}{\grdaat}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdaar + \grdosr}{\grdaab + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdaar + \grdosr}{\grdaat}}
+  \pgfclosepath 
+}
+
+% grid cell aa bottom round open
+\newcommand{\grdaabro}{
+  \pgfpathmoveto{\pgfpoint{\grdaal + \grdosl}{\grdaat}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdaar + \grdosr}{\grdaab + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdaar + \grdosr}{\grdaat}}
+} 
+
+
+% grid cell ab bottom round
+\newcommand{\grdabbr}{
+  \pgfpathmoveto{\pgfpoint{\grdabl + \grdosl}{\grdabt}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdabl + \grdosl}{\grdabb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabt}}
+  \pgfclosepath 
+}
+
+% grid cell ab bottom round open
+\newcommand{\grdabbro}{
+  \pgfpathmoveto{\pgfpoint{\grdabl + \grdosl}{\grdabt}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdabl + \grdosl}{\grdabb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabt}}
+} 
+
+% grid cell ab right bottom round
+\newcommand{\grdabrbr}{
+  \pgfpathmoveto{\pgfpoint{\grdabl}{\grdabt}}
+  \pgfpathlineto{\pgfpoint{\grdabl}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabt}}
+  \pgfclosepath 
+}
+
+% grid cell ab right bottom round open
+\newcommand{\grdabrbro}{
+  \pgfpathmoveto{\pgfpoint{\grdabl}{\grdabt}}
+  \pgfpathlineto{\pgfpoint{\grdabl}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdabr + \grdosr}{\grdabt}}
+}
+
+% grid cell ac bottom round
+\newcommand{\grdacbr}{
+  \pgfpathmoveto{\pgfpoint{\grdacl + \grdosl}{\grdact}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdacl + \grdosl}{\grdacb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdacr + \grdosr}{\grdacb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdacr + \grdosr}{\grdact}}
+  \pgfclosepath 
+}
+
+% grid cell ac bottom round open
+\newcommand{\grdacbro}{
+  \pgfpathmoveto{\pgfpoint{\grdacl + \grdosl}{\grdact}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdacl + \grdosl}{\grdacb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdacr + \grdosr}{\grdacb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdacr + \grdosr}{\grdact}}
+} 
+
+
+
+% grid cell ba top round
+\newcommand{\grdbatr}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbar + \grdosr}{\grdbab}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbar + \grdosr}{\grdbat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbab}}
+  \pgfclosepath 
+}
+
+% grid cell ba top round open
+\newcommand{\grdbatro}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbar + \grdosr}{\grdbab}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbar + \grdosr}{\grdbat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbab}}
+}
+
+% grid cell bb top round
+\newcommand{\grdbbtr}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbbr + \grdosr}{\grdbbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdbbl + \grdosl}{\grdbbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbbl + \grdosl}{\grdbbb}}
+  \pgfclosepath 
+}
+
+% grid cell bb top round open
+\newcommand{\grdbbtro}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbbr + \grdosr}{\grdbbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdbbl + \grdosl}{\grdbbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbbl + \grdosl}{\grdbbb}}
+}
+
+% grid cell bb ritght top round
+\newcommand{\grdbbrtr}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbbr + \grdosr}{\grdbbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbbl}{\grdbbt + \grdost}}
+
+  \pgfpathlineto{\pgfpoint{\grdbbl}{\grdbbb}}
+  \pgfclosepath 
+}
+
+% grid cell bb ritght top round open
+\newcommand{\grdbbrtro}{
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathmoveto{\pgfpoint{\grdbbr + \grdosr}{\grdbbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbbr + \grdosr}{\grdbbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdbbl}{\grdbbt + \grdost}}
+
+  \pgfpathlineto{\pgfpoint{\grdbbl}{\grdbbb}}
+}
+
+% grid cell aa-ba left round
+\newcommand{\grdaabalr}{
+  \pgfpathmoveto{\pgfpoint{\grdbar}{\grdbat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdaar}{\grdaab + \grdosb}}
+  \pgfclosepath 
+}
+
+% grid cell aa-ba left round open
+\newcommand{\grdaabalro}{
+  \pgfpathmoveto{\pgfpoint{\grdbar}{\grdbat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdbal + \grdosl}{\grdbat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdaal + \grdosl}{\grdaab + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdaar}{\grdaab + \grdosb}}
+}
+
+% grid cell ca-cb top round
+\newcommand{\grdcacbtr}{
+  \pgfpathmoveto{\pgfpoint{\grdcbr + \grdosr}{\grdcbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdcbr + \grdosr}{\grdcbt + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdcal + \grdosl}{\grdcat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdcal + \grdosl}{\grdcab}}
+  \pgfpathclose
+}
+
+% grid cell ca-cc top round
+\newcommand{\grdcacctr}{
+  \pgfpathmoveto{\pgfpoint{\grdccr + \grdosr}{\grdccb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdccr + \grdosr}{\grdcct + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdcal + \grdosl}{\grdcat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdcal + \grdosl}{\grdcab}}
+  \pgfpathclose
+}
+
+% grid cell ca bottom round open
+\newcommand{\grdcabro}{
+  \pgfpathmoveto{\pgfpoint{\grdcal + \grdosl}{\grdcat}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdcal + \grdosl}{\grdcab + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdcar + \grdosr}{\grdcab + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdcar + \grdosr}{\grdcat}}
+}
+
+% grid cell cb bottom round open
+\newcommand{\grdcbbro}{
+  \pgfpathmoveto{\pgfpoint{\grdcbl + \grdosl}{\grdcbt}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdcbl + \grdosl}{\grdcbb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdcbr + \grdosr}{\grdcbb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdcbr + \grdosr}{\grdcbt}}
+}
+
+% grid cell cc bottom round open
+\newcommand{\grdccbro}{
+  \pgfpathmoveto{\pgfpoint{\grdccl + \grdosl}{\grdcct}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdccl + \grdosl}{\grdccb + \grdosb}}
+  \pgfpathlineto{\pgfpoint{\grdccr + \grdosr}{\grdccb + \grdosb}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdccr + \grdosr}{\grdcct}}
+}
+
+% grid cell cc top round
+\newcommand{\grdcctr}{
+  \pgfpathmoveto{\pgfpoint{\grdccr + \grdosr}{\grdccb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grdccr + \grdosr}{\grdcct + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grdccl + \grdosl}{\grdcct + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grdccl + \grdosl}{\grdccb}}
+  \pgfpathclose
+}
+
+ 
+
+
+% grid cell da-db top round
+\newcommand{\grddadbtr}{
+  \pgfpathmoveto{\pgfpoint{\grddbr + \grdosr}{\grddbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grddbr + \grdosr}{\grddbt + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grddal + \grdosl}{\grddat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grddal + \grdosl}{\grddab}}
+  \pgfpathclose
+}
+
+% grid cell da top round
+\newcommand{\grddatr}{
+  \pgfpathmoveto{\pgfpoint{\grddar + \grdosr}{\grddab}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grddar + \grdosr}{\grddat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grddal + \grdosl}{\grddat + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grddal + \grdosl}{\grddab}}
+  \pgfpathclose
+}
+
+% grid cell db top round
+\newcommand{\grddbtr}{
+  \pgfpathmoveto{\pgfpoint{\grddbr + \grdosr}{\grddbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grddbr + \grdosr}{\grddbt + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grddbl + \grdosl}{\grddbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grddbl + \grdosl}{\grddbb}}
+  \pgfpathclose
+}
+
+
+% grid cell dc top round
+\newcommand{\grddctr}{
+  \pgfpathmoveto{\pgfpoint{\grddcr + \grdosr}{\grddcb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grddcr + \grdosr}{\grddct + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grddcl + \grdosl}{\grddct + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0}{0}}
+  \pgfpathlineto{\pgfpoint{\grddcl + \grdosl}{\grddcb}}
+  \pgfpathclose
+}
+
+\newcommand{\grdboundbox}{
+  \path (\grdaal + \outdentl, \grdaab + \outdentb) 
+    (\grdacr + \outdentr, \grdacb + \outdentb)
+    (\grdacr + \outdentr, \grddct + \outdentt)
+    (\grdaal + \outdentl, \grddct + \outdentt)
+    (\grdaal + \outdentl, \grdaab + \outdentb);
+}
+  
+\begin{document}
+  \center
+  % not used lvm
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % ca
+    \begin{scope}
+      \grdcabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % cb
+    \begin{scope}
+      \grdcbbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % cc
+    \begin{scope}
+      \grdccbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+    % db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddbtr
+      \pgfusepath{stroke}
+    \end{scope}
+    % dc
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddctr
+      \pgfusepath{stroke}
+    \end{scope}
+    % ea-ec
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaec
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaec {Linux};
+    \node at \grdndda {ext4};
+    \node at \grdnddb {ext4};
+    \node at \grdnddc {ext4};
+
+    \node at \grdndca {nvme0};
+    \node at \grdndcb {nvme1};
+    \node at \grdndcc {nvme2};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+
+  \newpage
+  % lvm out line
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ac
+    \begin{scope}
+      \grdacbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+
+    % bc
+    \begin{scope}
+      \draw (\grdbcl + \grdosl, \grdbat) -- (\grdbcl + \grdosl, \grdbab)
+        -- (\grdbcr + \grdosr, \grdbbb) -- (\grdbcr + \grdosr, \grdbbt);
+    \end{scope}
+
+    % ca-cb
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
+    \end{scope}
+    % cc
+    \begin{scope}
+      \draw (\grdccl + \grdosl, \grdcct) -- (\grdccl + \grdosl, \grdccb)
+        -- (\grdccr + \grdosr, \grdccb) -- (\grdccr + \grdosr, \grdcct);
+    \end{scope}
+    % da-db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddadbtr
+      \pgfusepath{stroke}
+    \end{scope}
+    % dc
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddctr
+      \pgfusepath{stroke}
+    \end{scope}
+    % ea-ec
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaec
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaec {Linux};
+    \node at \grdnddadb {ext4};
+    \node at \grdndcacb {lvg-1};
+    \node at \grdnddc {ext4};
+    \node at \grdndcc {lvg-2};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+    \node at \grdndbc {pv-3};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \grdndac {nvme2};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+\end{document}
+% vi: se ts=2 sw=2 et:

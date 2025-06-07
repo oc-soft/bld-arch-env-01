@@ -7,7 +7,13 @@ LATEX = lualatex
 KSEWHICH = kpsewhich
 TEXINPUTS = $(abs_srcdir)//:$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
-PDF_FILES = hw-img.pdf screen-img.pdf hw-os.pdf storage-part.pdf
+PDF_FILES = hw-img.pdf \
+	screen-img.pdf \
+	hw-os.pdf \
+	storage-part.pdf \
+	linux-fs.pdf \
+	lvm.pdf
+	
 VPATH = $(srcdir)
 
 hw_img_pdf_SOURCES = \
@@ -29,6 +35,12 @@ hw_os_pdf_SOURCES = \
 storage_part_pdf_SOURCES = \
 	storage-part.tex
 
+linux_fs_pdf_SOURCES = \
+	linux-fs.tex
+
+lvm_pdf_SOURCES = \
+	lvm.tex
+
 vpath %.tex $(srcdir) 
 vpath %.pdf ./
 
@@ -49,6 +61,10 @@ screen-img.pdf : $(screen_img_pdf_SOURCES)
 hw-os.pdf : $(hw_os_pdf_SOURCES)
 
 storage-part.pdf : $(storage_part_pdf_SOURCES)
+
+linux-fs.pdf : $(linux_fs_pdf_SOURCES)
+
+lvm.pdf : $(lvm_pdf_SOURCES)
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .tex .pdf
