@@ -12,7 +12,8 @@ PDF_FILES = hw-img.pdf \
 	hw-os.pdf \
 	storage-part.pdf \
 	linux-fs.pdf \
-	lvm.pdf
+	lvm.pdf \
+	lvm-usecase.pdf
 	
 VPATH = $(srcdir)
 
@@ -41,6 +42,10 @@ linux_fs_pdf_SOURCES = \
 lvm_pdf_SOURCES = \
 	lvm.tex
 
+lvm_uscase_pdf_SOURCES = \
+	lvm-usecase.tex
+
+
 vpath %.tex $(srcdir) 
 vpath %.pdf ./
 
@@ -65,6 +70,8 @@ storage-part.pdf : $(storage_part_pdf_SOURCES)
 linux-fs.pdf : $(linux_fs_pdf_SOURCES)
 
 lvm.pdf : $(lvm_pdf_SOURCES)
+
+lvm-usecase.pdf : $(lvm_usecase_pdf_SOURCES)
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .tex .pdf
