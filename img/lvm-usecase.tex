@@ -7,8 +7,8 @@
 
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
-\newcommand{\docpaperwidth}{12.8cm}
-\newcommand{\docpaperheight}{9.6cm}
+\newcommand{\docpaperwidth}{6cm}
+\newcommand{\docpaperheight}{3cm}
 
 \geometry{
   papersize={\docpaperwidth,\docpaperheight},
@@ -41,7 +41,7 @@
 \newcommand{\grdclid}{0.04cm}
 
 % left outdent 
-\newcommand{\outdentl}{-0.7cm}
+\newcommand{\outdentl}{-0.2cm}
 
 % right outdent 
 \newcommand{\outdentr}{0.2cm}
@@ -1034,11 +1034,11 @@
   ($1/2*(\grddar - 2mm, \grddab) + 1/2*(\grddar - 2mm, \grddat)$)}
 
 \newcommand{\grdboundbox}{
-  \path (\grdaal + \outdentl, \grdaab + \outdentb) 
-    (\grdacr + \outdentr, \grdacb + \outdentb)
-    (\grdacr + \outdentr, \grddct + \outdentt)
-    (\grdaal + \outdentl, \grddct + \outdentt)
-    (\grdaal + \outdentl, \grdaab + \outdentb);
+  \path (\grdaal + \outdentl, \grdaab + \outdentb) --
+    (\newdtcr + \outdentr, \grdacb + \outdentb) --
+    (\newdtcr + \outdentr, \grdect + \outdentt) --
+    (\grdaal + \outdentl, \grdect + \outdentt) --
+    cycle;
 }
   
 \begin{document}

@@ -7,8 +7,8 @@
 
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
-\newcommand{\docpaperwidth}{12.8cm}
-\newcommand{\docpaperheight}{9.6cm}
+\newcommand{\docpaperwidth}{6.5cm}
+\newcommand{\docpaperheight}{3cm}
 
 \geometry{
   papersize={\docpaperwidth,\docpaperheight},
@@ -39,7 +39,7 @@
 \newcommand{\grdclid}{0.04cm}
 
 % left outdent 
-\newcommand{\outdentl}{-0.7cm}
+\newcommand{\outdentl}{-0.2cm}
 
 % right outdent 
 \newcommand{\outdentr}{0.2cm}
@@ -819,11 +819,11 @@
 }
 
 \newcommand{\grdboundbox}{
-  \path (\grdaal + \outdentl, \grdaab + \outdentb) 
-    (\grdacr + \outdentr, \grdacb + \outdentb)
-    (\grdacr + \outdentr, \grddct + \outdentt)
-    (\grdaal + \outdentl, \grddct + \outdentt)
-    (\grdaal + \outdentl, \grdaab + \outdentb);
+  \path (\grdaal + \outdentl, \grdaab + \outdentb) --
+    (\grdacr + \outdentr, \grdacb + \outdentb) --
+    (\grdacr + \outdentr, \grdect + \outdentt) --
+    (\grdaal + \outdentl, \grdect + \outdentt) --
+    cycle;
 }
   
 \begin{document}
@@ -872,9 +872,9 @@
     \end{scope}
     % label
     \node at \grdndeaec {Linux};
-    \node at \grdndda {ext4};
-    \node at \grdnddb {ext4};
-    \node at \grdnddc {ext4};
+    \node at \grdndda {fs(ext4)};
+    \node at \grdnddb {fs(ext4)};
+    \node at \grdnddc {fs(ext4)};
 
     \node at \grdndca {nvme0};
     \node at \grdndcb {nvme1};
@@ -906,12 +906,26 @@
     \end{scope}
     % ba
     \begin{scope}
+      {
+        \color{YellowOrange}
+        \fill (\grdbal + \grdosl, \grdbat) --
+          (\grdbal + \grdosl, \grdbab) -- 
+          (\grdbar + \grdosr, \grdbab) --
+          (\grdbar + \grdosr, \grdbat);
+      }
       \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
         -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
     \end{scope}
 
     % bb
     \begin{scope}
+      {
+        \color{YellowOrange} 
+        \fill (\grdbbl + \grdosl, \grdbbt) --
+          (\grdbbl + \grdosl, \grdbbb) --
+          (\grdbbr + \grdosr, \grdbbb) --
+          (\grdbbr + \grdosr, \grdbbt);
+      }
       \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
         -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
     \end{scope}
@@ -925,6 +939,13 @@
 
     % ca-cb
     \begin{scope}
+      {
+        \color{YellowOrange}
+        \fill (\grdcal + \grdosl, \grdcat) --
+          (\grdcal + \grdosl, \grdcab) --
+          (\grdcbr + \grdosr, \grdcbb) --
+          (\grdcbr + \grdosr, \grdcbt);
+      }
       \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
         -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
     \end{scope}
@@ -953,9 +974,9 @@
     \end{scope}
     % label
     \node at \grdndeaec {Linux};
-    \node at \grdnddadb {ext4};
+    \node at \grdnddadb {fs(ext4)};
     \node at \grdndcacb {lvg-1};
-    \node at \grdnddc {ext4};
+    \node at \grdnddc {fs(ext4)};
     \node at \grdndcc {lvg-2};
 
     \node at \grdndba {pv-1};
