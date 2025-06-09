@@ -1012,6 +1012,17 @@
   \pgfpathclose
 }
 
+% fill cell dadb a (100% - da 10%)
+\newcommand{\grddadbfillb}{
+  \pgfpathmoveto{\pgfpoint{\grddar - 4mm}{\grddat + \grdost}}
+  \pgfpathlineto{\pgfpoint{\grddar - 4mm}{\grddab}}
+  \pgfpathlineto{\pgfpoint{\grddbr + \grdosr}{\grddbb}}
+  \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+  \pgfpathlineto{\pgfpoint{\grddbr + \grdosr}{\grddbt + \grdost}}
+  \pgfsetcornersarced{\pgfpoint{0mm}{0mm}}
+  \pgfpathclose
+}
+
 
 
 % the position from which data is written
@@ -1032,7 +1043,7 @@
   
 \begin{document}
   \center
-  % not used lvm - 1
+  % not used lvm - 1 - 1
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1070,7 +1081,7 @@
   \end{tikzpicture}
 
   \newpage
-  % not used lvm - 2
+  % not used lvm - 2 - 2
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1117,7 +1128,7 @@
     \end{scope}
   \end{tikzpicture}
   \newpage
-  % not used lvm - 3
+  % not used lvm - 3 - 3
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1170,7 +1181,7 @@
     \end{scope}
   \end{tikzpicture}
   \newpage
-  % not used lvm - 4
+  % not used lvm - 4 - 4
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1217,7 +1228,7 @@
       \grdboundbox
     \end{scope}
   \end{tikzpicture}
-  \newpage  % not used lvm - 5
+  \newpage  % not used lvm - 5 - 5
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1227,11 +1238,67 @@
     \end{scope}
     % cb
     \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
       {
         \color{LimeGreen}
-        \grdcbbro
+        \grdcb
         \pgfusepath{fill}
       }
+      \grdcb
+      \pgfusepath{stroke}
+    \end{scope}
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaeb {Linux};
+    \node at \grdndda {fs(ext4)};
+
+    \node at \grdndca {nvme0};
+    \node at \grdndcb {nvme1};
+
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage  % not used lvm - 6 - 6
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % ca
+    \begin{scope}
+      \grdcabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % cb
+    \begin{scope}
+    
       \grdcbbro
       \pgfusepath{stroke}
     \end{scope}
@@ -1249,7 +1316,11 @@
     \end{scope}
     % db
     \begin{scope}
-
+      {
+        \color{LimeGreen}
+        \grddbtr
+        \pgfusepath{fill}
+      }
       \grddbtr
       \pgfusepath{stroke}
     \end{scope}
@@ -1290,7 +1361,7 @@
       \grdboundbox
     \end{scope}
   \end{tikzpicture}
-  \newpage  % not used lvm - 6
+  \newpage  % not used lvm - 7 - 7
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1346,7 +1417,7 @@
       \grdboundbox
     \end{scope}
   \end{tikzpicture}
-  \newpage  % not used lvm - 7
+  \newpage  % not used lvm - 8 - 8
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1438,7 +1509,877 @@
     \end{scope}
   \end{tikzpicture}
   \newpage
-   % not used lvm - x
+
+  % lvm - 1 - 9
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+    
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % eab
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs(ext4)};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+
+    \node at \grdndaa {nvme0};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 2 - 10 
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+    
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % eab
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtabnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtabnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+
+    \node at \grdndaa {nvme0};
+    \node at \newdtand {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+
+  \newpage
+  % lvm - 3 - 11
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+    
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % eab
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtabnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtabnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % arrow to insert new data into ssd
+    \begin{scope}
+      \draw [->] 
+        ($1/2*(\newdtal, \newdtab) + 1/2*(\newdtal, \newdtat)$)
+        to [line to,bend right=30]
+        ($1/2*(\grddar - 2mm, \grddab) + 1/2*(\grddar - 2mm, \grddat)$);
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+
+    \node at \grdndaa {nvme0};
+    \node at \newdtand {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 4 - 12
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+    
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % eab
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \pgfsetfillopacity{0.5}
+      \newdtbbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtbbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+
+    \node at \grdndaa {nvme0};
+    \node at \newdtbnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 5 - 13
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      {
+        \color{LimeGreen}
+        \grdab
+        \pgfusepath{fill}
+      }
+      \grdab
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+ 
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs(ext4)};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 6 - 14
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      {
+        \color{LimeGreen}
+        \grdbbtr
+        \pgfusepath{fill}
+      }
+      \grdbbtr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ca
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcar + \grdosr, \grdcab) -- (\grdcar + \grdosr, \grdcat);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+ 
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs(ext4)};
+    \node at \grdndca {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 7 - 15
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+ 
+    % ca-cb
+    \begin{scope}
+      {
+        \color{Emerald}
+        \fill (\grdcal + \grdosl, \grdcat)
+          -- (\grdcal + \grdosl, \grdcab)
+          -- (\grdcbr + \grdosr, \grdcbb)
+          [rounded corners=1mm] -- (\grdcbr + \grdosr, \grdcbt)
+          [sharp corners] -- cycle;
+      } 
+      \draw (\grdcal + \grdosl, \grdcat)
+        -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb)
+        [rounded corners=1mm] -- (\grdcbr + \grdosr, \grdcbt)
+        [sharp corners] -- cycle;
+    \end{scope}
+
+
+    % da
+    \begin{scope}
+      \draw (\grddar + \grdosr, \grddab)
+        [rounded corners=1mm] -- (\grddar + \grdosr, \grddat + \grdost)
+        -- (\grddal + \grdosl, \grddat + \grdost)
+        -- (\grddal + \grdosl, \grddab);
+    \end{scope}
+
+    % ea
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdea
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndea {Linux};
+    \node at \grdndda {fs(ext4)};
+    \node at \grdndcacb {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm 8 - 16
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+
+    % ca-cb
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % da-db extend region
+    \begin{scope}
+      \grddadbfillb
+      \color{Emerald}
+      \pgfusepath{fill}
+    \end{scope}
+    % da-db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddadbtr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaeb {Linux};
+    \node at \grdnddadb {fs(ext4)};
+    \node at \grdndcacb {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm 9 - 17
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+
+    % ca-cb
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+ 
+    % da-db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddadbtr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+     % arrow to insert new data into ssd
+    \begin{scope}
+      \draw [->] 
+        ($1/2*(\newdtel, \newdteb) + 1/2*(\newdtel, \newdtet)$)
+        to [line to,bend right=30]
+        ($1/2*(\grddar - 3.8mm, \grddab) + 1/2*(\grddar - 3.8mm, \grddbt)$);
+    \end{scope}
+    % label
+    \node at \grdndeaeb {Linux};
+    \node at \grdnddadb {fs};
+    \node at \grdndcacb {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % lvm - 10 - 18
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+
+    % ca-cb
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
+    \end{scope}
+
+    % da used regein
+    \begin{scope}
+      \grddafilla
+      \color{YellowOrange}
+      \pgfusepath{fill}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtbbnd
+      \color{ProcessBlue}
+      \pgfusepath{fill}
+    \end{scope}
+    % da-db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddadbtr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % label
+    \node at \grdndeaeb {Linux};
+    % \node at \grdnddadb {fs};
+    \node at \grdndcacb {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtbnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+
+  \newpage
+  % lvm x - x
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % aa
+    \begin{scope}
+      \grdaabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ab
+    \begin{scope}
+      \grdabbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % ba
+    \begin{scope}
+      \draw (\grdbal + \grdosl, \grdbat) -- (\grdbal + \grdosl, \grdbab)
+        -- (\grdbar + \grdosr, \grdbab) -- (\grdbar + \grdosr, \grdbat);
+    \end{scope}
+
+    % bb
+    \begin{scope}
+      \draw (\grdbbl + \grdosl, \grdbbt) -- (\grdbbl + \grdosl, \grdbbb)
+        -- (\grdbbr + \grdosr, \grdbbb) -- (\grdbbr + \grdosr, \grdbbt);
+    \end{scope}
+
+
+    % ca-cb
+    \begin{scope}
+      \draw (\grdcal + \grdosl, \grdcat) -- (\grdcal + \grdosl, \grdcab)
+        -- (\grdcbr + \grdosr, \grdcbb) -- (\grdcbr + \grdosr, \grdcbt);
+    \end{scope}
+
+    % da-db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddadbtr
+      \pgfusepath{stroke}
+    \end{scope}
+
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+    % new data
+    \begin{scope}
+      \newdtcbnd
+      {
+        \color{ProcessBlue}
+        \pgfusepath{fill}
+      }
+      \newdtcbnd
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaeb {Linux};
+    \node at \grdnddadb {ext4};
+    \node at \grdndcacb {lvg-1};
+
+    \node at \grdndba {pv-1};
+    \node at \grdndbb {pv-2};
+
+    \node at \grdndaa {nvme0};
+    \node at \grdndab {nvme1};
+    \node at \newdtcnd {data};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+
+  \newpage  % not used lvm - x
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    % ca
+    \begin{scope}
+      \grdcabro
+      \pgfusepath{stroke}
+    \end{scope}
+    % cb
+    \begin{scope}
+      \grdcbbro
+      \pgfusepath{stroke}
+    \end{scope}
+    % da
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddatr
+      \pgfusepath{stroke}
+    \end{scope}
+    % db
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grddbtr
+      \pgfusepath{stroke}
+    \end{scope}
+    % ea-eb
+    \begin{scope}
+      \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+      \grdeaeb
+      \pgfusepath{stroke}
+    \end{scope}
+    % label
+    \node at \grdndeaeb {Linux};
+    \node at \grdndda {ext4};
+    \node at \grdnddb {ext4};
+
+    \node at \grdndca {nvme0};
+    \node at \grdndcb {nvme1};
+
+    \begin{scope}[on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+
+
+  \newpage  % not used lvm - x
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % ca
@@ -1483,7 +2424,7 @@
   \end{tikzpicture}
 
   \newpage
-  % lvm case - 3
+  % lvm image
   \begin{tikzpicture}[font=\tiny]
     \dclgrdcoords
     % aa
