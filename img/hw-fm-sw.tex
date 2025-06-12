@@ -23,7 +23,7 @@
 \setlength{\parindent}{0cm}
 
 % grid cell width
-\newcommand{\grdclw}{1cm}
+\newcommand{\grdclw}{2cm}
 % grid cell half width
 \newcommand{\grdclwh}{0.5cm}
 % grid cell quater width 
@@ -70,10 +70,10 @@
 \newcommand{\grdclyd}{\grdclyc + \grdclh}
 
 % grid left offset
-\newcommand{\grdosl}{0.03cm}
+\newcommand{\grdosl}{0.3cm}
 
 % grid right offset
-\newcommand{\grdosr}{-0.03cm}
+\newcommand{\grdosr}{-0.3cm}
 
 % grid bottom offset
 \newcommand{\grdosb}{0.03cm}
@@ -88,26 +88,25 @@
   \begin{tikzpicture}[font=\tiny]
 
     \path [save path=\aacell]
-      (\grdclxa + \grdosl, \grdclyb + \grdost)
-      -- (\grdclxa + \grdosl, \grdclya + \grdosb) 
-      -- (\grdclxb + \grdosr, \grdclya + \grdosb)
-      -- (\grdclxb + \grdosr, \grdclyb + \grdost)
-      -- ++(- \grdclwq - \grdosr, \grdclhq + \grdost)  
+      (\grdclxa + \grdosl, \grdclyb + \grdost) [rounded corners=0.05cm]
+      -- (\grdclxa + \grdosl, \grdclya + \grdosb)
+      -- (\grdclxb + \grdosr, \grdclya + \grdosb) [sharp corners]
+      -- (\grdclxb + \grdosr, \grdclyb + \grdost) 
+      -- (\grdclxa + \grdclwq + \grdosl, \grdclyb + \grdost + \grdclhq)  
       -- cycle;
 
     \path [save path=\bacell]
-      let \n1={3*\grdclwq} in
       (\grdclxa + \grdosl, \grdclyc + \grdost)
       -- (\grdclxa + \grdosl, \grdclyb + \grdosb)
-      -- ++(\n1 - \grdosl, \grdclhq + \grdost)  
+      -- (\grdclxa + \grdosl + \grdclwq, \grdclyb + \grdclhq + \grdost)  
       -- (\grdclxb + \grdosr, \grdclyb + \grdosb)
       -- (\grdclxb + \grdosr, \grdclyc + \grdost)
       -- cycle;
 
     \path [save path=\abcell]
-      (\grdclxb + \grdosl, \grdclyb + \grdost)
+      (\grdclxb + \grdosl, \grdclyb + \grdost) [rounded corners=0.05cm]
       -- (\grdclxb + \grdosl, \grdclya + \grdosb) 
-      -- (\grdclxc + \grdosr, \grdclya + \grdosb)
+      -- (\grdclxc + \grdosr, \grdclya + \grdosb) [sharp corners]
       -- (\grdclxc + \grdosr, \grdclyb + \grdost)
       -- (\grdclxc + \grdosr - \grdclwq, \grdclyb + \grdost + \grdclhq)  
       -- (\grdclxb + \grdosl + \grdclwq, \grdclyb + \grdost - \grdclhq)  
@@ -122,10 +121,31 @@
       -- (\grdclxc + \grdosr, \grdclyc + \grdost)
       -- cycle;
 
+    \path [save path=\accell]
+      (\grdclxc + \grdosl, \grdclyb + \grdost)
+      -- (\grdclxc + \grdosl, \grdclya + \grdosb) 
+      -- (\grdclxd + \grdosr, \grdclya + \grdosb)
+      -- (\grdclxd + \grdosr, \grdclyb + \grdost)
+      -- (\grdclxd + \grdosr - \grdclwq, \grdclyb + \grdost + \grdclhq)  
+      -- (\grdclxc + \grdosl + \grdclwq, \grdclyb + \grdost - \grdclhq)  
+      -- cycle;
+
+    \path [save path=\bccell]
+      (\grdclxc + \grdosl, \grdclyc + \grdost)
+      -- (\grdclxc + \grdosl, \grdclyb + \grdosb)
+      -- (\grdclxc + \grdosl + \grdclwq, \grdclyb + \grdosb - \grdclhq)  
+      -- (\grdclxd + \grdosr - \grdclwq, \grdclyb + \grdosb + \grdclhq)  
+      -- (\grdclxd + \grdosr, \grdclyb + \grdosb)
+      -- (\grdclxd + \grdosr, \grdclyc + \grdost)
+      -- cycle;
+
+
     \draw [use path=\aacell];
     \draw [use path=\bacell];
     \draw [use path=\abcell];
     \draw [use path=\bbcell];
+    \draw [use path=\accell];
+    \draw [use path=\bccell];
 
 
   \end{tikzpicture}
