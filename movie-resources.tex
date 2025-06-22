@@ -1,0 +1,98 @@
+\documentclass{article}
+\usepackage{geometry}
+\pagestyle{empty}
+\usepackage{luatexja}
+\usepackage{tikz}
+\usepackage{graphicx}
+\input {custom-color-def.tex}
+
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\docpaperwidth}{160mm}
+\newcommand{\docpaperheight}{90mm}
+
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0cm,
+  ignoreall=true
+}
+\setlength{\parindent}{0cm}
+
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+
+% declare coordinates 
+\newcommand{\coorddecl}{
+ \coordinate (lbpos) at (0cm, 0cm);
+ \coordinate (ltpos) at (0cm, \docpaperheight);
+ \coordinate (rbpos) at (\docpaperwidth, 0cm);
+ \coordinate (rtpos) at (\docpaperwidth, \docpaperheight);
+}
+
+% picgure bounding box
+\newcommand{\bndbox}{
+ \path (lbpos) rectangle (rtpos);
+}
+
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
+
+
+\begin{document}
+ \center
+ \begin{tikzpicture}
+  \coorddecl
+
+  \newcommand{\insarrow}{
+   [xshift=38mm,yshift=40mm,rotate=90] (0mm,0mm) -- (5mm, 5mm)
+    |- (18mm, 2.5mm) -- (18mm, -2.5mm)
+    -| (5mm, -5mm) -- cycle}
+
+  \node [anchor=center] at ($0.8*(ltpos) + 0.3*(rbpos)$){
+   \includegraphics[height=2.5cm,page=1]{img/archlinux-logo-dark-scalable.pdf}
+  };
+  \node [anchor=center] at ($0.8*(ltpos) + 0.65*(rbpos)$){
+   {\LARGE{インストール}}
+  };
+ 
+  \begin{scope}
+   \fill [color=CampbellBrightGreen] \insarrow;
+  \end{scope}
+  \draw [
+    xshift=35.4mm,
+    yshift=20mm,
+    line width=0.25mm,
+    color=CampbellBrightGreen]
+   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture}
+ \newpage
+ \begin{tikzpicture}
+  \coorddecl
+
+  \draw [
+    xshift=35.4mm,
+    yshift=20mm,
+    line width=0.25mm,
+    color=CampbellBrightGreen]
+   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.3*(ltpos) + 0.4*(rbpos)$) {
+     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture}
+ 
+\end{document}
+
+% vi: se ts=1 sw=2 et:

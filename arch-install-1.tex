@@ -134,7 +134,40 @@
   \end{frame}
   \begin{frame}
     \frametitle{ハードウェアの利用とソフトウェア}
-      \note{ハードウェアがそれぞれ、異なる形式で機能を提供すると、利用する側もハードウェアの種類だけ必要になってしまいます。統一した形式で、機能を提供することで、複雑な処理を行う側が、1種類で済むようになります。この統一した仕様としてUEFIがあります。}
+    \alt<2>{UEFIがある}{UEFIがない}
+    \includegraphics<1>[height=4cm, page=1]{img/hw-fm-sw.pdf}%
+    \includegraphics<2>[height=4cm, page=2]{img/hw-fm-sw.pdf}%
+    \note{ハードウェアがそれぞれ、異なる形式で機能を提供すると、利用する側もハードウェアの種類だけ必要になってしまいます。統一した形式で、機能を提供することで、複雑な処理を行う側が、1種類で済むようになります。この統一した仕様としてUEFIがあります。}
   \end{frame}
+
+  \begin{frame}
+    \frametitle{iPXEのダウンロード}
+    以下のURLのページからUEFI用のiPXEをダウンロード\\
+    \url{https://archlinux.org/releng/netboot/}\\
+    \begin{center}
+      \includegraphics<1>[bb=0 2cm 6cm 8.61cm,clip=true, height=4cm, page=1]
+        {img/ipxe-http-page.pdf}%
+      \includegraphics<2>[bb=0 2cm 6cm 8.61cm,clip=true, height=4cm, page=2]
+        {img/ipxe-http-page.pdf}%
+      \includegraphics<3>[bb=0 2cm 4cm 5cm,clip=true, height=4cm, page=1]
+        {img/ipxe-http-page.pdf}%
+      \includegraphics<4>[bb=0 2cm 4cm 5cm,clip=true, height=4cm, page=3]
+        {img/ipxe-http-page.pdf}%
+    \end{center}
+    \uncover<4->{\url{https://archlinux.org/static/netboot/ipxe-arch.efi}}
+  \end{frame}
+  \begin{frame}
+    \frametitle{Netboot用USB作成}
+    \begin{enumerate}
+      \item<1-> USBのドライブにEFI{\textbackslash}BOOTディレクトリを作成する
+      \item<2-> ipxe-arch.efiをBOOTx64.efiに変名する
+      \item<3-> BOOTx64.efiをEFI{\textbackslash}BOOTに保存する
+    \end{enumerate} 
+    \note{
+      UEFIの仕様ではUSBフラッシュがFAT8、FAT16、FAT32のファイルシステムで、EFI{\textbackslash}BOOT.EFIがUEFIアプリケーション(BOOT loader)として認識されます。
+      動画では、ipxe-arch.efiはipxe-archの後ろに16進数が続いていますが、最近のarch用のipxeのダウンロードでは、16進数がつかないようです。
+    }
+  \end{frame}
+
 \end{document}
 % vi: se ts=2 sw=2 et:

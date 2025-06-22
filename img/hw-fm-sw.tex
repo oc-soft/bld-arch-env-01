@@ -5,14 +5,16 @@
 \pagestyle{empty}
 \usepackage{luatexja}
 
+\input {custom-color-def.tex}
+
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
-\newcommand{\docpaperwidth}{12.8cm}
-\newcommand{\docpaperheight}{9.6cm}
+\newcommand{\docpaperwidth}{6.46cm}
+\newcommand{\docpaperheight}{2.48cm}
 
 \geometry{
   papersize={\docpaperwidth,\docpaperheight},
-  margin=0.5cm,
+  margin=0cm,
   ignoreall=true
 }
 
@@ -24,15 +26,9 @@
 
 % grid cell width
 \newcommand{\grdclw}{2cm}
-% grid cell half width
-\newcommand{\grdclwh}{0.5cm}
-% grid cell quater width 
-\newcommand{\grdclwq}{0.25cm}
 
 % grid cell height
 \newcommand{\grdclh}{0.5cm}
-% grid cell half height
-\newcommand{\grdclhh}{0.25cm}
 
 % grid cell quater height
 \newcommand{\grdclhq}{0.125cm}
@@ -42,6 +38,7 @@
 
 %baseline offset from cenete for vertical text
 \newcommand{\bsloffsetv}{0.1cm} 
+
 
 % grid column x position a
 \newcommand{\grdclxa}{0.2cm}
@@ -59,7 +56,6 @@
 \newcommand{\grdclxg}{\grdclxf + \grdclw}
 % grid column x position h
 \newcommand{\grdclxh}{\grdclxg + \grdclw}
-
 % grid column y position aa
 \newcommand{\grdclya}{0.2cm}
 % grid column y position ba
@@ -81,74 +77,333 @@
 % grid top offset
 \newcommand{\grdost}{-0.03cm}
 
+% col a width
+\newcommand{\colaw}{(\grdclxb) + \grdosr - ((\grdclxa) + \grdosl)}
+
+% col b width
+\newcommand{\colbw}{(\grdclxc) + \grdosr - ((\grdclxb) + \grdosl)}
+
+% col c width
+\newcommand{\colcw}{(\grdclxd) + \grdosr - ((\grdclxc) + \grdosl)}
+
+% col d width
+\newcommand{\coldw}{(\grdclxe) + \grdosr - ((\grdclxd) + \grdosl)}
+
+% row a height
+\newcommand{\rowah}{(\grdclyb) + \grdost - ((\grdclya) + \grdosb)}
+
+% row b height
+\newcommand{\rowbh}{(\grdclyc) + \grdost - ((\grdclyb) + \grdosb)}
+
+% row c height
+\newcommand{\rowch}{(\grdclyd) + \grdost - ((\grdclyc) + \grdosb)}
+
+% corner radius a
+\newcommand{\cornerra}{0.05cm}
+
+% left outdent
+\newcommand{\outdentl}{-0.5cm}
+
+% right outdent
+\newcommand{\outdentr}{0.5cm}
+
+% top outdent
+\newcommand{\outdentt}{0.5cm}
+
+% bottom outdent
+\newcommand{\outdentb}{-0.5cm}
+
+% bounding box
+\newcommand{\bndbox}{
+  \path
+    (\grdclxa + \grdosl + \outdentl, \grdclya + \grdosb + \outdentb) --
+    (\grdclxd + \grdosr + \outdentr, \grdclya + \grdosb + \outdentb) --
+    (\grdclxd + \grdosr + \outdentr, \grdclyd + \grdost + \outdentt) --
+    (\grdclxa + \grdosl + \outdentl, \grdclyd + \grdost + \outdentt) --
+    cycle; 
+}
+
+% control spacing between jchar and non jchar
+\ltjsetparameter{autoxspacing=false}
+
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
 
 \begin{document}
   \center
-  % no hardware - software
+  % hardware - software
   \begin{tikzpicture}[font=\tiny]
-
     \path [save path=\aacell]
-      (\grdclxa + \grdosl, \grdclyb + \grdost) [rounded corners=0.05cm]
+      let 
+        \n1={(\colaw) / 3}
+      in
+      (\grdclxa + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
       -- (\grdclxa + \grdosl, \grdclya + \grdosb)
       -- (\grdclxb + \grdosr, \grdclya + \grdosb) [sharp corners]
       -- (\grdclxb + \grdosr, \grdclyb + \grdost) 
-      -- (\grdclxa + \grdclwq + \grdosl, \grdclyb + \grdost + \grdclhq)  
+      -- (\grdclxa + \grdosl + \n1, \grdclyb + \grdost + \grdclhq)  
       -- cycle;
 
-    \path [save path=\bacell]
-      (\grdclxa + \grdosl, \grdclyc + \grdost)
+    \path [save path=\cbacell]
+      let
+        \n1={(\colaw) / 3}
+      in
+      (\grdclxa + \grdosl, \grdclyd + \grdost)
       -- (\grdclxa + \grdosl, \grdclyb + \grdosb)
-      -- (\grdclxa + \grdosl + \grdclwq, \grdclyb + \grdclhq + \grdost)  
-      -- (\grdclxb + \grdosr, \grdclyb + \grdosb)
-      -- (\grdclxb + \grdosr, \grdclyc + \grdost)
+      -- (\grdclxa + \grdosl + \n1, \grdclyb + \grdosb + \grdclhq)  
+      -- (\grdclxb + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
+      -- (\grdclxb + \grdosr, \grdclyd + \grdost)
       -- cycle;
 
     \path [save path=\abcell]
-      (\grdclxb + \grdosl, \grdclyb + \grdost) [rounded corners=0.05cm]
+      let
+        \n1={(\colbw) / 4},
+        \n2={((\colbw) * 3) / 4}
+      in
+      (\grdclxb + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
       -- (\grdclxb + \grdosl, \grdclya + \grdosb) 
       -- (\grdclxc + \grdosr, \grdclya + \grdosb) [sharp corners]
       -- (\grdclxc + \grdosr, \grdclyb + \grdost)
-      -- (\grdclxc + \grdosr - \grdclwq, \grdclyb + \grdost + \grdclhq)  
-      -- (\grdclxb + \grdosl + \grdclwq, \grdclyb + \grdost - \grdclhq)  
+      -- (\grdclxb + \grdosl + \n2 , \grdclyb + \grdost + \grdclhq)  
+      -- (\grdclxb + \grdosl + \n1, \grdclyb + \grdost - \grdclhq)  
       -- cycle;
 
-    \path [save path=\bbcell]
-      (\grdclxb + \grdosl, \grdclyc + \grdost)
+    \path [save path=\cbbcell]
+      let
+        \n1={(\colbw) / 4},
+        \n2={((\colbw) * 3) / 4}
+      in
+      (\grdclxb + \grdosl, \grdclyd + \grdost)
       -- (\grdclxb + \grdosl, \grdclyb + \grdosb)
-      -- (\grdclxb + \grdosl + \grdclwq, \grdclyb + \grdosb - \grdclhq)  
-      -- (\grdclxc + \grdosr - \grdclwq, \grdclyb + \grdosb + \grdclhq)  
-      -- (\grdclxc + \grdosr, \grdclyb + \grdosb)
-      -- (\grdclxc + \grdosr, \grdclyc + \grdost)
+      -- (\grdclxb + \grdosl + \n1, \grdclyb + \grdosb - \grdclhq)  
+      -- (\grdclxb + \grdosl + \n2, \grdclyb + \grdosb + \grdclhq)
+      -- (\grdclxc + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
+      -- (\grdclxc + \grdosr, \grdclyd + \grdost)
       -- cycle;
 
     \path [save path=\accell]
-      (\grdclxc + \grdosl, \grdclyb + \grdost)
+      let
+        \n1={(\colcw) / 3},
+        \n2={((\colcw) * 2) / 3},
+        \n3={(abs(\grdosb) + abs(\grdost)) / 2}
+      in
+      (\grdclxc + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
       -- (\grdclxc + \grdosl, \grdclya + \grdosb) 
-      -- (\grdclxd + \grdosr, \grdclya + \grdosb)
+      -- (\grdclxd + \grdosr, \grdclya + \grdosb) [sharp corners]
       -- (\grdclxd + \grdosr, \grdclyb + \grdost)
-      -- (\grdclxd + \grdosr - \grdclwq, \grdclyb + \grdost + \grdclhq)  
-      -- (\grdclxc + \grdosl + \grdclwq, \grdclyb + \grdost - \grdclhq)  
+      -| (\grdclxc + \grdosl + \n2 - \n3, \grdclyb + \grdost + \grdclhq)  
+      -| (\grdclxc + \grdosl + \n1 + \n3, \grdclyb + \grdost)  
+      -- cycle;
+
+    \path [save path=\cbccell]
+      let
+        \n1={(\colcw) / 3},
+        \n2={((\colcw) * 2) / 3},
+        \n3={(abs(\grdosb) + abs(\grdost)) / 2}
+      in
+      (\grdclxc + \grdosl, \grdclyd + \grdost)
+      -- (\grdclxc + \grdosl, \grdclyb + \grdosb)
+      -| (\grdclxc + \grdosl + \n1 - \n3, \grdclyb + \grdosb + \grdclhq)  
+      -| (\grdclxc + \grdosl + \n2 + \n3, \grdclyb + \grdosb)  
+      -- (\grdclxd + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
+      -- (\grdclxd + \grdosr, \grdclyd + \grdost)
+      -- cycle;
+    
+    \draw [use path=\aacell];
+    \draw [use path=\cbacell];
+    \draw [use path=\abcell];
+    \draw [use path=\cbbcell];
+    \draw [use path=\accell];
+    \draw [use path=\cbccell];
+
+    \path
+    let
+      \n1={\grdclxa + \grdosl + (\colaw) / 2},
+      \n2={\grdclya + \grdosb +  (\rowah) / 2},
+      \n3={\grdclxb + \grdosl + (\colaw) / 2},
+      \n4={\grdclya + \grdosb +  (\rowah) / 2},
+      \n5={\grdclxc + \grdosl + (\colaw) / 2},
+      \n6={\grdclya + \grdosb +  (\rowah) / 2}
+    in
+    (\n1, \n2) node {A社製品}
+    (\n3, \n4) node {B社製品}
+    (\n5, \n6) node {C社製品};
+
+    \path
+    let
+      \n1={\grdclxa + \grdosl + (\colaw) / 2},
+      \n2={(\grdclyb + \grdosb + \grdclyd + \grdost) / 2},
+      \n3={\grdclxb + \grdosl + (\colaw) / 2},
+      \n4={(\grdclyb + \grdosb + \grdclyd + \grdost) / 2},
+      \n5={\grdclxc + \grdosl + (\colaw) / 2},
+      \n6={\grdclyb + \grdosb +  \grdclyd + \grdost) / 2}
+    in
+    (\n1, \n2) node {ソフトA社用}
+    (\n3, \n4) node {ソフトB社用}
+    (\n5, \n6) node {ソフトC社用};
+    \begin{scope}[on background layer]
+      \bndbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % hardware - uefi - software
+  \begin{tikzpicture}[font=\tiny]
+    \path [save path=\aacell]
+      let 
+        \n1={(\colaw) / 3}
+      in
+      (\grdclxa + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
+      --  (\grdclxa + \grdosl, \grdclya + \grdosb)
+      -- (\grdclxb + \grdosr, \grdclya + \grdosb) [sharp corners]
+      -- (\grdclxb + \grdosr, \grdclyb + \grdost) 
+      -- (\grdclxa + \grdosl + \n1, \grdclyb + \grdost + \grdclhq)  
+      -- cycle;
+
+    \path [save path=\bacell]
+      let
+        \n1={(\colaw) / 3}
+      in
+      (\grdclxa + \grdosl, \grdclyc + \grdost)
+      -- (\grdclxa + \grdosl, \grdclyb + \grdosb)
+      -- (\grdclxa + \grdosl + \n1, \grdclyb + \grdosb + \grdclhq)  
+      -- (\grdclxb + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
+      -- (\grdclxb + \grdosr, \grdclyc + \grdost)
+      -- cycle;
+
+    \path [save path=\cacell,rounded corners=\cornerra]
+      (\grdclxa + \grdosl, \grdclyd + \grdost)
+      -- (\grdclxa + \grdosl, \grdclyc + \grdosb)
+      -- (\grdclxb + \grdosr, \grdclyc + \grdosb) 
+      -- (\grdclxb + \grdosr, \grdclyd + \grdost)
+      -- cycle;
+
+
+    \path [save path=\abcell]
+      let
+        \n1={(\colbw) / 4},
+        \n2={((\colbw) * 3) / 4}
+      in
+      (\grdclxb + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
+      -- (\grdclxb + \grdosl, \grdclya + \grdosb) 
+      -- (\grdclxc + \grdosr, \grdclya + \grdosb) [sharp corners]
+      -- (\grdclxc + \grdosr, \grdclyb + \grdost)
+      -- (\grdclxb + \grdosl + \n2 , \grdclyb + \grdost + \grdclhq)  
+      -- (\grdclxb + \grdosl + \n1, \grdclyb + \grdost - \grdclhq)  
+      -- cycle;
+
+    \path [save path=\bbcell]
+      let
+        \n1={(\colbw) / 4},
+        \n2={((\colbw) * 3) / 4}
+      in
+      (\grdclxb + \grdosl, \grdclyc + \grdost)
+      -- (\grdclxb + \grdosl, \grdclyb + \grdosb)
+      -- (\grdclxb + \grdosl + \n1, \grdclyb + \grdosb - \grdclhq)  
+      -- (\grdclxb + \grdosl + \n2, \grdclyb + \grdosb + \grdclhq)
+      -- (\grdclxc + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
+      -- (\grdclxc + \grdosr, \grdclyc + \grdost)
+      -- cycle;
+
+    \path [save path=\cbcell,rounded corners=\cornerra]
+      (\grdclxb + \grdosl, \grdclyd + \grdost)
+      -- (\grdclxb + \grdosl, \grdclyc + \grdosb)
+      -- (\grdclxc + \grdosr, \grdclyc + \grdosb) 
+      -- (\grdclxc + \grdosr, \grdclyd + \grdost)
+      -- cycle;
+
+
+    \path [save path=\accell]
+      let
+        \n1={(\colcw) / 3},
+        \n2={((\colcw) * 2) / 3},
+        \n3={(abs(\grdosb) + abs(\grdost)) / 2}
+      in
+      (\grdclxc + \grdosl, \grdclyb + \grdost) [rounded corners=\cornerra]
+      -- (\grdclxc + \grdosl, \grdclya + \grdosb) 
+      -- (\grdclxd + \grdosr, \grdclya + \grdosb) [sharp corners]
+      -- (\grdclxd + \grdosr, \grdclyb + \grdost)
+      -| (\grdclxc + \grdosl + \n2 - \n3, \grdclyb + \grdost + \grdclhq)  
+      -| (\grdclxc + \grdosl + \n1 + \n3, \grdclyb + \grdost)  
       -- cycle;
 
     \path [save path=\bccell]
+      let
+        \n1={(\colcw) / 3},
+        \n2={((\colcw) * 2) / 3},
+        \n3={(abs(\grdosb) + abs(\grdost)) / 2}
+      in
       (\grdclxc + \grdosl, \grdclyc + \grdost)
       -- (\grdclxc + \grdosl, \grdclyb + \grdosb)
-      -- (\grdclxc + \grdosl + \grdclwq, \grdclyb + \grdosb - \grdclhq)  
-      -- (\grdclxd + \grdosr - \grdclwq, \grdclyb + \grdosb + \grdclhq)  
-      -- (\grdclxd + \grdosr, \grdclyb + \grdosb)
+      -| (\grdclxc + \grdosl + \n1 - \n3, \grdclyb + \grdosb + \grdclhq)  
+      -| (\grdclxc + \grdosl + \n2 + \n3, \grdclyb + \grdosb)  
+      -- (\grdclxd + \grdosr, \grdclyb + \grdosb) [rounded corners=\cornerra]
       -- (\grdclxd + \grdosr, \grdclyc + \grdost)
       -- cycle;
 
-
+    \path [save path=\cccell,rounded corners=\cornerra]
+      (\grdclxc + \grdosl, \grdclyd + \grdost)
+      -- (\grdclxc + \grdosl, \grdclyc + \grdosb)
+      -- (\grdclxd + \grdosr, \grdclyc + \grdosb) 
+      -- (\grdclxd + \grdosr, \grdclyd + \grdost)
+      -- cycle;
+    
     \draw [use path=\aacell];
     \draw [use path=\bacell];
+    \draw [use path=\cacell];
     \draw [use path=\abcell];
     \draw [use path=\bbcell];
+    \draw [use path=\cbcell];
     \draw [use path=\accell];
     \draw [use path=\bccell];
+    \draw [use path=\cccell];
 
+    \path
+    let
+      \n1={\grdclxa + \grdosl + (\colaw) / 2},
+      \n2={\grdclya + \grdosb +  (\rowah) / 2},
+      \n3={\grdclxb + \grdosl + (\colaw) / 2},
+      \n4={\grdclya + \grdosb +  (\rowah) / 2},
+      \n5={\grdclxc + \grdosl + (\colaw) / 2},
+      \n6={\grdclya + \grdosb +  (\rowah) / 2}
+    in
+    (\n1, \n2) node {A社製品}
+    (\n3, \n4) node {B社製品}
+    (\n5, \n6) node {C社製品};
 
+    \path
+    let
+      \n1={\grdclxa + \grdosl + (\colbw) / 2},
+      \n2={\grdclyb + \grdosb +  (\rowbh) / 2},
+      \n3={\grdclxb + \grdosl + (\colbw) / 2},
+      \n4={\grdclyb + \grdosb +  (\rowbh) / 2},
+      \n5={\grdclxc + \grdosl + (\colbw) / 2},
+      \n6={\grdclyb + \grdosb +  (\rowbh) / 2}
+    in
+    (\n1, \n2) node {A社UEFI}
+    (\n3, \n4) node {B社UEFI}
+    (\n5, \n6) node {C社UEFI};
+
+    \path
+    let
+      \n1={\grdclxa + \grdosl + (\colcw) / 2},
+      \n2={\grdclyc + \grdosb +  (\rowch) / 2},
+      \n3={\grdclxb + \grdosl + (\colcw) / 2},
+      \n4={\grdclyc + \grdosb +  (\rowch) / 2},
+      \n5={\grdclxc + \grdosl + (\colcw) / 2},
+      \n6={\grdclyc + \grdosb +  (\rowch) / 2}
+    in
+    (\n1, \n2) node {ソフト}
+    (\n3, \n4) node {ソフト}
+    (\n5, \n6) node {ソフト};
+
+    \begin{scope}[on background layer]
+      \bndbox
+    \end{scope}
+ 
   \end{tikzpicture}
+
+
 \end{document}
 
 % vi: se ts=2 sw=2 et:

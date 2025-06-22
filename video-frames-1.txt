@@ -1,0 +1,152 @@
+17405-17596: reconized iPXE
+17597-19655: select-ftp-downloaded-linux
+19656-22227: boot-installer-linux-download-fs
+22228-22546: boot-installer-linux
+24032-25234: fdisk-nmve0-part-1 boot file system part -- wrong partition change it !
+26395-27042: fdisk-nmve0-part list free space and help partition
+29211-29274: fdisk-nmve0-help-1 print help menu
+29275-30664: fdisk-nmve0-part-2 create root file system part
+
+loadkeys
+fdisk create UEFI partion
+fdisk create Linux partion
+
+
+216573: fdisk create partition 0 ? 
+
+
+0:13:30 start fdisk
+0:13:47 check current partitions and get no partitions.
+0:13:55 create new GTP partition table.
+0:14:40 check free patition space.
+0:14:46 list partition types.
+0:16:27 add new patition 1G linux filesystem.
+0:17:08 quit fdisk without saving (I remembered to set keyboard to jp106)
+0:17:08 [30801] localectl list-keymaps 
+0:17:21 loadkeys jp106
+0:17:42 timedatectl (Check current time setting. but I did not change it)
+0:17:50 [32027] start fdisk again
+0:18:13 add new partition 1G
+0:19:00 check partitiontype, I got Linux file system partition.
+0:19:32 change partion type to uefi.
+0:19:58 [35506] add new partition whole rest of storage.
+0:21:58 list created partitions.
+0:22:27 change partion 2 type from Linux to lvm
+0:22:34 [40472] verify patitions for nvme0
+0:23:12 write patition tables to nvme0
+0:23:33 [41942] ls /dev -- check nvme0n1p1 nvme0n1p2
+0:23:52 [42496] make fat32 on nvme0n1p1
+0:24:25 [43764] setup lvm on nvme0n1p2
+0:24:42 pvcreate nvme0n1p2
+0:24:31 lvmdiskscan
+0:25:37 pvcreate vol-1 /dev/nvme0n1p2
+0:27:17 [47729-49998] lvcreate  -l 100%FREE  abort
+0:27:23 lvcreate --help
+0:29:09 [51385] lvcreate -l 100%FREE -n root-vol vol-1
+0:29:58 [53722] mkfs.ext4 abort
+0:30:00 ls /dev
+0:30:05 mkfs.ext4 /dev/vol-1/root-vol (I think /dev/mapper/root-vol is better?)
+0:31:21 [56052] mount /dev/vol-1/root-vol /mnt
+0:31:37 mount --mkdir /dev/nvme0n1p1 /mnt/boot
+0:32:21 [57883-58980] pacstrap -K /mnt base linux linux-firmware 
+0:34:18 [58981-61830] done pacstrap
+0:34:44 [61831]genfstab -U /mnt >> /mnt/ext/fstab
+0:35:03 arch-chroot /mnt
+0:35:47 ls /usr/share (find timezone)
+0:35:52 ls /usr/share/zoneinfo
+0:35:58 ls /usr/share/zoneinfo/Asia/
+0:36:28 ln -sf /usr/share/zoneinfo/Asia/Tokyo /etc/localtime
+0:36:54 hwclock --systohc
+0:37:04 pacman -S vim
+0:37:12 vim /etc/ # abort
+0:37:44 ls /etc
+0:38:54 vim /etc/local.gen # enable ja_JP.UTF-8 UTF-8
+0:40:28 locale-gen
+0:40:40 vim /etc/locale.conf # LANG=en_US.UTF-8
+0:41:32 vim /etc/vconsole.conf # KEYMAP=jp106
+0:42:22 pacman -S amd-ucode
+0:42:55 pacman -S lvm2 # typo macman
+0:44:10 vim /etc/mkinitcpio.conf # add lvm2
+0:44:50 mkinit -p linux
+0:46:58 passwd
+0:47:53 bootctl install # uefi bootloader 
+0:48:35 vim /boot/loader/entries. abort
+0:48:50 vim /boot/loader/loader.conf # add default arch.conf
+0:50:20 vim /boot/loader/entries/arch.conf
+0:52:29 [94662] :r !cat /etc/fstab
+0:53:23 [94663-]# it's wrong settiing
+0:53:45 ls /boot # check boot directory
+0:54:25 cat /boot/loader/entries/arch.conf > /boot/loader/entries/arch-fallback.conf
+0:54:50 vim /boot/loader/entries/arch-fallback.conf
+0:56:21 cat /boot/loader/loader.conf # verify loarder settings.
+0:56:27 [101341] pacman -S dhcpcd # install dhcpclient daemon
+0:56:45 pacman -S iwd
+0:57:27 exit
+0:57:30 umount -R /mnt
+0:57:48 systemctl reboot
+0:58:01 [104331] restart machine
+0:58:11 boot uefi firm
+0:58:13 recognize iPXE on USB
+0:58:51 exit iPXE
+0:59:00 boot systemd-boot on nmve0n1p1
+0:59:05 setup firm nvram
+0:59:20 show aptio setup
+0:59:27 change boot option # abort
+0:59:46 disable network boot 
+0:56:56 change boot option 
+1:00:10 1st nmven0p1 drive, 2nd usb
+1:00:46 save setting
+1:00:57 [109439] boot linux from nmve0n1p1p1 but failed
+1:01:10 I did not realize that the linux did not load fs.
+1:02:00 I stop checking to run systemctl. 
+1:03:00 I checked root directory.
+1:04:00 I run systemctl reboot but not working.
+1:04:06 I shutdonw -r now but not working.
+1:04:24 [115927] I reset hardware switch.
+1:04:30 I select boot linux from nmven0p1 again.
+1:05:00 I reset hardware switch again.
+1:05:11 [117151] I select boot uefi firmware.
+1:05:26 I change boot option to start iPXE on USB first.
+1:05:37 save and restart.
+1:05:40 [118175] start iPXE.
+1:08:24 [122841] started installer arch linux.
+1:09:33 mount /dev/vol-1/root-vol /mnt
+1:10:03 mount /dev/nvme0n1p1 /mnt/boot
+1:10:26 [126284] vim /mnt/boot/loader/entries/arch.conf # abort
+1:11:20 loadkeys jp106
+1:11:33 vim /mnt/boot/loader/loader.conf # checking boot parameter
+1:12:00 vim /etc/mkinitcpio.conf # check initramfs setting. this is wrong.
+                                 # If you want check mkinitcpio.conf,
+                                 # You have to edit /mnt/etc/mkinitcpio.conf
+1:13:10 vim /mnt/etc/mkinitcpio.conf # check initramfs again.
+1:11:33 vim /mnt/boot/loader/entries/arch.conf # checking boot parameter
+1:13:46 arch-chroot /mnt
+1:13:50 cd /boot
+1:13:58 vim loader/loader.conf # check setting again.
+1:14:12 vim loader/entries/arch.conf # check settings again
+1:14:40 I realize that root option did not having '='. I fixed it.
+1:15:03 I fixed it in arch-fallback.conf also.
+1:15:35 systemctl restart #abort
+1:15:51 systemctl reboot
+1:16:08 [136738] loaded iPXE  
+1:16:40 [137006] Exit iPXE
+1:16:44 [138055] load systemd-boot on nvme0np1
+1:16:48 [138333] start arch linux successfully.
+1:17:29 [138333] login as root
+1:17:50 [138400] login succeeded.
+1:17:50 [140053] ip address
+1:18:34 systemctl enable dhcpcd
+1:18:55 systemctl start dhcpcd
+1:19:32 ip address # I had ethernet access.
+1:19:42 ping www.google.com # I checked network access through enp2s0
+1:20:20 [143756] systemctl enable iwd
+1:20:33 systemctl start iwd
+1:20:43 iwctl
+1:22:39 station wlan0 get-networks
+1:23:03 station connect aterm-a9cd22-a # not working
+1:24:10 station wlan0 connect aterm-a9cd22-a 
+1:25:20 known-networks list
+1:25:34 quit
+1:25:35 ip address
+1:25:58 systemctl poweroff
+

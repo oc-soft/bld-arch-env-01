@@ -1,0 +1,144 @@
+
+# fdisk - 1
+
+fdiskを起動して/dev/nvme0n1にパーティションを作成しています。
+キー設定を行っていないことに気づいて、このfdiskのオペレーションは保存せずに終了sしてしまいます。
+
+UEFIがBootloader(UEFIアプリケーション)をロードするためのパーティションを追加します。
+
+このあたりで、キー設定がjp106キーボードマップになっていないことに気づいたようです。
+
+fdiskを終了します。
+
+
+# keymap
+
+キーマップの一覧を表示して、jp106があることを確認しています。
+timedatectlで現在の時刻の確認をしています。でもTokyoには変えていません。
+
+
+# fdisk - 2
+dev/nvme0n1のパーティション設定を再開します。
+一つ目のパーティションを追加します。1GBのサイズです。
+パーティションのタイプがLinuxなので、UEFIに変更します。
+
+# fdisk - 3
+2つ目のパーティションを追加します。2TBから1GBを除いた残り全てを割り当てます。
+パーティションタイプはlvmにします。
+
+
+# fdisk-4 
+作成したパーティション一覧を確認します。
+UEFI、lvmが表示されています。
+nvme0n1に書き込んで終了します。
+
+# check-dev 
+デバイスディレクトリに作成したパーティション表示されていることを確認します。
+
+# setup nvme0n1p1
+make file systemでnvme0n1のパーティション1をFAT32ファイルシステムにします。
+
+# setup nvme0n1p2 create physical volume
+nvme0n1のパーティション2をlvmに設定していきます。
+lvmdiskscanで現状の確認をしています。
+フィジカルボリュームをnvme0n1に作成します。
+pvsでフィジカルボリュームが作成されたことを確認しています。
+
+# setup nvme0n1p2 create logical volume
+ロジカルボリュームを作成にとりかかります。
+オプションがあいまいであったので、オプション引数を確認しています。
+ロジカルボリュームを作成します。
+lvsでロジカルボリュームが作成されたことを確認しています。
+
+# mkfs.ext4
+make file systemでext4 file systemの作成にとりかかります。
+dev階層で、ロジカルボリューム名を探します。
+vol-1/root-volを指定して、ext4を作成します。mapper/root-volを指定した方が判りやすいですね。
+
+# mount fs
+作成した、ext4ファイルシステムとUEFIファイルシステムをマウントして、arch linuxのソフトウェアをインストールしていきます。
+
+# pacstrap bootctl edit entries/arch.conf
+pacstrapを使ってarch linuxの基本モジュールをnvme0n1p2にインストールします。
+bootctlで、UEFI applicationとして、arch linuxのboot loaderを設定します。
+bootctlはsytemd にデフォルトで付随しているboot loaderです。
+このboot loaderは起動時に/boot/loader/loader.confを読み込みます。
+/boot/loader/loder.confを編集して、boot loaderから起動するデフォルトで読み込むlinuxの設定ファイルを指定します。
+arch.confとしました。
+ここでファイルシステムとしてロードするボリュームパーティションを指定します。
+UUIDで指定したいのですが、作成したUUIDを覚えていないので、/etc/fstabから取得します。
+arch-fallback.confは、Linuxカーネルが最新になって、起動できなかった場合に使用します。最新より1つ前のLinuxカーネルで起動するようにします。
+
+
+# install dhcpcd iwd
+
+network関連のパッケージをインストールします。
+dhcpのクライアントデーモンをインストールします。
+lanのipアドレスをdhcpから設定します。
+iwdをインストールします。
+Wi-Fiを設定するためのソフトです。
+
+# reboot and set boot setting
+
+直ぐにLinuxのbootloaderが起動すると思っていましたが、iPXEが起動してしまいました。
+
+UEFIの起動順番を調整します。
+Networkブート起動オプションに設定されていました。
+Networkブートを無効にします。
+Bootタブに移動します。
+最初にnvme0n1を探して、次にUSBをロードするように変更します。
+
+# boot 1st time but not working
+
+最初の起動です。予想では、systemdがロードされて、各種deamonが起動しするメッセージが表示されると思っていました。
+systemdが起動した形跡がなく、入力プロンプトが表示されました。
+ネットワーク設定がどうなっているか確認します。
+dhcpcdが設定されていないことを確認してみます。
+loopbackの表示しかありません。おかしいですね...
+dev配下を確認してみます。
+/配下も確認してみます。
+手がかりはありませんね。
+リスタートしてみましょう。
+
+# boot 2nd time but failed
+systemctlが見つからないようです。
+shutdownを実行してみましょう。
+shutdownも見つかりません。
+ハードウェアのリセットスイッチで再起動します。
+systemdが起動した形跡がないですね。
+nvme0n1からの起動に失敗したことに気づいたようです。
+確認出来たDisplayの表示と入力から、
+systemd bootは成功しています。 Arch linux起動をえらぶことができています。
+しかし、Arch linuxは起動できていません。
+
+
+# change firm settings
+
+systemd bootの設定ファイル再確認してみましょう。
+
+再確認するにも、Arch linuxはまだ起動できません。
+iPXEでLinuxを起動して、nvme0n1p1をマウントして、内容を確認しましょう。
+
+# booted arch linux installer 
+
+vim /mnt/boot/entries/arch.conf
+キーボード設定がUSになっていますね。
+終了して、jp106に設定し直す必要があります。これftpからダウンロードしたarch linuxなのでした。
+
+initramfsの設定に誤りがあるか確認してみます。
+etc/mkinit.conf
+を見てみます。lvm2がロードされていない?
+さっき更新したとおもったのですが、修正しておきます。
+....これ勘違いですね。etc/mkinit.confはnetwor起動のmkinit.confですね。
+lvm2なんて必要ないですね...
+保存していますが、メモリ上のファイルなので、戻す必要もありませんね。
+次に起動するときは、またftpサイトからダウンロードされますから。
+
+/mnt/etc/mkinit.conf
+lvm2も指定されていますね。問題ないようです。
+
+entries/arch.confの設定を再確認してみましょう。
+=が抜けてました。
+
+
+

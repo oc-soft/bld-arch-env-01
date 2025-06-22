@@ -4,8 +4,8 @@ abs_top_srcdir = $(abspath $(top_srcdir))
 abs_srcdir = $(abspath $(srcdir))
 
 LATEX = lualatex
-KSEWHICH = kpsewhich
-TEXINPUTS = $(abs_srcdir)//:$(DEFAULT_TEXINPUTS)
+KPSEWHICH = kpsewhich
+TEXINPUTS = $(abs_srcdir)//:$(abs_top_srcdir):$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
 PDF_FILES = hw-img.pdf \
 	screen-img.pdf \
@@ -14,7 +14,9 @@ PDF_FILES = hw-img.pdf \
 	linux-fs.pdf \
 	lvm.pdf \
 	lvm-usecase.pdf \
-	hw-fm-sw.pdf
+	hw-fm-sw.pdf \
+	ipxe-http-page.pdf \
+	archlinux-logo-dark-scalable.pdf
 	
 VPATH = $(srcdir)
 
@@ -44,12 +46,21 @@ lvm_pdf_SOURCES = \
 	lvm.tex
 
 lvm_uscase_pdf_SOURCES = \
-	lvm-usecase.tex
+	lvm-usecase.tex 
+	
 
 hw_fm_sw_pdf_SOURCES = \
-	hw-fm-sw.tex
+	hw-fm-sw.tex \
+	custom-color-def.tex	
 
-vpath %.tex $(srcdir) 
+ipxe_http_page_pdf_SOURCES = \
+	ipxe-http-page.tex \
+	ipxe-http-page.png
+
+archlinux_logo_dark_scalable_pdf_SOURCES = \
+	archlinux-logo-dark-scalable.svg \
+
+vpath %.tex $(srcdir) $(top_srcdir)
 vpath %.pdf ./
 
 all: pdf-doc
@@ -78,8 +89,12 @@ lvm-usecase.pdf : $(lvm_usecase_pdf_SOURCES)
 
 hw-fm-sw.pdf : $(hw_fm_sw_pdf_SOURCES)
 
+ipxe-http-page.pdf : $(ipxe_http_page_pdf_SOURCES)
+
+archlinux-logo-dark-scalable.pdf : $(archlinux_logo_dark_scalable_pdf_SOURCES)
+
 .PHONY: all clean create-pdf pdf-doc
-.SUFFIXES: .tex .pdf
+.SUFFIXES: .svg .tex .pdf
 
 .tex.pdf:
 	@res=0; \
@@ -91,4 +106,8 @@ hw-fm-sw.pdf : $(hw_fm_sw_pdf_SOURCES)
 		fi \
 	done; \
 	exit $$res
+
+.svg.pdf:
+	rsvg-convert -o $(@F) $<
+
 # vi: se ts=4 sw=4 noet:
