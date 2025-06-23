@@ -9,6 +9,9 @@ PDF_FILES = arch-install-pre-1.pdf \
 	arch-install-note-1.pdf \
 	movie-resources.pdf
 
+DVI_FILES = \
+	movie-resources.dvi
+
 arch_install_common_SOURCES = \
 	arch-install-common-1.tex \
 	arch-install-1.tex \
@@ -26,7 +29,8 @@ arch_install_note_SOURCES = $(arch_install_common_SOURCES) \
 movie_resources_SOURCES = \
 	movie-resources.tex \
 	custom-color-def.tex \
-	archlinux-logo-dark-scalable.pdf	
+	archlinux-logo-dark-scalable.pdf \
+	hw-img.pdf	
 
 SUBDIRS = img
 vpath %.tex $(top_srcdir) 
@@ -38,11 +42,15 @@ all: pdf-doc
 pdf-doc: create-pdf 
 	cp $(PDF_FILES) $(top_srcdir)
 
+
 create-pdf: img-pdf $(PDF_FILES) 
+
+create-pdf: img-pdf $(DVI_FILES)
 
 arch-install-pre-1.pdf : $(arch_install_pre_SOURCES)
 arch-install-note-1.pdf : $(arch_install_note_SOURCES)
 movie-resource.pdf: $(movie_resource_SOURCES)
+movie-resource.dvi: $(movie_resource_SOURCES)
 
 clean:
 	rm -f *.pdf *.out *.log *.log *.aux *.snm *.nav *.toc
@@ -50,7 +58,7 @@ clean:
 img-pdf:
 	cd img && $(MAKE) $(MFLAGS) 
 
-.PHONY: all clean create-pdf pdf-doc
+.PHONY: all clean create-pdf create-dvi pdf-doc
 .SUFFIXES: .tex .pdf
 
 .tex.pdf:
@@ -63,4 +71,16 @@ img-pdf:
 		fi \
 	done; \
 	exit $$res
+
+.dvi.pdf:
+	@res=0; \
+	for idx in seq 2; do \
+		TEXINPUTS=$(TEXINPUTS) $(LATEX) $<; \
+		res=$$?; \
+		if [ $$res -ne 0 ]; then \
+			break; \
+		fi \
+	done; \
+	exit $$res
+
 # vi: se ts=4 sw=4 noet:

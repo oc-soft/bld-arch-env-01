@@ -1,3 +1,7 @@
+# create boot usb
+
+
+
 
 # fdisk - 1
 

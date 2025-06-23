@@ -75,11 +75,12 @@
   \end{scope}
  \end{tikzpicture}
  \newpage
+ % install arch linux 1
  \begin{tikzpicture}
   \coorddecl
 
   \draw [
-    xshift=35.4mm,
+    xshift=51.5mm,
     yshift=20mm,
     line width=0.25mm,
     color=CampbellBrightGreen]
@@ -92,7 +93,64 @@
    \bndbox
   \end{scope}
  \end{tikzpicture}
- 
+ \newpage
+ % install arch linux 3
+ \begin{tikzpicture}
+  \coorddecl
+  \newcommand{\insarrow}{
+   [xshift=38mm,yshift=40mm,rotate=90] (0mm,0mm) -- (5mm, 5mm)
+    |- (18mm, 2.5mm) -- (18mm, -2.5mm)
+    -| (5mm, -5mm) -- cycle}
+
+
+  \draw [
+    xshift=51.5mm,
+    yshift=20mm,
+    line width=0.25mm,
+    color=CampbellBrightGreen]
+   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+
+  \begin{scope}
+   \fill [color=CampbellBrightGreen] \insarrow;
+  \end{scope}
+
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.3*(ltpos) + 0.4*(rbpos)$) {
+     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture}
+ \newpage
+ % insert usb 1
+ \begin{tikzpicture}
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
+     \includegraphics[height=6cm, page=10]{img/hw-img.pdf}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture} 
+ \newpage
+ % insert usb 2
+ \begin{tikzpicture}
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
+     \includegraphics[height=6cm, page=11]{img/hw-img.pdf}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture} 
+ \newpage
+ % insert usb 3
+ \begin{tikzpicture}
+  \begin{scope}[on background layer]
+   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
+     \includegraphics[height=6cm, page=12]{img/hw-img.pdf}
+   };
+   \bndbox
+  \end{scope}
+ \end{tikzpicture}
 \end{document}
 
 % vi: se ts=1 sw=2 et:
