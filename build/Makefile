@@ -2,6 +2,7 @@ top_srcdir = ..
 abs_top_srcdir = $(abspath $(top_srcdir))
 
 LATEX = lualatex
+UPLATEX = uplatex
 KPSEWHICH = kpsewhich
 TEXINPUTS = $(abs_top_srcdir)//:$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
@@ -72,10 +73,10 @@ img-pdf:
 	done; \
 	exit $$res
 
-.dvi.pdf:
+.tex.dvi:
 	@res=0; \
 	for idx in seq 2; do \
-		TEXINPUTS=$(TEXINPUTS) $(LATEX) $<; \
+		TEXINPUTS=$(TEXINPUTS) $(LATEX) --output-format=dvi $<; \
 		res=$$?; \
 		if [ $$res -ne 0 ]; then \
 			break; \
