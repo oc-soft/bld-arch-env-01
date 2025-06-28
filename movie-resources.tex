@@ -1,13 +1,12 @@
-\documentclass{article}
+\documentclass[uplatex,dvipdfmx]{jsarticle}
 \usepackage{geometry}
 \pagestyle{empty}
-\usepackage{luatexja}
 \usepackage{tikz}
+\usepackage{pgffor}
 \usepackage{graphicx}
-\input {custom-color-def.tex}
+\usepackage[dvipdfmx]{animate}
+\input{custom-color-def.tex}
 
-\renewcommand{\kanjifamilydefault}{\gtdefault}
-\renewcommand{\familydefault}{\sfdefault}
 \newcommand{\docpaperwidth}{160mm}
 \newcommand{\docpaperheight}{90mm}
 
@@ -22,6 +21,7 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{calc}
 
+
 % declare coordinates 
 \newcommand{\coorddecl}{
  \coordinate (lbpos) at (0cm, 0cm);
@@ -32,8 +32,24 @@
 
 % picgure bounding box
 \newcommand{\bndbox}{
- \path (lbpos) rectangle (rtpos);
+ (lbpos) rectangle (rtpos)
 }
+
+% picgure bounding box inset
+\newcommand{\bndboxbi}{
+ (0mm, 0mm) rectangle (\docpaperwidth, \docpaperheight - 8mm)
+}
+
+% internal img clip
+\newcommand{\internalimg}{
+  \includegraphics[
+    clip,
+    bb=0 0 3532 3024,
+    height=4.5cm,
+    page=1]{img/aiopcwa-internal-1.pdf}
+}
+
+\renewcommand{\familydefault}{\sfdefault}
 
 % default color setting
 \color{CampbellFg}
@@ -41,116 +57,226 @@
 
 
 \begin{document}
- \center
- \begin{tikzpicture}
-  \coorddecl
+  \center
+  %thumnail
+  \begin{tikzpicture}
+    \coorddecl
+    \path [use as bounding box] \bndbox;
+    \newcommand{\insarrow}{
+       [xshift=38mm,yshift=40mm,rotate=90] (0mm,0mm) -- (5mm, 5mm)
+        |- (18mm, 2.5mm) -- (18mm, -2.5mm)
+        -| (5mm, -5mm) -- cycle}
+    \node [anchor=center] at ($0.8*(ltpos) + 0.3*(rbpos)$){
+     \includegraphics[height=2.5cm,page=1]{img/archlinux-logo-dark-scalable.pdf}
+    };
+    \node [anchor=center] at ($0.8*(ltpos) + 0.65*(rbpos)$){
+     \textsf{\LARGE{インストール}}
+    };
+    \begin{scope}
+      \fill [color=CampbellBrightGreen] \insarrow;
+    \end{scope}
+    \draw [
+      xshift=35.4mm,
+      yshift=20mm,
+      line width=0.25mm,
+      color=CampbellBrightGreen]
+     (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+    \begin{scope}[on background layer]
+      \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+        \internalimg
+      };
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % head line page
+  \begin{animateinline}[controls=true]{30}
+    \multiframe{30}{isz=0+3} {
+      \begin{tikzpicture}
+      \coorddecl
+      \path [use as bounding box] \bndboxbi;
+      % arrow center x
+      \newcommand{\arrowcx}{38mm}
+      % arrow center y
+      \newcommand{\arrowcy}{40mm}
+      % arrow width half
+      \newcommand{\arrowwh}{3mm}
+      % arrow width quater
+      \newcommand{\arrowwq}{1.5mm}
+      % arrow length 
+      \newcommand{\arrowl}{18mm}
+      \newcommand{\insarrow}[2]{
+         [xshift=\arrowcx+(#1pt),yshift=\arrowcy+(#2pt),rotate=90]
+          (0mm,0mm) -- (\arrowwh, \arrowwh)
+          |- (\arrowl, \arrowwq) -- (\arrowl, -\arrowwq)
+          -| (\arrowwh, -\arrowwh) -- cycle}
+      \newcommand{\instriangle}[4]{
+         [xshift=(#3)+(#1),yshift=(#4)+(#2),rotate=90]
+          (0mm,0mm) -- (\arrowwh, \arrowwh)
+          -- (\arrowwh, -\arrowwh) -- cycle}
+      \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+         \includegraphics[height=1.8cm,page=1]
+           {img/archlinux-logo-dark-scalable.pdf}
+      };
 
-  \newcommand{\insarrow}{
-   [xshift=38mm,yshift=40mm,rotate=90] (0mm,0mm) -- (5mm, 5mm)
-    |- (18mm, 2.5mm) -- (18mm, -2.5mm)
-    -| (5mm, -5mm) -- cycle}
+      \begin{scope}[on background layer]
+        \clip 
+          (\docpaperwidth * 0.3 - \isz mm * 0.3532, 
+           \docpaperheight * 0.3 - \isz mm * 0.3024)
+          rectangle
+          (\docpaperwidth * 0.3 + \isz mm * 0.3532, 
+           \docpaperheight * 0.3 + \isz mm * 0.3024);
+        \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+          \internalimg
+        };
+      \end{scope}
+      \end{tikzpicture}
+    }
+    \newframe
+    \multiframe{30}{no=0+0.03333}{
+      \begin{tikzpicture}
+        \coorddecl
+        \path [use as bounding box] \bndboxbi;
+        % arrow center x
+        \newcommand{\arrowcx}{38mm}
+        % arrow center y
+        \newcommand{\arrowcy}{40mm}
+        % arrow width half
+        \newcommand{\arrowwh}{3mm}
+        % arrow width quater
+        \newcommand{\arrowwq}{1.5mm}
+        % arrow length 
+        \newcommand{\arrowl}{18mm}
+        \newcommand{\insarrow}[2]{
+           [xshift=\arrowcx+(#1pt),yshift=\arrowcy+(#2pt),rotate=90]
+            (0mm,0mm) -- (\arrowwh, \arrowwh)
+            |- (\arrowl, \arrowwq) -- (\arrowl, -\arrowwq)
+            -| (\arrowwh, -\arrowwh) -- cycle}
+        \newcommand{\instriangle}[4]{
+           [xshift=(#3)+(#1),yshift=(#4)+(#2),rotate=90]
+            (0mm,0mm) -- (\arrowwh, \arrowwh)
+            -- (\arrowwh, -\arrowwh) -- cycle}
+        \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+           \includegraphics[height=1.8cm,page=1]
+             {img/archlinux-logo-dark-scalable.pdf}
+        };
+        \begin{scope}[on background layer]
+          \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+            \internalimg
+          };
+        \end{scope}
+        \draw [
+          xshift=35.4mm,
+          yshift=20mm,
+          line width=0.25mm,
+          color=CampbellBrightGreen,
+          opacity=\no]
+         (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+      \end{tikzpicture}
+    }
+    \newframe 
+    \multiframe{30}{no=0+0.03333}{
+      \begin{tikzpicture}
+        \coorddecl
+        \path [use as bounding box] \bndboxbi;
+        % arrow center x
+        \newcommand{\arrowcx}{38mm}
+        % arrow center y
+        \newcommand{\arrowcy}{40mm}
+        % arrow width half
+        \newcommand{\arrowwh}{3mm}
+        % arrow width quater
+        \newcommand{\arrowwq}{1.5mm}
+        % arrow length 
+        \newcommand{\arrowl}{18mm}
+        \newcommand{\insarrow}[2]{
+           [xshift=\arrowcx+(#1pt),yshift=\arrowcy+(#2pt),rotate=90]
+            (0mm,0mm) -- (\arrowwh, \arrowwh)
+            |- (\arrowl, \arrowwq) -- (\arrowl, -\arrowwq)
+            -| (\arrowwh, -\arrowwh) -- cycle}
+        \newcommand{\instriangle}[4]{
+           [xshift=(#3)+(#1),yshift=(#4)+(#2),rotate=90]
+            (0mm,0mm) -- (\arrowwh, \arrowwh)
+            -- (\arrowwh, -\arrowwh) -- cycle}
+        \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+           \includegraphics[height=1.8cm,page=1]
+             {img/archlinux-logo-dark-scalable.pdf}
+        };
+        \begin{scope}[on background layer]
+          \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+            \internalimg
+          };
+        \end{scope}
+        \draw [
+          xshift=35.4mm,
+          yshift=20mm,
+          line width=0.25mm,
+          color=CampbellBrightGreen]
+         (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
+        \begin{scope}
+          \clip (\arrowcx - \arrowwh - 1mm, \arrowcy - 1mm)
+            rectangle (\arrowcx + \arrowwh + 1mm, \arrowcy + 4 * 5mm);
+          \foreach \yd in {0,5,...,25}
+            {
+              \fill [color=CampbellBrightGreen, opacity=\no]
+                \instriangle{0}{0}{\arrowcx}{\arrowcy + \yd mm};
+            }
+        \end{scope}
+      \end{tikzpicture}
+    }
+  \end{animateinline}
+  \newpage
+  \begin{animateinline}[controls=true,loop]{30}
+    \multiframe{20}{ny=0+0.25}{
+      \begin{tikzpicture}
+      \coorddecl
+      \path [use as bounding box] \bndboxbi;
+      % arrow center x
+      \newcommand{\arrowcx}{38mm}
+      % arrow center y
+      \newcommand{\arrowcy}{40mm}
+      % arrow width half
+      \newcommand{\arrowwh}{3mm}
+      % arrow width quater
+      \newcommand{\arrowwq}{1.5mm}
+      % arrow length 
+      \newcommand{\arrowl}{18mm}
+      \newcommand{\insarrow}[2]{
+         [xshift=\arrowcx+(#1pt),yshift=\arrowcy+(#2pt),rotate=90]
+          (0mm,0mm) -- (\arrowwh, \arrowwh)
+          |- (\arrowl, \arrowwq) -- (\arrowl, -\arrowwq)
+          -| (\arrowwh, -\arrowwh) -- cycle}
+      \newcommand{\instriangle}[4]{
+         [xshift=(#3)+(#1),yshift=(#4)+(#2),rotate=90]
+          (0mm,0mm) -- (\arrowwh, \arrowwh)
+          -- (\arrowwh, -\arrowwh) -- cycle}
+      \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+         \includegraphics[height=1.8cm,page=1]
+           {img/archlinux-logo-dark-scalable.pdf}
+      };
+      \begin{scope}[on background layer]
+        \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+          \internalimg
+        };
+      \end{scope}
+      \draw [
+        xshift=35.4mm,
+        yshift=20mm,
+        line width=0.25mm,
+        color=CampbellBrightGreen]
+       (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
 
-  \node [anchor=center] at ($0.8*(ltpos) + 0.3*(rbpos)$){
-   \includegraphics[height=2.5cm,page=1]{img/archlinux-logo-dark-scalable.pdf}
-  };
-  \node [anchor=center] at ($0.8*(ltpos) + 0.65*(rbpos)$){
-   {\LARGE{インストール}}
-  };
- 
-  \begin{scope}
-   \fill [color=CampbellBrightGreen] \insarrow;
-  \end{scope}
-  \draw [
-    xshift=35.4mm,
-    yshift=20mm,
-    line width=0.25mm,
-    color=CampbellBrightGreen]
-   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
-
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
-     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture}
- \newpage
- % install arch linux 1
- \begin{tikzpicture}
-  \coorddecl
-
-  \draw [
-    xshift=51.5mm,
-    yshift=20mm,
-    line width=0.25mm,
-    color=CampbellBrightGreen]
-   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
-
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.3*(ltpos) + 0.4*(rbpos)$) {
-     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture}
- \newpage
- % install arch linux 3
- \begin{tikzpicture}
-  \coorddecl
-  \newcommand{\insarrow}{
-   [xshift=38mm,yshift=40mm,rotate=90] (0mm,0mm) -- (5mm, 5mm)
-    |- (18mm, 2.5mm) -- (18mm, -2.5mm)
-    -| (5mm, -5mm) -- cycle}
-
-
-  \draw [
-    xshift=51.5mm,
-    yshift=20mm,
-    line width=0.25mm,
-    color=CampbellBrightGreen]
-   (0mm,0mm) [rounded corners=0.5mm] rectangle (5.2mm, 18mm);
-
-  \begin{scope}
-   \fill [color=CampbellBrightGreen] \insarrow;
-  \end{scope}
-
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.3*(ltpos) + 0.4*(rbpos)$) {
-     \includegraphics[clip=true,height=4.5cm,trim=0 0 500 0]{img/aiopcwa-internal-1.jpg}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture}
- \newpage
- % insert usb 1
- \begin{tikzpicture}
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
-     \includegraphics[height=6cm, page=10]{img/hw-img.pdf}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture} 
- \newpage
- % insert usb 2
- \begin{tikzpicture}
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
-     \includegraphics[height=6cm, page=11]{img/hw-img.pdf}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture} 
- \newpage
- % insert usb 3
- \begin{tikzpicture}
-  \begin{scope}[on background layer]
-   \node [anchor=center] at ($0.5*(ltpos) + 0.5*(rbpos)$) {
-     \includegraphics[height=6cm, page=12]{img/hw-img.pdf}
-   };
-   \bndbox
-  \end{scope}
- \end{tikzpicture}
+      \begin{scope}
+        \clip (\arrowcx - \arrowwh - 1mm, \arrowcy - 1mm)
+          rectangle (\arrowcx + \arrowwh + 1mm, \arrowcy + 4 * 5mm);
+        \foreach \yd in {0,5,...,25}
+          {
+            \fill [color=CampbellBrightGreen]
+              \instriangle{0}{-\ny mm}{\arrowcx}{\arrowcy + \yd mm};
+          }
+      \end{scope}
+   \end{tikzpicture}
+  }
+  \end{animateinline}
 \end{document}
 
 % vi: se ts=1 sw=2 et:

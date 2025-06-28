@@ -16,8 +16,9 @@ PDF_FILES = hw-img.pdf \
 	lvm-usecase.pdf \
 	hw-fm-sw.pdf \
 	ipxe-http-page.pdf \
-	archlinux-logo-dark-scalable.pdf
-	
+	archlinux-logo-dark-scalable.pdf \
+	aiopcwa-internal-1.pdf
+ 
 VPATH = $(srcdir)
 
 hw_img_pdf_SOURCES = \
@@ -60,6 +61,9 @@ ipxe_http_page_pdf_SOURCES = \
 archlinux_logo_dark_scalable_pdf_SOURCES = \
 	archlinux-logo-dark-scalable.svg \
 
+aiopcwa_internal_1_pdf_SOURCES = \
+	aiopcwa-internal-1.jpg
+
 vpath %.tex $(srcdir) $(top_srcdir)
 vpath %.pdf ./
 
@@ -93,8 +97,10 @@ ipxe-http-page.pdf : $(ipxe_http_page_pdf_SOURCES)
 
 archlinux-logo-dark-scalable.pdf : $(archlinux_logo_dark_scalable_pdf_SOURCES)
 
+aiopcwa-internal-1.pdf : $(aiopcwa_internal_1_pdf_SOURCES)
+
 .PHONY: all clean create-pdf pdf-doc
-.SUFFIXES: .svg .tex .pdf
+.SUFFIXES: .jpg .svg .tex .pdf
 
 .tex.pdf:
 	@res=0; \
@@ -109,5 +115,8 @@ archlinux-logo-dark-scalable.pdf : $(archlinux_logo_dark_scalable_pdf_SOURCES)
 
 .svg.pdf:
 	rsvg-convert -o $(@F) $<
+
+.jpg.pdf:
+	magick convert $< $@ 
 
 # vi: se ts=4 sw=4 noet:
