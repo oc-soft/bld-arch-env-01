@@ -40,6 +40,13 @@
  (0mm, 0mm) rectangle (\docpaperwidth, \docpaperheight - 8mm)
 }
 
+% hw imgg
+\newcommand{\aiopcwaimg}{
+  \includegraphics[
+    page=1,
+    height=4.5cm]{img/hw-img.pdf} 
+}
+
 % internal img clip
 \newcommand{\internalimg}{
   \includegraphics[
@@ -88,7 +95,70 @@
     \end{scope}
   \end{tikzpicture}
   \newpage
-  % head line page
+  % head line - 1
+  \begin{animateinline}[controls=true]{30}
+    \multiframe{30}{isz=0+1}{
+      \begin{tikzpicture}
+        \coorddecl
+        \path [use as bounding box] \bndboxbi;
+        \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+           \includegraphics[height=1.8cm,page=1]
+             {img/archlinux-logo-dark-scalable.pdf}
+        };
+        \begin{scope}[on background layer]
+          \clip 
+            (\docpaperwidth * 0.3 - \isz mm * 1, 
+             \docpaperheight * 0.3 - \isz mm * 0.75)
+            rectangle
+            (\docpaperwidth * 0.3 + \isz mm * 1, 
+             \docpaperheight * 0.3 + \isz mm * 0.75);
+          \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+            \aiopcwaimg
+          };
+        \end{scope}
+      \end{tikzpicture}
+    }
+    \newframe
+    \multiframe{30}{isz=0+1}{
+      \begin{tikzpicture}
+        \coorddecl
+        \path [use as bounding box] \bndboxbi;
+        \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+           \includegraphics[height=1.8cm,page=1]
+             {img/archlinux-logo-dark-scalable.pdf}
+        };
+        \begin{scope}[on background layer]
+          \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+            \aiopcwaimg
+          };
+        \end{scope}
+      \end{tikzpicture}
+    }
+    \newframe
+    \multiframe{30}{isz=1+1}{
+      \begin{tikzpicture}
+        \coorddecl
+        \path [use as bounding box] \bndboxbi;
+        \node [anchor=center] at ($0.75*(ltpos) + 0.3*(rbpos)$){
+           \includegraphics[height=1.8cm,page=1]
+             {img/archlinux-logo-dark-scalable.pdf}
+        };
+        \begin{scope}[on background layer]
+          \clip 
+            (\docpaperwidth * 0.3 - 30mm + \isz mm * 1, 
+             \docpaperheight * 0.3 - 22.5mm  + \isz mm * 0.75)
+            rectangle
+            (\docpaperwidth * 0.3 + 30mm - \isz mm * 1, 
+             \docpaperheight * 0.3 + 22.5mm - \isz mm * 0.75);
+          \node [anchor=center] at ($0.3*(ltpos) + 0.3*(rbpos)$) {
+            \aiopcwaimg
+          };
+        \end{scope}
+      \end{tikzpicture}
+    }
+  \end{animateinline}
+  \newpage
+  % head line page - 2
   \begin{animateinline}[controls=true]{30}
     \multiframe{30}{isz=0+3} {
       \begin{tikzpicture}
@@ -279,4 +349,4 @@
   \end{animateinline}
 \end{document}
 
-% vi: se ts=1 sw=2 et:
+% vi: se ts=2 sw=2 et:
