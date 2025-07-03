@@ -1,0 +1,84 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\pagestyle{empty}
+\usepackage{luatexja}
+\usepackage{tikzpeople} 
+
+\input {custom-color-def.tex}
+
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\docpaperwidth}{12.8cm}
+\newcommand{\docpaperheight}{9.6cm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0cm,
+  ignoreall=true
+}
+
+\usetikzlibrary{backgrounds}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.callouts}
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+  \begin{tikzpicture}
+    \path [use as bounding box]
+      (0,0) rectangle (\docpaperwidth, \docpaperheight);
+    \newcommand{\atx}{\docpaperwidth / 3}
+    \newcommand{\aty}{\docpaperheight / 3}
+    \newcommand{\btx}{\docpaperwidth * 2 / 3}
+    \newcommand{\bty}{\docpaperheight * 2 / 3}
+    \newcommand{\ctx}{\docpaperwidth / 2}
+    \newcommand{\cty}{\docpaperheight / 2}
+
+
+    \node[shape=rectangle,draw] at (\atx, \bty + 5mm) {
+      \includegraphics[height=2cm,page=1]
+        {img/sw-requirement-res-1.pdf}
+    };
+
+    \node[name=a,
+      bob,
+      minimum size=1cm] at (\atx, \cty) {\tiny 発注者};
+    \node[name=b,
+      alice,
+      mirrored,
+      minimum size=1cm] at (\btx, \cty) {\tiny 受注者};
+
+
+    \node[callout absolute pointer={(a.mouth)},
+      shape=ellipse callout,draw] at
+      (\atx + 12mm, \cty + 1mm) {\tiny お願いします};
+
+    \node[callout absolute pointer={(b.mouth)},
+      shape=ellipse callout,draw] at
+      (\btx - 11mm, \cty - 1mm) {\tiny 承ります};
+  \end{tikzpicture}
+  \newpage
+  \begin{tikzpicture}
+    
+    \path [use as bounding box]
+      (0,0) rectangle (\docpaperwidth, \docpaperheight);
+    \newcommand{\atx}{\docpaperwidth / 3}
+    \newcommand{\aty}{\docpaperheight / 3}
+    \newcommand{\btx}{\docpaperwidth * 2 / 3}
+    \newcommand{\bty}{\docpaperheight * 2 / 3}
+    \newcommand{\ctx}{\docpaperwidth / 2}
+    \newcommand{\cty}{\docpaperheight / 2}
+
+
+    \node[name=b,
+      alice,
+      monitor,
+      minimum size=1cm] at (\btx, \cty) {\tiny 受注者};
+
+
+  \end{tikzpicture}
+\end{document}
+
+% vi: se ts=2 sw=2 et:

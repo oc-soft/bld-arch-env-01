@@ -1,0 +1,78 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{luatexja}
+\usepackage{pgffor}
+\usepackage[dvipsnames]{xcolor}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\docpaperwidth}{3.5cm}
+\newcommand{\docpaperheight}{6.5cm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0cm,
+  ignoreall=true
+}
+
+\setlength{\parindent}{0cm}
+\usetikzlibrary{calc}
+\usetikzlibrary{shapes.callouts}
+\usetikzlibrary{3d}
+
+\begin{document}
+  \center
+  \begin{tikzpicture}
+
+    \newcommand{\aax}{\docpaperwidth / 2}
+    \newcommand{\aay}{\docpaperheight / 2}
+    \newcommand{\bax}{\docpaperwidth / 3}
+    \newcommand{\bbx}{\docpaperwidth * 2 / 3}
+    \newcommand{\bay}{\docpaperheight / 3}
+    \newcommand{\bby}{\docpaperheight * 2 / 3}
+    
+    \newcommand{\dispwidth}{30mm}
+    \newcommand{\dispheight}{60mm}
+    \newcommand{\dispwidthh}{\dispwidth / 2}
+    \newcommand{\dispheighth}{\dispheight / 2}
+
+    \newcommand{\displ}{\aax - \dispwidthh}
+    \newcommand{\dispr}{\aax + \dispwidthh}
+    \newcommand{\dispb}{\aay - \dispheighth}
+    \newcommand{\dispt}{\aay + \dispheighth}
+
+    \path [use as bounding box]
+      (\displ - 2mm, \dispb - 2mm) rectangle
+      (\dispr + 2mm, \dispt + 2mm);
+
+
+    \path [color=black!80, fill, rounded corners=4mm]
+      (\displ - 1mm, \dispb - 1mm) rectangle 
+      (\dispr + 1mm, \dispt + 1mm);
+
+    \path [color=white, fill, rounded corners=3mm]
+      (\displ, \dispb) rectangle 
+      (\dispr, \dispt);
+
+
+    \node [anchor=north] at (\aax, \dispt - 4mm) {\small ユーザ認証};
+
+    \node [anchor=west] at (\displ + 2mm, \dispt - 15mm) {\small 名前:};
+
+    \path [draw, rounded corners=1mm]
+      (\displ + 2mm, \dispt - 25mm) rectangle (\dispr - 1.5mm, \dispt - 20mm);
+
+    
+    \node [anchor=west] at (\displ + 2mm, \dispt - 32mm) {\small パスワード:};
+
+    \path [draw, rounded corners=1mm]
+      (\displ + 2mm, \dispt - 43mm) rectangle (\dispr - 1.5mm, \dispt - 38mm);
+
+ 
+    \node [anchor=south west,text=NavyBlue] at (\displ + 2mm, \dispb + 4mm) {\small OK};
+    \node [anchor=south east,text=NavyBlue] at (\dispr - 2mm, \dispb + 4mm) {\small キャンセル};
+
+  \end{tikzpicture} 
+\end{document}
+% vi: se ts=2 sw=2 et:

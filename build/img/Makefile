@@ -17,7 +17,12 @@ PDF_FILES = hw-img.pdf \
 	hw-fm-sw.pdf \
 	ipxe-http-page.pdf \
 	archlinux-logo-dark-scalable.pdf \
-	aiopcwa-internal-1.pdf
+	aiopcwa-internal-1.pdf \
+	sw-requirement.pdf \
+	sw-requirement-res-1.pdf \
+	sw-requirement-res-2.pdf \
+	sw-requirement-res-3.pdf \
+	sw-requirement-res-4.pdf
  
 VPATH = $(srcdir)
 
@@ -64,6 +69,23 @@ archlinux_logo_dark_scalable_pdf_SOURCES = \
 aiopcwa_internal_1_pdf_SOURCES = \
 	aiopcwa-internal-1.jpg
 
+sw_requirement_pdf_SOURCES = \
+	sw-requirement.tex \
+	sw-requirement-res-1.pdf
+
+sw_requirement_res_1_pdf_SOURCES = \
+	sw-requirement-res-1.tex
+
+sw_requirement_res_2_pdf_SOURCES = \
+	sw-requirement-res-2.tex
+
+sw_requirement_res_3_pdf_SOURCES = \
+	sw-requirement-res-3.tex
+
+sw_requirement_res_4_pdf_SOURCES = \
+	sw-requirement-res-4.tex
+
+
 vpath %.tex $(srcdir) $(top_srcdir)
 vpath %.pdf ./
 
@@ -98,6 +120,16 @@ ipxe-http-page.pdf : $(ipxe_http_page_pdf_SOURCES)
 archlinux-logo-dark-scalable.pdf : $(archlinux_logo_dark_scalable_pdf_SOURCES)
 
 aiopcwa-internal-1.pdf : $(aiopcwa_internal_1_pdf_SOURCES)
+
+sw-requirement.pdf: $(sw_requirement_pdf_SOURCES) 
+
+sw-requirement-res-1.tex: $(sw_requirement_res_1_pdf_SOURCES)
+
+sw-requirement-res-2.tex: $(sw_requirement_res_2_pdf_SOURCES)
+
+sw-requirement-res-3.tex: $(sw_requirement_res_3_pdf_SOURCES)
+
+sw-requirement-res-4.tex: $(sw_requirement_res_4_pdf_SOURCES)
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .jpg .svg .tex .pdf

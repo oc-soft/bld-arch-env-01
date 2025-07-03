@@ -1,0 +1,51 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage{luatexja}
+\usepackage{pgffor}
+\usepackage{pgf-umlsd}
+\usepackage[dvipsnames]{xcolor}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\docpaperwidth}{115mm}
+\newcommand{\docpaperheight}{115mm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0.5cm,
+  ignoreall=true
+}
+
+\setlength{\parindent}{0cm}
+\usetikzlibrary{calc}
+
+\begin{document}
+  \center
+
+  \begin{sequencediagram}
+  
+    \newthread{pha}{PhoneApp}
+    \newinst[1]{accsvr}{UserAccess}
+    \newinst[1]{appsvr}{AppServer}
+    \newinst[1]{dbsvr}{DbServer}
+
+    \begin{call}{pha}{verifyInput(name,pw)}{pha}{okOrNg}
+    \end{call}
+    \begin{call}{pha}{loggin(name,pw)}{accsvr}{token}
+      \begin{call}{accsvr}{contains(name,pw)}{dbsvr}{true}
+      \end{call}
+      \begin{call}{accsvr}{gentoken(name,pw)}{accsvr}{token}
+      \end{call} 
+    \end{call}
+
+    \begin{call}{pha}{getUserRes1(token)}{appsvr}{resource1}
+      
+      \begin{call}{appsvr}{verify(token)}{accsvr}{dbkey}
+      \end{call}
+      \begin{call}{appsvr}{getres1(dbkey,"1")}{dbsvr}{resource1}
+      \end{call}
+    \end{call}
+  \end{sequencediagram}
+\end{document}
+% vi: se ts=2 sw=2 et:
