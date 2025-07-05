@@ -22,6 +22,7 @@
 \usetikzlibrary{backgrounds}
 \usetikzlibrary{calc}
 \usetikzlibrary{shapes.callouts}
+\usetikzlibrary{arrows.meta}
 
 \setlength{\parindent}{0cm}
 
@@ -44,24 +45,68 @@
 
     \node[name=a,
       bob,
-      minimum size=1cm] at (\atx, \cty) {\tiny 発注者};
+      minimum size=1cm,
+      font=\tiny] at (\atx, \cty) {発注者};
     \node[name=b,
       alice,
       mirrored,
-      minimum size=1cm] at (\btx, \cty) {\tiny 受注者};
+      minimum size=1cm,
+      font=\tiny] at (\btx, \cty) {受注者};
 
 
     \node[callout absolute pointer={(a.mouth)},
-      shape=ellipse callout,draw] at
-      (\atx + 12mm, \cty + 1mm) {\tiny お願いします};
+      shape=ellipse callout,draw,
+      font=\tiny] at
+      (\atx + 12mm, \cty + 1mm) {お願いします};
 
     \node[callout absolute pointer={(b.mouth)},
-      shape=ellipse callout,draw] at
-      (\btx - 11mm, \cty - 1mm) {\tiny 承ります};
+      shape=ellipse callout,draw,
+      font=\tiny] at
+      (\btx - 11mm, \cty - 1mm) {承ります};
   \end{tikzpicture}
   \newpage
   \begin{tikzpicture}
     
+    \path [use as bounding box]
+      (0,0) rectangle (\docpaperwidth, \docpaperheight);
+    \newcommand{\atx}{\docpaperwidth / 4}
+    \newcommand{\aty}{\docpaperheight / 3}
+    \newcommand{\btx}{\docpaperwidth * 3 / 4}
+    \newcommand{\bty}{\docpaperheight * 2 / 3}
+    \newcommand{\ctx}{\docpaperwidth / 2}
+    \newcommand{\cty}{\docpaperheight / 2}
+
+
+    \node[
+      font=\tiny,
+      align=center] at (\atx, \bty + 5mm) {
+      \includegraphics[height=3cm,page=1]
+        {img/sw-requirement-res-2.pdf}\\スマートフォン
+      
+    };
+    \node[
+      font=\tiny,
+      align=center] at (\ctx, \bty + 5mm) {
+      \includegraphics[height=3cm,page=1]
+        {img/sw-requirement-res-4.pdf}\\処理
+    };
+    \node[
+      font=\tiny,
+      align=center] at (\btx, \bty + 5mm) {
+      \includegraphics[height=3cm,page=1]
+        {img/sw-requirement-res-3.pdf}\\サーバ
+    };
+
+
+    \node[name=b,
+      alice,
+      monitor,
+      minimum size=1cm,
+      font=\tiny] at (\ctx, \aty) {受注者};
+
+  \end{tikzpicture}
+  \newpage
+  \begin{tikzpicture}
     \path [use as bounding box]
       (0,0) rectangle (\docpaperwidth, \docpaperheight);
     \newcommand{\atx}{\docpaperwidth / 3}
@@ -72,13 +117,61 @@
     \newcommand{\cty}{\docpaperheight / 2}
 
 
+    \node[
+      font=\tiny,
+      align=center,
+      anchor=south,
+      xshift=-1cm,
+      yshift=-5mm] at (\ctx, \cty) {
+      \includegraphics[page=1]
+        {img/sw-requirement-res-3.pdf}
+    };
+
+    \node[align=center,
+      xshift=-1cm,
+      yshift=-2mm,
+      anchor=north,
+      font=\tiny] at (\ctx, \cty) {運用サーバ};
+
+    \begin{scope}[xshift=5mm]
+      \path [clip,draw, rounded corners=1mm]
+        (\ctx, \cty) rectangle ++(30mm, 32mm);
+      \node [anchor=south west] at (\ctx, \cty) {
+        \includegraphics[height=3cm,page=1]
+          {img/sw-requirement-res-6.pdf}
+      };
+    \end{scope}
+
+    \path [{Circle[]}-,draw=white]
+      (\ctx - 1cm, \cty - 5mm + 3.95cm / 2) --
+      (\ctx - 1cm + 0.8cm, \cty - 5mm + 3.95cm / 2 + 0.8cm) --
+      (\ctx - 1cm + 2.2cm / 2, \cty - 5mm + 3.95cm / 2 + 0.8cm);
+
+    \path [draw] 
+      (\ctx - 1cm + 2.2cm / 2, \cty - 5mm + 3.95cm / 2 + 0.8cm)
+      -- (\ctx + 5mm, \cty - 5mm + 3.95cm / 2 + 0.8cm);
+
+    \node[name=a,
+      bob,
+      minimum size=1cm,
+      font=\tiny] at (\atx, \aty) {発注者};
     \node[name=b,
       alice,
-      monitor,
-      minimum size=1cm] at (\btx, \cty) {\tiny 受注者};
+      mirrored,
+      minimum size=1cm,
+      font=\tiny] at (\btx, \aty) {受注者};
 
+    \node[callout absolute pointer={(b.mouth)},
+      shape=ellipse callout,draw,
+      font=\tiny] at
+      (\btx - 13mm, \aty + 1mm) {完了しました。};
 
+    \node[callout absolute pointer={(a.mouth)},
+      shape=ellipse callout,draw,
+      font=\tiny] at
+      (\atx + 12mm, \aty - 1mm) {受領します。};
   \end{tikzpicture}
+
 \end{document}
 
 % vi: se ts=2 sw=2 et:

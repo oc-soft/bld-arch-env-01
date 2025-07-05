@@ -4,6 +4,8 @@ abs_top_srcdir = $(abspath $(top_srcdir))
 abs_srcdir = $(abspath $(srcdir))
 
 LATEX = lualatex
+UPLATEX = uplatex
+DVIPDFM = dvipdfmx
 KPSEWHICH = kpsewhich
 TEXINPUTS = $(abs_srcdir)//:$(abs_top_srcdir):$(DEFAULT_TEXINPUTS)
 DEFAULT_TEXINPUTS := $(shell kpsewhich -var-value=TEXINPUTS)
@@ -22,7 +24,10 @@ PDF_FILES = hw-img.pdf \
 	sw-requirement-res-1.pdf \
 	sw-requirement-res-2.pdf \
 	sw-requirement-res-3.pdf \
-	sw-requirement-res-4.pdf
+	sw-requirement-res-4.pdf \
+	sw-requirement-res-5.pdf \
+	sw-requirement-res-6.pdf
+
  
 VPATH = $(srcdir)
 
@@ -71,7 +76,12 @@ aiopcwa_internal_1_pdf_SOURCES = \
 
 sw_requirement_pdf_SOURCES = \
 	sw-requirement.tex \
-	sw-requirement-res-1.pdf
+	sw-requirement-res-1.pdf \
+	sw-requirement-res-2.pdf \
+	sw-requirement-res-3.pdf \
+	sw-requirement-res-4.pdf \
+	sw-requirement-res-5.pdf \
+	sw-requirement-res-6.pdf
 
 sw_requirement_res_1_pdf_SOURCES = \
 	sw-requirement-res-1.tex
@@ -85,6 +95,12 @@ sw_requirement_res_3_pdf_SOURCES = \
 sw_requirement_res_4_pdf_SOURCES = \
 	sw-requirement-res-4.tex
 
+sw_requirement_res_5_pdf_SOURCES = \
+	sw-requirement-res-5.tex
+
+sw_requirement_res_6_pdf_SOURCES = \
+	sw-requirement-res-6.tex
+
 
 vpath %.tex $(srcdir) $(top_srcdir)
 vpath %.pdf ./
@@ -94,7 +110,7 @@ all: pdf-doc
 pdf-doc: create-pdf
 	cp $(PDF_FILES) $(srcdir)
 
-create-pdf: $(PDF_FILES) 
+create-pdf: $(PDF_FILES)
 
 clean:
 	rm -f *.pdf *.out *.log *.log *.aux *.snm *.nav *.toc
@@ -123,16 +139,21 @@ aiopcwa-internal-1.pdf : $(aiopcwa_internal_1_pdf_SOURCES)
 
 sw-requirement.pdf: $(sw_requirement_pdf_SOURCES) 
 
-sw-requirement-res-1.tex: $(sw_requirement_res_1_pdf_SOURCES)
+sw-requirement-res-1.pdf: $(sw_requirement_res_1_pdf_SOURCES)
 
-sw-requirement-res-2.tex: $(sw_requirement_res_2_pdf_SOURCES)
+sw-requirement-res-2.pdf: $(sw_requirement_res_2_pdf_SOURCES)
 
-sw-requirement-res-3.tex: $(sw_requirement_res_3_pdf_SOURCES)
+sw-requirement-res-3.pdf: $(sw_requirement_res_3_pdf_SOURCES)
 
-sw-requirement-res-4.tex: $(sw_requirement_res_4_pdf_SOURCES)
+sw-requirement-res-4.pdf: $(sw_requirement_res_4_pdf_SOURCES)
+
+sw-requirement-res-5.pdf: $(sw_requirement_res_5_pdf_SOURCES)
+
+sw-requirement-res-6.pdf: $(sw_requirement_res_6_pdf_SOURCES)
+
 
 .PHONY: all clean create-pdf pdf-doc
-.SUFFIXES: .jpg .svg .tex .pdf
+.SUFFIXES: .jpg .svg .tex .pdf .dvi
 
 .tex.pdf:
 	@res=0; \
@@ -150,5 +171,20 @@ sw-requirement-res-4.tex: $(sw_requirement_res_4_pdf_SOURCES)
 
 .jpg.pdf:
 	magick convert $< $@ 
+
+.tex.dvi:
+	@res=0; \
+	for idx in seq 2; do \
+		TEXINPUTS=$(TEXINPUTS) $(UPLATEX) -kanji=utf8 -no-guess-input-enc $<; \
+		res=$$?; \
+		if [ $$res -ne 0 ]; then \
+			break; \
+		fi \
+	done; \
+	exit $$res
+
+.dvi.pdf:
+	TEXINPUTS=$(TEXINPUTS) $(DVIPDFM) $<
+
 
 # vi: se ts=4 sw=4 noet:

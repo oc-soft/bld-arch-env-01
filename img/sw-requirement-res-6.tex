@@ -1,0 +1,48 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{luatexja}
+\usepackage[dvipsnames]{xcolor}
+\newcommand{\docpaperwidth}{128mm}
+\newcommand{\docpaperheight}{60mm}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=1.5mm,
+  ignoreall=true
+}
+
+
+\begin{document}
+  \scriptsize
+  \makeatletter 
+  %\renewcommand{\verbatim@font}{
+  %  \normalfont\sffamily
+  %}
+  \makeatother
+  \begin{verbatim}
+svr-module:     file format elf64-x86-64
+
+
+Disassembly of section .init:
+
+0000000000401000 <_init>:
+  401000:	f3 0f 1e fa          	endbr64
+  401004:	48 83 ec 08          	sub    $0x8,%rsp
+  401008:	48 8b 05 d1 2f 00 00 	mov    0x2fd1(%rip),%rax        # 403fe0 <__gmon_start__@Base>
+  40100f:	48 85 c0             	test   %rax,%rax
+  401012:	74 02                	je     401016 <_init+0x16>
+  401014:	ff d0                	call   *%rax
+  401016:	48 83 c4 08          	add    $0x8,%rsp
+  40101a:	c3                   	ret
+
+Disassembly of section .plt:
+
+0000000000401020 <puts@plt-0x10>:
+  401020:	ff 35 ca 2f 00 00    	push   0x2fca(%rip)        # 403ff0 <_GLOBAL_OFFSET_TABLE_+0x8>
+  \end{verbatim} 
+
+\end{document}
+
+% vi: se ts=2 sw=2 et:
