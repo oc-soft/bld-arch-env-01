@@ -20,7 +20,8 @@ arch_install_common_SOURCES = \
 	custom-color-def.tex \
 	hw-img.pdf \
 	hw-fm-sw.pdf \
-	ipxe-http-page.pdf
+	ipxe-http-page.pdf \
+	sw-requirement.pdf
 	
 arch_install_pre_SOURCES = $(arch_install_common_SOURCES) \
 	arch-install-pre-1.tex

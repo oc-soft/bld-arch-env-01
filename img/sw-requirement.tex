@@ -10,8 +10,8 @@
 
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
-\newcommand{\docpaperwidth}{12.8cm}
-\newcommand{\docpaperheight}{9.6cm}
+\newcommand{\docpaperwidth}{16cm}
+\newcommand{\docpaperheight}{9cm}
 
 \geometry{
   papersize={\docpaperwidth,\docpaperheight},
@@ -26,6 +26,12 @@
 \usetikzlibrary{shapes.arrows}
 
 \setlength{\parindent}{0cm}
+
+\newcommand{\bgimg}{
+  \path[fill=white!95!black, rounded corners=0.5cm]
+    (0,0) rectangle
+    (\docpaperwidth, \docpaperheight);
+}
 
 \begin{document}
   \begin{tikzpicture}
@@ -64,6 +70,9 @@
       shape=ellipse callout,draw,
       font=\tiny] at
       (\btx - 11mm, \aty - 1mm) {承ります};
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope}
   \end{tikzpicture}
   \newpage
   \begin{tikzpicture}
@@ -104,7 +113,9 @@
       monitor,
       minimum size=1cm,
       font=\tiny] at (\ctx, \aty) {受注者};
-
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope}
   \end{tikzpicture}
   \newpage
   \begin{tikzpicture}
@@ -171,7 +182,9 @@
       shape=ellipse callout,draw,
       font=\tiny] at
       (\atx + 12mm, \aty - 1mm) {受領します。};
-  \end{tikzpicture}
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope}  \end{tikzpicture}
   \newpage
   \begin{tikzpicture}
     \path [use as bounding box]
@@ -237,7 +250,9 @@
       monitor,
       minimum size=1cm,
       font=\tiny] at (\ctx, \aty) {発注者};
-
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope}
   \end{tikzpicture}
 
   \newpage
@@ -277,7 +292,9 @@
       shape=ellipse callout,draw,
       font=\tiny] at
       (\btx - 11mm, \aty - 1mm) {検討します};
- 
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope} 
   \end{tikzpicture}
   \newpage
   \begin{tikzpicture}
@@ -339,7 +356,9 @@
       shape=ellipse callout,draw,
       font=\tiny] at
       (\btx - 11mm, \aty + 1mm) {提案します};
- 
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope} 
   \end{tikzpicture}
 \end{document}
 
