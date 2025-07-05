@@ -26,7 +26,9 @@ PDF_FILES = hw-img.pdf \
 	sw-requirement-res-3.pdf \
 	sw-requirement-res-4.pdf \
 	sw-requirement-res-5.pdf \
-	sw-requirement-res-6.pdf
+	sw-requirement-res-6.pdf \
+	sw-requirement-res-7.pdf \
+	sw-requirement-res-8.pdf
 
  
 VPATH = $(srcdir)
@@ -81,7 +83,9 @@ sw_requirement_pdf_SOURCES = \
 	sw-requirement-res-3.pdf \
 	sw-requirement-res-4.pdf \
 	sw-requirement-res-5.pdf \
-	sw-requirement-res-6.pdf
+	sw-requirement-res-6.pdf \
+	sw-requirement-res-7.pdf \
+	sw-requirement-res-8.pdf
 
 sw_requirement_res_1_pdf_SOURCES = \
 	sw-requirement-res-1.tex
@@ -100,6 +104,12 @@ sw_requirement_res_5_pdf_SOURCES = \
 
 sw_requirement_res_6_pdf_SOURCES = \
 	sw-requirement-res-6.tex
+
+sw_requirement_res_7_pdf_SOURCES = \
+	sw-requirement-res-7.tex
+
+sw_requirement_res_8_pdf_SOURCES = \
+	sw-requirement-res-8.tex
 
 
 vpath %.tex $(srcdir) $(top_srcdir)
@@ -150,6 +160,10 @@ sw-requirement-res-4.pdf: $(sw_requirement_res_4_pdf_SOURCES)
 sw-requirement-res-5.pdf: $(sw_requirement_res_5_pdf_SOURCES)
 
 sw-requirement-res-6.pdf: $(sw_requirement_res_6_pdf_SOURCES)
+
+sw-requirement-res-7.pdf: $(sw_requirement_res_7_pdf_SOURCES)
+
+sw-requirement-res-8.pdf: $(sw_requirement_res_8_pdf_SOURCES)
 
 
 .PHONY: all clean create-pdf pdf-doc

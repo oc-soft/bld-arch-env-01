@@ -1,0 +1,31 @@
+\documentclass{article}
+\usepackage{geometry}
+\usepackage{luatexja}
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+
+\newcommand{\docpaperwidth}{8.2cm}
+\newcommand{\docpaperheight}{3cm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0.5cm,
+  ignoreall=true
+}
+
+
+\setlength{\parindent}{0cm}
+
+\begin{document}
+  性能要件 \vspace{10pt} \\
+  \begin{tabular}{|r|l|r|r|}
+    \hline
+    & 機能 & 現行 & 要求 \\
+    \hline
+    1. & 秒間要求処理(req/sec) & 100 & 10,000 \\  
+    \hline
+    2. & ストレージ(TB) &  20 & 150 \\
+    \hline
+  \end{tabular}  
+\end{document}
+% vi: se ts=2 sw=2 et:
