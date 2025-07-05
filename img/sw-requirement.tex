@@ -360,6 +360,72 @@
       \bgimg
     \end{scope} 
   \end{tikzpicture}
+  \newpage
+  \begin{tikzpicture}
+    \path [use as bounding box]
+      (0,0) rectangle (\docpaperwidth, \docpaperheight);
+
+    \newcommand{\atx}{\docpaperwidth / 4}
+    \newcommand{\aty}{\docpaperheight / 3}
+    \newcommand{\btx}{\docpaperwidth * 3 / 4}
+    \newcommand{\bty}{\docpaperheight * 2 / 3}
+    \newcommand{\ctx}{\docpaperwidth / 2}
+    \newcommand{\cty}{\docpaperheight / 2}
+
+    \node[yshift=0mm,
+      anchor=center] at (\atx, \cty) {
+      \includegraphics[page=1]
+        {sw-requirement-res-3.pdf}
+    };
+
+    \node[align=center,
+      anchor=north,
+      font=\tiny,
+      yshift=-1.8cm] at (\atx, \cty) {現行サーバ};
+
+    \node[
+      yshift=0mm,
+      anchor=center] at (\btx, \cty) {
+      \includegraphics[page=1]
+        {sw-requirement-res-8.pdf}
+    };
+
+    \node[align=center,
+      anchor=north,
+      font=\tiny,
+      yshift=-1.8cm] at (\btx, \cty) {置き換えサーバ};
+
+    \node[font=\tiny,
+      yshift=1.8cm,
+      single arrow,
+      draw] at (\ctx, \cty) {変更なしで実行可能？};
+    
+    \begin{scope}[yshift=-3mm]
+      \newcommand{\txtboxw}{46mm}
+      \newcommand{\txtboxh}{28mm}
+      \path [clip,draw, rounded corners=1mm]
+        (\ctx - \txtboxw / 2, \cty - \txtboxh / 2)
+        rectangle
+        ++(\txtboxw, \txtboxh);
+      \node [anchor=center,xshift=10mm] at (\ctx, \cty) {
+        \includegraphics[height=3cm,page=1]
+          {sw-requirement-res-6.pdf}
+      };
+    \end{scope}
+
+    \node[align=center,
+      anchor=north,
+      font=\tiny,
+      yshift=-1.8cm] at (\ctx, \cty) {プログラム};
+
+
+
+    \begin{scope}[on background layer]
+      \bgimg
+    \end{scope} 
+  \end{tikzpicture}
+
+
 \end{document}
 
 % vi: se ts=2 sw=2 et:
