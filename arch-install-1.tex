@@ -173,17 +173,33 @@
   
   \begin{frame}
     \frametitle{ハードウェアの利用とソフトウェア}
+    \note{ハードウェアを提供する組織は、独自の取り組みで、性能を向上させます。
+    }
+    \note[item]<1> {このため、図示のように、A社、B社、C社で異なった、ソフトウェアインターフェイスとなってしまうことも考えられます。すると、ソフトウェアの機能は同じでも、A社用、B社用、C社用のソフトウェアを用意しなければならないことになってしまいます。同じ機能のソフトのため、3種類用意するために作業するのは、時間的に効率がよいとはいえません。
+    } 
+    \note[item]<2>{この不都合を解決するするために、統一したソフトウェアインターフェイスとして、UEFIが提供されています。A社、B社、C社がUEFIに適合したソフトウェアインターフェースを提供することで、ハードウェアが異なっても、同一のソフトウェアで動作させることできます。}
     \alt<2>{UEFIがある}{UEFIがない}
+
     \includegraphics<1>[height=4cm, page=1]{img/hw-fm-sw.pdf}%
     \includegraphics<2>[height=4cm, page=2]{img/hw-fm-sw.pdf}%
-    \note{ハードウェアがそれぞれ、異なる形式で機能を提供すると、利用する側もハードウェアの種類だけ必要になってしまいます。統一した形式で、機能を提供することで、複雑な処理を行う側が、1種類で済むようになります。この統一した仕様としてUEFIがあります。}
+    \note[item]<2>{実際には、A社、B社、C社は、統一したUEFIインターフェースを用意することになりますので、各社が負担の一部を肩代わりしているとも考えられます。}
 
   \end{frame}
-
+  \begin{frame}
+    \center
+    作業を始めます
+    \note{
+      ファームまでの説明が終わりましたので、作業を開始します。
+    }
+  \end{frame}
   \begin{frame}
     \frametitle{iPXEのダウンロード}
     以下のURLのページからUEFI用のiPXEをダウンロード\\
     \url{https://archlinux.org/releng/netboot/}\\
+    \note[item]<1>{UEFIファームが起動したあと、UEFIファームが起動する最初のソフトウェアになります。iPXEは、インターネットを介してインストーラソフトをダウンロードし、そのダウンロードソフトを実行するソフトウェアになります。}
+    \note[item]<2>{今回は、Arch Linuxをインストーラをインストールしたいので、Arch LinuxのiPXEをダウンロードします。}
+    \note[item]<3>{ページの下の方に、UEFIタイトルが確認できます。}
+    \note[item]<4>{リンクをクリックしてダウンロードします。}
     \begin{center}
       \includegraphics<1>[bb=0 2cm 6cm 8.61cm,clip=true, height=4cm, page=1]
         {img/ipxe-http-page.pdf}%
@@ -198,16 +214,51 @@
   \end{frame}
   \begin{frame}
     \frametitle{Netboot用USB作成}
+    \note{
+      この説明の後、実際にUSB作成の操作を、動画で実演します。環境はWindows11になっています。実演のあらましを説明します。
+    }
     \begin{enumerate}
       \item<1-> USBのドライブにEFI{\textbackslash}BOOTディレクトリを作成する
+      \note[item]<1>{USBのドライブにEFI{\textbackslash}BOOTディレクトリを作成します。}
       \item<2-> ipxe-arch.efiをBOOTx64.efiに変名する
+      \note[item]<2>{ipxe-arch.efiをBOOTx64.efiに変名します。}
       \item<3-> BOOTx64.efiをEFI{\textbackslash}BOOTに保存する
+      \note[item]<3>{BOOTx64.efiをEFI{\textbackslash}BOOTに保存します。}
     \end{enumerate} 
-    \note{
+    \note[item]<3>{
       UEFIの仕様ではUSBフラッシュがFAT8、FAT16、FAT32のファイルシステムで、EFI{\textbackslash}BOOT.EFIがUEFIアプリケーション(BOOT loader)として認識されます。
       動画では、ipxe-arch.efiはipxe-archの後ろに16進数が続いていますが、最近のarch用のipxeのダウンロードでは、16進数がつかないようです。
     }
   \end{frame}
-
+  \begin{frame}
+    \frametitle{ファイルシステム}
+    \note {
+      Arch Linuxのインストールの前にssdのファイルシステムを決定します。作成したファイルシステムに、Arch Linuxのソフトウェアをインストールします。ファイルシステムはLinuxがファイル操作をするためのものでもあるので、Linuxが認識できるファイルシステムを選定することになります。
+    } 
+    要件\\ 
+    \begin{enumerate}
+      \item<2->{lvmを使用する。}
+      \item<3->{ext4ファイルシステムを使用する。}
+      \item<4->{スワップパーティションは作成せず、スワップファイルを作成する。}
+    \end{enumerate}
+    \note[item]<2>{lvmは、後ほど説明します。}
+    \note[item]<3>{ファイルシステムについて、ext4で問題を感じたことがないので、ext4を使用します。}
+    \note[item]<4>{スワップサイズを事前決定することは、難しいので、パーティションを作成せずにスワップファイルで、必要に応じて変更する運用とします。}
+  \end{frame}
+  \begin{frame}
+    \frametitle{lvmとは}
+    \note{
+      Logical Volume Manager通称lvmとは、複数のストレージ、パーティションをまとめて、一つの論理的な領域として、使用できるようなソフトウェアです。
+    }
+    複数のストレージを一つの領域にすることができる   
+    \begin{center}
+      \includegraphics<1>[height=4cm, page=1]
+        {img/lvm.pdf}%
+      \includegraphics<2>[height=4cm, page=2]
+        {img/lvm.pdf}%
+    \end{center}
+    \note[item]<1>{lvmを使用しない場合は、パーティション毎に容量が分割されます。}
+    \note[item]<2>{lvmを使用すると、分割された容量を大きな容量にをまとまった容量として使用することができます。}
+  \end{frame} 
 \end{document}
 % vi: se ts=2 sw=2 et:
