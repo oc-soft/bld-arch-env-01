@@ -196,7 +196,7 @@
     \frametitle{iPXEのダウンロード}
     以下のURLのページからUEFI用のiPXEをダウンロード\\
     \url{https://archlinux.org/releng/netboot/}\\
-    \note[item]<1>{UEFIファームが起動したあと、UEFIファームが起動する最初のソフトウェアになります。iPXEは、インターネットを介してインストーラソフトをダウンロードし、そのダウンロードソフトを実行するソフトウェアになります。}
+    \note[item]<1>{UEFIファームが起動したあと、UEFIファームが起動する最初のソフトウェアを用意します。iPXEは、インターネットを介してインストーラソフトをダウンロードし、そのダウンロードソフトを実行するソフトウェアになります。iPXE本体をインターネットからダウンロードします。}
     \note[item]<2>{今回は、Arch Linuxをインストーラをインストールしたいので、Arch LinuxのiPXEをダウンロードします。}
     \note[item]<3>{ページの下の方に、UEFIタイトルが確認できます。}
     \note[item]<4>{リンクをクリックしてダウンロードします。}
@@ -231,6 +231,9 @@
     }
   \end{frame}
   \begin{frame}
+    ファイルシステムの要件とlvmの説明  
+  \end{frame}
+  \begin{frame}
     \frametitle{ファイルシステム}
     \note {
       Arch Linuxのインストールの前にssdのファイルシステムを決定します。作成したファイルシステムに、Arch Linuxのソフトウェアをインストールします。ファイルシステムはLinuxがファイル操作をするためのものでもあるので、Linuxが認識できるファイルシステムを選定することになります。
@@ -260,5 +263,145 @@
     \note[item]<1>{lvmを使用しない場合は、パーティション毎に容量が分割されます。}
     \note[item]<2>{lvmを使用すると、分割された容量を大きな容量にをまとまった容量として使用することができます。}
   \end{frame} 
+  \begin{frame}
+    \frametitle{lvmの利点}
+    \note{
+      lvmの利点について、理解するため、ファイルシステムへのデータ保存について考えます。
+    }
+    \alt<1-8>{lvmなし}{lvmあり}
+    \begin{center}
+      \includegraphics<1>[height=5cm, page=1]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<2>[height=5cm, page=2]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<3>[height=5cm, page=3]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<4>[height=5cm, page=4]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<5>[height=5cm, page=5]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<6>[height=5cm, page=6]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<7>[height=5cm, page=7]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<8>[height=5cm, page=8]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<9>[height=5cm, page=9]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<10>[height=5cm, page=10]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<11>[height=5cm, page=11]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<12>[height=5cm, page=12]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<13>[height=5cm, page=13]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<14>[height=5cm, page=14]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<15>[height=5cm, page=15]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<16>[height=5cm, page=16]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<17>[height=5cm, page=17]
+        {img/lvm-usecase.pdf}%
+      \includegraphics<18>[height=5cm, page=18]
+        {img/lvm-usecase.pdf}%
+    \end{center}
+    \note[item]<1>{ssdにデータが保存されている状態を想定します。ファイルシステムはext4としています。}
+  
+    \note[item]<2>{データを追加する必要が出てきました。}
+    \note[item]<3-4>{空き容量よりも、追加のデータの方が大きい見込みです。}
+    \note[item]<5>{ssdを増設します。}
+    \note[item]<6-7>{増設したsdd側にファイルシステムを設定し、追加データを保存します。}   
+    \note[item]<8>{継続して、システムを使用しているとデータを追加する必要がでてきました。増設前、増設後のssdのいずれにも空き容量があります。どちらに保存して運用するのがよいか、迷う場面も多いです。将来どの程度データが増えるかとか見通しをたてる必要があったりする場合もありますが、見通しを立てにくい場合もあると思います。} 
+
+    \note[item]<9>{lvmを導入した場合について、同様にデータ保存されている状態を想定します。}
+    \note[item]<10>{データを追加する必要が出てきました。}
+    \note[item]<11-12>{空き容量よりも、追加のデータの方が大きい見込みです。}
+    \note[item]<13>{ssdを追加します。}
+    \note[item]<14>{physical volume(物理ボリューム)をssdに作成します。}
+    \note[item]<15>{physical volumeを使用中のlogical volumeに追加します。}
+    \note[item]<16>{ファイルシステム(ext4)の使用可能領域をlogical volumeに合わせて拡大します。}
+    \note[item]<17-18>{データを追加します。lvmがある場合は、ボリュームが分割されていないので、保存先について迷う必要がなくなります。}
+  \end{frame}
+  \begin{frame}
+    \frametitle{ssdのパーティションとファイルシステム構成}
+    \begin{center}
+      \includegraphics<1>[width=11cm, page=1]
+        {img/linux-fs.pdf}%
+      \includegraphics<2>[width=11cm, page=3]
+        {img/linux-fs.pdf}%
+      \includegraphics<3>[width=11cm, page=2]
+        {img/linux-fs.pdf}%
+      \includegraphics<4>[width=11cm, page=4]
+        {img/linux-fs.pdf}%
+    \end{center}  
+    \note[item]<1>{ssdのファイルシステムを図示のようにします。}
+    \note[item]<2>{LinuxのApiを利用するソフトウェア側からは、ext4がファイルシステムになります。}
+    \note[item]<3>{ext4はlvmの仮想ボリューム上に作成されます。}
+    \note[item]<4>{FAT32は、UEFIファームがLinuxカーネルをロードするソフトウェアを格納します。OSをロードするソフトウェアはBootLoaderと呼ばれたりします。}
+  \end{frame}
+  \newpage
+  \begin{frame}
+    \frametitle{fdiskによるssdのパーティション}
+    
+    \begin{center}
+      \includegraphics<1>[width=11cm, page=1]
+        {img/storage-part.pdf}%
+      \includegraphics<2>[width=11cm, page=2]
+        {img/storage-part.pdf}%
+      \includegraphics<3>[width=11cm, page=3]
+        {img/storage-part.pdf}%
+      \includegraphics<4>[width=11cm, page=4]
+        {img/storage-part.pdf}%
+      \includegraphics<5>[width=11cm, page=5]
+        {img/storage-part.pdf}%
+      \only<6>{
+        \scriptsize
+        \begin{tabular}{|p{2.4cm}|r|r|p{4cm}|}
+          \hline
+          名前 & 位置 & 長さ & 説明 \\
+          \hline
+          boot Code & 0 & 440
+            & UEFIでは使用しません。後方互換 \\
+          \hline
+          Unique MBR Disk Signature & 440 & 4
+            & UEFIでは使用しません。後方互換\\
+          \hline
+          Unknown & 444 & 2
+            & UEFIでは使用しません。後方互換 \\
+          \hline
+          Partition Record & 446 & 16 * 4
+            & MBR形式のパーティションレコード。 \\
+          \hline
+          Signature & 510 & 2 & 0xAA55が記録されます。\\
+          \hline
+          Reserved & 512 & 可変長
+            & パーティションの残りの領域で、予約領域。0で埋められます。\\
+          \hline
+        \end{tabular}
+      }% 
+    \end{center} 
+    \note[item]<1>{Arch Linuxのインストールガイドでは、UEFI systemパーティションに1GiBを割りあてることを推奨しています。
+推奨に従い、UEFI systemパーティションは1GiBとします。
+
+    }
+    \note[item]<2>{
+      残りは全て、lvmパーティションとしファイルシステムをext4にします。
+    }
+    \note[item]<3>{
+      図示では、先頭、わずかに隙間があります。
+    }
+    \note[item]<4>{
+      ここは、Protective MBRになっています。
+      Protective MBRから始まる、パーティション情報を格納する領域を確保するため、 最初のGTPパーティションが2048 セクター(2048 x 512 byte)の位置から始まることになります。ここは、UEFIが登場する前の起動シーケンスで利用されたデータ形式が残っていると考えてよいと思います。
+    }
+    \note[item]<5>{データ開始位置0で始まる部分なので、どうなっているか気になりましたので、調べてみました。実運用では、重要な部分はないと思います。
+    }
+    \note[item]<6>{表のなかでは、Partition Recordが活用されているデータとなっています。4つのパーティションレコードが格納できますが、最初の1つのみが使用されます。
+最初の1つが、Protective MBRに後続するGPT Headerを指しています。
+GPT Headerに続き、GTP Pertition Entry Arrayが続きます。GTP Pertition Entry Arrayの各エントリーが、各パーティションの開始位置と、終了位置を記録しています。
+    }
+  \end{frame}
 \end{document}
 % vi: se ts=2 sw=2 et:

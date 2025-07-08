@@ -4,6 +4,9 @@
 \usepackage[dvipsnames]{xcolor}
 \pagestyle{empty}
 \usepackage{luatexja}
+
+\input {custom-color-def.tex}
+
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
 \newcommand{\docpaperwidth}{9.9cm}
@@ -84,7 +87,7 @@
 % partition size location y
 \newcommand{\partsizelocy}{-0.5cm}
 
-% not used region for mbr backword compatible
+% partition table taking acount of mbr backword compatible
 \newcommand{\darkmbr}{
   \pgfpathrectanglecorners{\pgfpoint{\mbrxs}{\mbrys}}
     {\pgfpoint{\mbrxe}{\mbrye}}
@@ -112,7 +115,12 @@
   \node at (0cm + \stroutdentl, 0cm + \stroutdentb) {};
   \node at (0cm + \strsizex + \stroutdentr, 0cm + \strsizey + \stroutdentt) {}; 
 }
-  
+
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
+
+ 
 \begin{document}
   \center
   % size partition type
@@ -135,8 +143,13 @@
         (\linuxwixe, \partsizelocy);
     \end{scope}
     \begin{scope}
-      \draw [{Circle}-] \uefind --
-        ($(\uefixe + 0.5cm, 0) + 0.75*(0, \uefiys) + 0.25*(0, \uefiye)$)
+      \draw [<-] \uefind --
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)
+          + (2.5mm, -2.5mm)$) 
           node[right]{Linux Loader(UEFI Application)};
       \node at \linuxnd {Linux Root File System};
     \end{scope}
@@ -165,6 +178,36 @@
       \pgfusepath{stroke}
       \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
     }
+    \begin{scope}
+      \draw [|<->] (\uefiwixs, \partsizelocy)
+        -- node[below] {1GB}
+        (\uefiwixe, \partsizelocy);
+      \draw [|<->|] (\linuxwixs, \partsizelocy)
+        -- node[below] {1.8TB}
+        (\linuxwixe, \partsizelocy);
+    \end{scope}
+    \begin{scope}
+      \draw [color=CampbellBg,<-] \uefind --
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)$);
+      \draw [] 
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)$) -- ++(2.5mm, -2.5mm);
+      \node[right] 
+        at ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)
+          + (2.5mm, -2.5mm)$) 
+        {FAT32, Linux Loader(UEFI Application)};
+    \end{scope}
     \begin{scope}[on background layer]
       % entire ssd
       \entirestr
@@ -189,6 +232,18 @@
       \pgfusepath{stroke}
       \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
     }
+    \begin{scope}
+      \draw [|<->] (\uefiwixs, \partsizelocy)
+        -- node[below] {1GB}
+        (\uefiwixe, \partsizelocy);
+      \draw [|<->|] (\linuxwixs, \partsizelocy)
+        -- node[below] {1.8TB}
+        (\linuxwixe, \partsizelocy);
+    \end{scope}
+    \begin{scope}
+      \node[color=CampbellBg] at \linuxnd {lvm, ext4(Linux Root File System)};
+    \end{scope}
+
     \begin{scope}[on background layer]
       % entire ssd
       \entirestr
@@ -251,6 +306,20 @@
     }
     \darkmbr
     \pgfusepath{stroke}
+
+    \draw[<-,color=CampbellBg]
+      ($0.5*(\mbrxs, \mbrys) + 0.5*(\mbrxe, \mbrye)$)
+      -- ($0.5*(\mbrxs, \mbrys)
+        + 0.5*(\mbrxe, \mbrye)
+        + 0.5*(\mbrxe, 0)
+        - 0.5*(\mbrxs, 0)$);
+
+    \draw[]
+      ($0.5*(\mbrxs, \mbrys)
+        + 0.5*(\mbrxe, \mbrye)
+        + 0.5*(\mbrxe, 0)
+        - 0.5*(\mbrxs, 0)$)
+      -- ++(1cm, 0) node[right] {Protective MBR};
 
     \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
     {

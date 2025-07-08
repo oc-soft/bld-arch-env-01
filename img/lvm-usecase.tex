@@ -5,6 +5,8 @@
 \pagestyle{empty}
 \usepackage{luatexja}
 
+\input {custom-color-def.tex}
+
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
 \newcommand{\docpaperwidth}{6cm}
@@ -1040,7 +1042,12 @@
     (\grdaal + \outdentl, \grdect + \outdentt) --
     cycle;
 }
-  
+
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
+
+ 
 \begin{document}
   \center
   % not used lvm - 1 - 1

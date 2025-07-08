@@ -4,6 +4,9 @@
 \usepackage[dvipsnames]{xcolor}
 \pagestyle{empty}
 \usepackage{luatexja}
+
+\input {custom-color-def.tex}
+
 \renewcommand{\kanjifamilydefault}{\gtdefault}
 \renewcommand{\familydefault}{\sfdefault}
 \newcommand{\docpaperwidth}{5.8cm}
@@ -431,6 +434,11 @@
     (\grdaal + \outdentl, \grdcbt + \outdentt)
     (\grdaal + \outdentl, \grdaab + \outdentb);
 }
+
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
+
   
 \begin{document}
   \center
@@ -491,6 +499,34 @@
     {
       \color{YellowOrange}
       \grdbbrtr
+      \pgfusepath{fill}
+    } 
+    \grdbbrtr
+    \grdabrbro
+    \pgfusepath{stroke}
+
+    \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+    \grdaabalro
+    \pgfsetcornersarced{\pgfpoint{1mm}{1mm}}
+    \grdcacb
+    \pgfusepath{stroke}
+
+    \node at \grdndab {Logical Volume Manager(lvm)};
+    \node at \grdndbb {File System(ext4)};
+    \node at \grdndcacb {Linux};
+    \node at \grdndaaba {FAT32};
+    \node at \grdndaabal [anchor=east] {SSD};
+    \begin{scope} [on background layer]
+      \grdboundbox
+    \end{scope}
+  \end{tikzpicture}
+  \newpage
+  % mark FAT 32
+  \begin{tikzpicture}[font=\tiny]
+    \dclgrdcoords
+    {
+      \color{YellowOrange}
+      \grdaabalro
       \pgfusepath{fill}
     } 
     \grdbbrtr

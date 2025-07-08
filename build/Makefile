@@ -21,7 +21,11 @@ arch_install_common_SOURCES = \
 	hw-img.pdf \
 	hw-fm-sw.pdf \
 	ipxe-http-page.pdf \
-	sw-requirement.pdf
+	sw-requirement.pdf \
+	lvm.pdf \
+	lvm-usecase.pdf \
+	linux-fs.pdf \
+	storage-part.pdf
 	
 arch_install_pre_SOURCES = $(arch_install_common_SOURCES) \
 	arch-install-pre-1.tex
