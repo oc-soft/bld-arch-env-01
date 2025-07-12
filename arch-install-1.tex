@@ -405,6 +405,61 @@ GPT Headerに続き、GTP Pertition Entry Arrayが続きます。GTP Pertition E
   \end{frame}
   \begin{frame}
     \frametitle{デバイスのマウントとファイル階層}
+    \begin{center}
+      \newcommand{\mtseqh}{7.8cm}
+      \includegraphics<1>[height=\mtseqh, page=1]
+        {img/mount-sequence.pdf}%
+      \note[item]<1>{
+        電源投入からinit systemdが起動までのssdのマウントファイル階層について説明します}
+      \includegraphics<2>[height=\mtseqh, page=2]
+        {img/mount-sequence.pdf}%
+      \note[item]<2>{
+        電源を投入すると、ファーム(UEFI)が起動します。}
+      \includegraphics<3>[height=\mtseqh, page=3]
+        {img/mount-sequence.pdf}%
+      \note[item]<3>{
+        ファーム(UEFI)はssd nvmev0nを検出し、UEFIアプリケーションを検索します。}
+      \includegraphics<4>[height=\mtseqh, page=4]
+        {img/mount-sequence.pdf}%
+      \note[item]<4>{
+        パーティション1のFAT232階層に起動可能なBOOTx64.EFIを検出し、ロードします。}
+      \includegraphics<5>[height=\mtseqh, page=5]
+        {img/mount-sequence.pdf}%
+      \note[item]<4>{
+        制御がBOOTx64.EFIに移ります。}
+      \includegraphics<6>[height=\mtseqh, page=6]
+        {img/mount-sequence.pdf}%
+      \note[item]<6>{
+        BOOTx64.EFIは、vmlinuz-linux Linuxカーネルを、initramfs-linux.imgを指定して起動します。}
+      \includegraphics<7>[height=\mtseqh, page=7]
+        {img/mount-sequence.pdf}%
+      \note[item]<7>{
+        制御が、Linuxに移ります。}
+      \includegraphics<8>[height=\mtseqh, page=8]
+        {img/mount-sequence.pdf}%
+      \note[item]<8>{
+        Linuxが、ssdの設定されているパーティションを検出します。}
+      \includegraphics<9>[height=\mtseqh, page=9]
+        {img/mount-sequence.pdf}%
+      \note[item]<9>{
+        Linuxカーネルは、ssdのパーティション番号2をルートファイルシステムします。}
+      \includegraphics<10>[height=\mtseqh, page=10]
+        {img/mount-sequence.pdf}%
+      \note[item]<10>{
+        Linuxカーネルは、mountプログラムをect/fstabの設定で実行します。}
+      \includegraphics<11>[height=\mtseqh, page=11]
+        {img/mount-sequence.pdf}%
+      \note[item]<11>{
+        パーティション番号1の領域がLinuxのルートファイルシステムのboot階層にマウントされます。}
+      \includegraphics<12>[height=\mtseqh, page=12]
+        {img/mount-sequence.pdf}%
+      \note[item]<12>{
+        Linuxは、ProcessID 1のプログラムとして、init(systemd)を起動します。}
+      \includegraphics<13>[height=\mtseqh, page=13]
+        {img/mount-sequence.pdf}%
+      \note[item]<13>{
+        init(systemd)に制御が移ります。}
+    \end{center}
   \end{frame} 
 \end{document}
 % vi: se ts=2 sw=2 et:

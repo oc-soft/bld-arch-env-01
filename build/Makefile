@@ -25,13 +25,14 @@ arch_install_common_SOURCES = \
 	lvm.pdf \
 	lvm-usecase.pdf \
 	linux-fs.pdf \
-	storage-part.pdf
+	storage-part.pdf \
+	mount-sequence.pdf
 	
-arch_install_pre_SOURCES = $(arch_install_common_SOURCES) \
-	arch-install-pre-1.tex
+arch_install_pre_SOURCES = arch-install-pre-1.tex \
+	$(arch_install_common_SOURCES) 
 
-arch_install_note_SOURCES = $(arch_install_common_SOURCES) \
-	arch-install-note-1.tex
+arch_install_note_SOURCES = arch-install-note-1.tex \
+	$(arch_install_common_SOURCES) 
 
 movie_resources_SOURCES = \
 	movie-resources.tex \
@@ -57,7 +58,10 @@ create-pdf: img-pdf $(PDF_FILES)
 create-pdf: img-pdf $(DVI_FILES)
 
 arch-install-pre-1.pdf : $(arch_install_pre_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 arch-install-note-1.pdf : $(arch_install_note_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
+
 movie-resources.pdf: movie-resources.dvi
 movie-resources.dvi: $(movie_resources_SOURCES)
 
