@@ -341,5 +341,74 @@
       \outdentbounds
     \end{scope}
   \end{tikzpicture}
+  \newpage
+  % first and second partition
+  \begin{tikzpicture}[anchor=base,font=\tiny]
+    {
+      \pgfsetcornersarced{\pgfpoint{0.05cm}{0.05cm}}
+      {
+        \color{YellowOrange}
+        \uefipart
+        \pgfusepath{fill}
+      }
+      \uefipart
+      \pgfusepath{stroke}
+      % linux part
+      {
+        \color{YellowOrange}
+        \linuxpart
+        \pgfusepath{fill}
+      }
+      \linuxpart
+      \pgfusepath{stroke}
+      \pgfsetcornersarced{\pgfpoint{0.0cm}{0.0cm}}
+    }
+    \begin{scope}
+      \draw [|<->] (\uefiwixs, \partsizelocy)
+        -- node[below] {1GB}
+        (\uefiwixe, \partsizelocy);
+      \draw [|<->|] (\linuxwixs, \partsizelocy)
+        -- node[below] {1.8TB}
+        (\linuxwixe, \partsizelocy);
+    \end{scope}
+    \begin{scope}
+      \draw [color=CampbellBg,<-] \uefind --
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)$);
+      \draw [] 
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)$) -- ++(\insetdx, - \insetdx);
+      \draw [color=CampbellBg] 
+        ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)
+          + (\insetdx, - \insetdx)$) -- ++(2.5mm - \insetdx, -2.5mm + \insetdx);
+      \node[right,text=CampbellBg] 
+        at ($(\uefixe, 0) 
+          + 0.5*(0, \uefiys)
+          + 0.5*(0, \uefiye)
+          - 0.5*(0, \uefixe)
+          + 0.5*(0, \uefixs)
+          + (2.5mm, -2.5mm)$) 
+        {FAT32, Linux Loader(UEFI Application)};
+    \end{scope}
+    \begin{scope}
+      \node[color=CampbellBg] at \linuxnd {lvm, ext4(Linux Root File System)};
+    \end{scope}
+    \begin{scope}[on background layer]
+      % entire ssd
+      \entirestr
+      \pgfusepath{stroke}
+      \outdentbounds
+    \end{scope}
+  \end{tikzpicture}
 \end{document} 
 % vi: se ts=2 sw=2 et:

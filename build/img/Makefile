@@ -28,7 +28,13 @@ PDF_FILES = hw-img.pdf \
 	sw-requirement-res-5.pdf \
 	sw-requirement-res-6.pdf \
 	sw-requirement-res-7.pdf \
-	sw-requirement-res-8.pdf
+	sw-requirement-res-8.pdf \
+	fs-tree-1.pdf \
+	fs-tree-2.pdf \
+	fs-tree-3.pdf \
+	boot-sequence.pdf \
+	mount-sequence.pdf
+
 
  
 VPATH = $(srcdir)
@@ -111,7 +117,26 @@ sw_requirement_res_7_pdf_SOURCES = \
 sw_requirement_res_8_pdf_SOURCES = \
 	sw-requirement-res-8.tex
 
+fs_tree_1_pdf_SOURCES = \
+	fs-tree-1.tex
 
+fs_tree_2_pdf_SOURCES = \
+	fs-tree-2.tex
+
+fs_tree_3_pdf_SOURCES = \
+	fs-tree-3.tex
+
+mount_sequence_pdf_SOURCES = \
+	mount-sequence.tex \
+	boot-sequence.pdf \
+	storage-part.pdf \
+	fs-tree-1.pdf \
+	fs-tree-2.pdf \
+	fs-tree-3.pdf
+
+boot_sequence_pdf_SOURCES = \
+	boot-sequence.tex
+	
 vpath %.tex $(srcdir) $(top_srcdir)
 vpath %.pdf ./
 
@@ -126,45 +151,75 @@ clean:
 	rm -f *.pdf *.out *.log *.log *.aux *.snm *.nav *.toc
 
 hw-img.pdf : $(hw_img_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 screen-img.pdf : $(screen_img_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 hw-os.pdf : $(hw_os_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 storage-part.pdf : $(storage_part_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 linux-fs.pdf : $(linux_fs_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 lvm.pdf : $(lvm_pdf_SOURCES)
 
 lvm-usecase.pdf : $(lvm_usecase_pdf_SOURCES)
 
 hw-fm-sw.pdf : $(hw_fm_sw_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 ipxe-http-page.pdf : $(ipxe_http_page_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 archlinux-logo-dark-scalable.pdf : $(archlinux_logo_dark_scalable_pdf_SOURCES)
 
 aiopcwa-internal-1.pdf : $(aiopcwa_internal_1_pdf_SOURCES)
 
 sw-requirement.pdf: $(sw_requirement_pdf_SOURCES) 
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-1.pdf: $(sw_requirement_res_1_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-2.pdf: $(sw_requirement_res_2_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-3.pdf: $(sw_requirement_res_3_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-4.pdf: $(sw_requirement_res_4_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-5.pdf: $(sw_requirement_res_5_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-6.pdf: $(sw_requirement_res_6_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-7.pdf: $(sw_requirement_res_7_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 sw-requirement-res-8.pdf: $(sw_requirement_res_8_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
+fs-tree-1.pdf: $(fs_tree_1_pdf_SOURCES) 
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
+
+fs-tree-2.pdf: $(fs_tree_2_pdf_SOURCES) 
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
+
+fs-tree-3.pdf: $(fs_tree_3_pdf_SOURCES) 
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
+
+boot-sequence.pdf: $(boot_sequence_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
+
+mount-sequence.pdf: $(mount_sequence_pdf_SOURCES)
+	TEXINPUTS=$(TEXINPUTS) $(LATEX) $< && TEXINPUTS=$(TEXINPUTS) $(LATEX) $<
 
 .PHONY: all clean create-pdf pdf-doc
 .SUFFIXES: .jpg .svg .tex .pdf .dvi

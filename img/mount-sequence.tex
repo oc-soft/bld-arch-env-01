@@ -1,0 +1,417 @@
+\documentclass{article}
+\usepackage{tikz}
+\usepackage{geometry}
+\usepackage[dvipsnames]{xcolor}
+\pagestyle{empty}
+\usepackage{luatexja}
+
+\input {custom-color-def.tex}
+
+\renewcommand{\kanjifamilydefault}{\gtdefault}
+\renewcommand{\familydefault}{\sfdefault}
+\newcommand{\docpaperwidth}{49.4mm}
+\newcommand{\docpaperheight}{50.8mm}
+
+\geometry{
+  papersize={\docpaperwidth,\docpaperheight},
+  margin=0cm,
+  ignoreall=true
+}
+\setlength{\parindent}{0cm}
+
+
+\usetikzlibrary{positioning}
+\usetikzlibrary{math}
+\usetikzlibrary{calc}
+% default color setting
+\color{CampbellFg}
+\pagecolor{CampbellBg}
+
+\tikzmath{
+  \fsscl = 0.3;
+  \wfsa = 3.6cm * \fsscl;
+  \wfsb = 5.4cm * \fsscl;
+  \wfsc = 5.9cm * \fsscl;
+  \hfsa = 6.6cm * \fsscl;
+  \hfsb = 4cm * \fsscl;
+  \hfsc = 10.2cm * \fsscl;
+  \hfsmax = max(\hfsa, \hfsb, \hfsc);
+  \btsqcscl = 0.5;
+  \wbtseq = 21mm * \btsqcscl;
+  \hbtseq = 62mm * \btsqcscl;
+  \strgscl = 1 / 3;
+  \wstrg = 99mm * \strgscl;
+  \hstrg = 34mm * \strgscl;
+  \innersep = 0.3333em;
+  \rmaxtmp = max(\wfsa + \innersep + \wfsb, \wfsc) + \innersep * 2;
+  \rmax = max(\rmaxtmp, \wstrg + \innersep * 2);
+  \lmin = -\wbtseq - \innersep * 2;
+  \bmintmp = min(-\hfsa, -\hfsb, -\hfsc) - \innersep * 2;
+  \bmin = min(\bmintmp, - \hbtseq / 2 - \innersep);
+  \tmax = max(\hstrg + \innersep * 2, \hbtseq / 2 + \innersep);
+}
+
+\begin{document}
+  % 1 power off 
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=1]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=1]
+          {storage-part.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 2 start UEFI firm 
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=2]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=1]
+          {storage-part.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 3 UEFI firm tries to load UEFI appllication
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=2]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=2]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=2]
+          {fs-tree-2.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 4 UEFI firm loads UEFI appllication
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=2]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=2]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=3]
+          {fs-tree-2.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 5 UEFI appllication starts
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=3]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=2]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=2]
+          {fs-tree-2.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 6 UEFI application load linux kernel
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=3]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=2]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=4]
+          {fs-tree-2.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 7 linux kernel start
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=2]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=2]
+          {fs-tree-2.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 8 linux kernel recognize nmve0n1p1 nmve0n1p2
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=2]
+          {fs-tree-2.pdf}
+    };
+    \node [name=fsa,
+      anchor=north west] at ($(fsbase) + (\wfsb pt + \innersep pt * 2, 0)$) {
+        \includegraphics[width=\wfsa pt,page=2]
+          {fs-tree-1.pdf}
+    };
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 9 linux kernel mounted nmve0n1p2
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=2]
+          {fs-tree-2.pdf}
+    };
+    \node [name=fsc,
+      anchor=north west] at ($(fsbase) + (\wfsb pt + \innersep pt * 2, 0)$) {
+        \includegraphics[width=\wfsc pt,page=3]
+          {fs-tree-3.pdf}
+    };
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 10 linux kernel mounts nmve0n1p1
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (0, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsb,
+      anchor=north west] at (fsbase) {
+        \includegraphics[width=\wfsb pt,page=5]
+          {fs-tree-2.pdf}
+    };
+    \node [name=fsc,
+      anchor=north west] at ($(fsbase) + (\wfsb pt + \innersep pt * 2, 0)$) {
+        \includegraphics[width=\wfsc pt,page=4]
+          {fs-tree-3.pdf}
+    };
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 11 linux kernel mounted nmve0n1p1
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (\wstrg pt / 2 + \innersep pt, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsc,
+      anchor=north] at (fsbase) {
+        \includegraphics[width=\wfsc pt,page=5]
+          {fs-tree-3.pdf}
+    };
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  \newpage
+  % 12 linux kernel load systemd
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (\wstrg pt / 2 + \innersep pt, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=4]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsc,
+      anchor=north] at (fsbase) {
+        \includegraphics[width=\wfsc pt,page=6]
+          {fs-tree-3.pdf}
+    };
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+
+  \end{tikzpicture}
+  % 13 init(systemd) started
+  \newpage
+  \begin{tikzpicture}
+    \coordinate (fsbase) at (\wstrg pt / 2 + \innersep pt, 0);
+    \coordinate (strgbase) at (0, 0);
+    \coordinate (btsqcbase) at (0, 0);
+    \node [name=flow,anchor=east] at (btsqcbase) {
+        \includegraphics[width=\wbtseq pt,page=5]
+          {boot-sequence.pdf}
+    };
+
+    \node [name=storage,
+      anchor=south west] at (strgbase) {
+        \includegraphics[width=\wstrg pt,page=6]
+          {storage-part.pdf}
+    };
+
+    \node [name=fsc,
+      anchor=north] at (fsbase) {
+        \includegraphics[width=\wfsc pt,page=1]
+          {fs-tree-3.pdf}
+    };
+
+    \path [use as bounding box]
+      (\lmin pt - 0.5mm, \bmin pt - 0.5mm) rectangle
+      (\rmax pt + 0.5mm, \tmax pt + 0.5mm);
+  \end{tikzpicture}
+\end{document}
+
+% vi: se ts=2 sw=2 et:
